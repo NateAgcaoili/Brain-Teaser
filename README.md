@@ -7,7 +7,7 @@ A `Java` based desktop application utilizing the `JavaFX `library
 - [Ethan Borawski](https://github.com/violanticB)
 - [Perry Campbell](https://github.com/pc02130)
 - [Changgyun 'Shawn' Han](https://github.com/Shawn14121)
-- [Elija Horowitz](https://github.com/ElijahHorowitz)
+- [Elijah Horowitz](https://github.com/ElijahHorowitz)
 
 **Project Supervisor:**
 - [Dr. Rakesh Shukla](https://github.com/Rakesh-Project)
