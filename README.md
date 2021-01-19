@@ -1,2 +1,2 @@
-# OOD-Brain-Teaser
+# Brain-Teaser
 Project for Object Oriented Design
