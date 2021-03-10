@@ -7,7 +7,7 @@ public class Main extends Application {
     }
 
     public void start(Stage theStage) {
-        theStage.setTitle("Brain Teaser");
+        theStage.setTitle("Brain Teaser V1");
         theStage.show();
     }
 }
