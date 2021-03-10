@@ -1,7 +1,13 @@
-public class Main {
+import javafx.application.Application;
+import javafx.stage.Stage;
+
+public class Main extends Application {
     public static void main(String[] args) {
-        System.out.println("Hello world");
-        System.out.println("Elijah's part");
-        System.out.println("Nate's part");
+        launch(args);
+    }
+
+    public void start(Stage theStage) {
+        theStage.setTitle("Brain Teaser");
+        theStage.show();
     }
 }
