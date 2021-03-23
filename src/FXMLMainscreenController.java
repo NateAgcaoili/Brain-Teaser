@@ -15,8 +15,8 @@ public class FXMLMainscreenController {
 
         // getting stage information
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-
         window.setScene(aboutScene);
+        window.setResizable(false);
         window.show();
     }
 

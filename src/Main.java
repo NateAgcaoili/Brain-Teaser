@@ -17,6 +17,7 @@ public class Main extends Application {
         Scene scene = new Scene((root));
         primaryStage.setScene(scene);
         primaryStage.setTitle("Brain Teaser V");
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 }

@@ -12,11 +12,10 @@ public class FXMLAboutController {
     public void backButtonPushed(ActionEvent event) throws IOException {
         Parent aboutParent = FXMLLoader.load(getClass().getResource("FXMLMainscreen.fxml"));
         Scene mainScene = new Scene(aboutParent);
-
         // getting stage information
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-
         window.setScene(mainScene);
+        window.setResizable(false);
         window.show();
     }
 }
