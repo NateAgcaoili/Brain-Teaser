@@ -17,14 +17,14 @@
                   <Font name="System Bold" size="45.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="125.0" prefWidth="500.0" text="Daily Challenge">
+            <Button mnemonicParsing="false" onAction="#DailyChallengeButtonPushed" prefHeight="125.0" prefWidth="500.0" text="Daily Challenge">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
                <font>
                   <Font name="System Bold" size="45.0" />
                </font></Button>
-            <Button mnemonicParsing="false" prefHeight="125.0" prefWidth="500.0" text="Dictionary">
+            <Button mnemonicParsing="false" onAction="#DictionaryButtonPushed" prefHeight="125.0" prefWidth="500.0" text="Dictionary">
                <VBox.margin>
                   <Insets />
                </VBox.margin>

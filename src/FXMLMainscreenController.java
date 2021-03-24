@@ -27,5 +27,25 @@ public class FXMLMainscreenController {
         window.setScene(gameScene);
         window.show();
     }
+    public void DailyChallengeButtonPushed(ActionEvent event) throws IOException {
+        Parent gameParent = FXMLLoader.load(getClass().getResource("FXMLDailyChallenge.fxml"));
+        Scene gameScene = new Scene(gameParent);
+
+        // getting stage information
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(gameScene);
+        window.setResizable(false);
+        window.show();
+    }
+    public void DictionaryButtonPushed(ActionEvent event) throws IOException {
+        Parent gameParent = FXMLLoader.load(getClass().getResource("FXMLDailyChallenge.fxml"));
+        Scene gameScene = new Scene(gameParent);
+
+        // getting stage information
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(gameScene);
+        window.setResizable(false);
+        window.show();
+    }
 
 }
