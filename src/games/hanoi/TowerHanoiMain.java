@@ -11,17 +11,18 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
-/**
- * @author Almas Baimagambetov (almaslvl@gmail.com)
- */
+
 public class TowerHanoiMain extends Application {
     private static final int APP_W = 1280;
     private static final int APP_H = 720;
-    private static final int NUM_CIRCLES = 7;
+    private static final int NUM_CIRCLES = 5;
 
     private Optional<Circle> selectedCircle = Optional.empty();
+    Color colorList[] = {Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.ORANGE};
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -35,14 +36,13 @@ public class TowerHanoiMain extends Application {
     private Parent createContent() {
         Pane root = new Pane();
         root.setPrefSize(400*3, 400);
-
         for (int i = 0; i < 3; i++) {
             Tower tower = new Tower(i*400, 0);
 
             if (i == 0) {
                 for (int j = NUM_CIRCLES; j > 0; j--) {
                     Circle circle = new Circle(30 + j*20, null);
-                    circle.setStroke(Color.BLACK);
+                    circle.setStroke(colorList[j % 5]);
                     circle.setStrokeWidth(circle.getRadius() / 30.0);
 
                     tower.addCircle(circle);
