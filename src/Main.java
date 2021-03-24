@@ -1,9 +1,13 @@
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.fxml.FXMLLoader;
-
+import javafx.scene.Group;
+import javafx.util.Duration;
 import java.io.IOException;
 
 public class Main extends Application {
@@ -11,13 +15,25 @@ public class Main extends Application {
         launch(args);
     }
 
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage primaryStage) throws IOException, InterruptedException {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLMainscreen.fxml"));
-
+        Image logo = new Image("/assets/images/icons/loadingscreen_logo.png");
+        ImageView logoView = new ImageView();
+        logoView.setImage(logo);
+        logoView.setX(360);
+        logoView.setY(0);
+        logoView.setFitHeight(580);
+        logoView.setFitWidth(580);
+        Group images = new Group(logoView);
+        Scene loadingScene = new Scene(images, 1280, 720);
         Scene scene = new Scene((root));
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Brain Teaser V");
+        primaryStage.getIcons().add(new Image("/assets/images/icons/window_icon.png"));
+        primaryStage.setScene(loadingScene);
+        primaryStage.setTitle("Brain Teaser");
         primaryStage.setResizable(false);
         primaryStage.show();
+        PauseTransition loadingDelay = new PauseTransition(Duration.seconds(2));
+        loadingDelay.setOnFinished(event -> primaryStage.setScene(scene));
+        loadingDelay.play();
     }
 }
