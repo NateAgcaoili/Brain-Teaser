@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class WordReader {
-    private static final String fileName = "/res/words.txt";
+    private static final String fileName = "/games/hangman/res/words.txt";
 
     private ArrayList<String> words = new ArrayList<String>();
 
