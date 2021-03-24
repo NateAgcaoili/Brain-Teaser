@@ -1,18 +1,18 @@
 package games.hanoi;
 
 import javafx.application.Application;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-
+import javafx.scene.image.Image;
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 
@@ -26,22 +26,26 @@ public class TowerHanoiMain extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        stage.setScene(new Scene(createContent()));
-        stage.setResizable(false);
-        stage.setWidth(APP_W);
-        stage.setHeight(APP_H);
+        Scene scene = new Scene(createContent(), APP_W, APP_H);
+        stage.setScene(scene);
         stage.show();
     }
 
     private Parent createContent() {
+        Image background = new Image("assets/images/backgrounds/game_bg.png");
+        ImageView bgView = new ImageView(background);
+        bgView.setFitHeight(APP_H);
+        bgView.setFitWidth(APP_W);
+        Group backgroundImage = new Group(bgView);
         Pane root = new Pane();
+        root.getChildren().add(backgroundImage);
         root.setPrefSize(400*3, 400);
         for (int i = 0; i < 3; i++) {
-            Tower tower = new Tower(i*400, 0);
+            Tower tower = new Tower(i*400, 150);
 
             if (i == 0) {
                 for (int j = NUM_CIRCLES; j > 0; j--) {
-                    Circle circle = new Circle(30 + j*20, null);
+                    Circle circle = new Circle(30 + j*15, null);
                     circle.setStroke(colorList[j % 5]);
                     circle.setStrokeWidth(circle.getRadius() / 30.0);
 
@@ -51,7 +55,6 @@ public class TowerHanoiMain extends Application {
 
             root.getChildren().add(tower);
         }
-
         return root;
     }
 
@@ -63,13 +66,16 @@ public class TowerHanoiMain extends Application {
             setPrefSize(400, 400);
 
             Rectangle bg = new Rectangle(25, 25);
+            bg.setStroke(Color.RED);
+            bg.setStrokeWidth(0);
             bg.setOnMouseClicked(e -> {
                 if (selectedCircle.isPresent()) {
                     addCircle(selectedCircle.get());
-
+                    selectedCircle.get().setStrokeWidth(selectedCircle.get().getRadius() / 30.0);
                     selectedCircle = Optional.empty();
                 } else {
                     selectedCircle = Optional.ofNullable(getTopMost());
+                    selectedCircle.get().setStrokeWidth(selectedCircle.get().getRadius() / 15.0);
                 }
             });
 
