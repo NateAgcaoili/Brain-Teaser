@@ -19,5 +19,15 @@ public class FXMLMainscreenController {
         window.setResizable(false);
         window.show();
     }
+    public void gameButtonPushed(ActionEvent event) throws IOException {
+        Parent gameParent = FXMLLoader.load(getClass().getResource("GameScreen.fxml"));
+        Scene gameScene = new Scene(gameParent);
+
+        // getting stage information
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(gameScene);
+        window.setResizable(false);
+        window.show();
+    }
 
 }

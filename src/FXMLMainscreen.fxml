@@ -9,7 +9,7 @@
    <children>
       <VBox layoutX="36.0" layoutY="23.0" prefHeight="650.0" prefWidth="500.0" spacing="15.0" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="35.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="125.0" prefWidth="500.0" text="Games">
+            <Button mnemonicParsing="false" onAction="#gameButtonPushed" prefHeight="125.0" prefWidth="500.0" text="Games">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
