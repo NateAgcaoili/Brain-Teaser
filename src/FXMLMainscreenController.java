@@ -16,7 +16,6 @@ public class FXMLMainscreenController {
         // getting stage information
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(aboutScene);
-        window.setResizable(false);
         window.show();
     }
     public void gameButtonPushed(ActionEvent event) throws IOException {
@@ -26,7 +25,6 @@ public class FXMLMainscreenController {
         // getting stage information
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(gameScene);
-        window.setResizable(false);
         window.show();
     }
 
