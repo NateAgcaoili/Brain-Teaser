@@ -3,8 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLGameScreenController">
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLGameScreenController">
    <children>
-      <Button layoutX="96.0" layoutY="96.0" mnemonicParsing="false" onAction="#startHangman" prefHeight="96.0" prefWidth="312.0" text="Hangman" />
+      <Button layoutX="52.0" layoutY="133.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="98.0" text="Game" />
    </children>
 </AnchorPane>
