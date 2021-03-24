@@ -1,13 +1,15 @@
 package games.hangman;
 
+import javafx.event.ActionEvent;
+import java.io.IOException;
 import java.util.HashMap;
-
 import javafx.animation.RotateTransition;
 import javafx.application.Application;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
