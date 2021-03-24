@@ -2,9 +2,15 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLGameScreenController">
    <children>
       <Button layoutX="165.0" layoutY="68.0" mnemonicParsing="false" onAction="#startHangman" prefHeight="119.0" prefWidth="319.0" text="Hangman" />
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#backButtonPushed" prefHeight="81.0" prefWidth="114.0" text="Back">
+         <font>
+            <Font name="System Bold" size="29.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

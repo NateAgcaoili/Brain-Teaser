@@ -38,7 +38,7 @@ public class FXMLMainscreenController {
         window.show();
     }
     public void DictionaryButtonPushed(ActionEvent event) throws IOException {
-        Parent gameParent = FXMLLoader.load(getClass().getResource("FXMLDailyChallenge.fxml"));
+        Parent gameParent = FXMLLoader.load(getClass().getResource("FXMLDictionary.fxml"));
         Scene gameScene = new Scene(gameParent);
 
         // getting stage information
@@ -47,5 +47,36 @@ public class FXMLMainscreenController {
         window.setResizable(false);
         window.show();
     }
+    public void ShopButtonPushed(ActionEvent event) throws IOException {
+        Parent gameParent = FXMLLoader.load(getClass().getResource("FXMLShop.fxml"));
+        Scene gameScene = new Scene(gameParent);
+
+        // getting stage information
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(gameScene);
+        window.setResizable(false);
+        window.show();
+    }
+    public void ScoreboardButtonPushed(ActionEvent event) throws IOException {
+        Parent gameParent = FXMLLoader.load(getClass().getResource("FXMLScoreboard.fxml"));
+        Scene gameScene = new Scene(gameParent);
+
+        // getting stage information
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(gameScene);
+        window.setResizable(false);
+        window.show();
+    }
+    public void SettingsButtonPushed(ActionEvent event) throws IOException {
+        Parent gameParent = FXMLLoader.load(getClass().getResource("FXMLSettings.fxml"));
+        Scene gameScene = new Scene(gameParent);
+
+        // getting stage information
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(gameScene);
+        window.setResizable(false);
+        window.show();
+    }
+
 
 }
