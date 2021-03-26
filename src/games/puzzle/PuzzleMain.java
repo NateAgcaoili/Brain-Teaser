@@ -107,6 +107,8 @@ public class PuzzleMain extends Application {
         VBox vb = new VBox(10);
         vb.getChildren().addAll(desk,buttonBox);
         root.getChildren().addAll(vb);
+        primaryStage.setWidth(1500);
+        primaryStage.setHeight(1000);
     }
 
     /**
