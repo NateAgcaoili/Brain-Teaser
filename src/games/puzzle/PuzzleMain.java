@@ -1,7 +1,10 @@
 package games.puzzle;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import games.GameOptions;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -9,8 +12,10 @@ import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -39,6 +44,8 @@ import javafx.util.Duration;
 public class PuzzleMain extends Application {
 
     private Timeline timeline;
+    private static final int APP_W = 1280;
+    private static final int APP_H = 767; //leave this, for some reason when using 720 the window gets smaller
 
     private void init(Stage primaryStage) {
         Group root = new Group();
@@ -101,8 +108,17 @@ public class PuzzleMain extends Application {
                 timeline.playFromStart();
             }
         });
+        Button optionsButton = new Button("Options");
+        optionsButton.setStyle("-fx-font-size: 2em;");
+        optionsButton.setOnAction(e -> {
+            try {
+                openOptions(e);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
         HBox buttonBox = new HBox(8);
-        buttonBox.getChildren().addAll(shuffleButton, solveButton);
+        buttonBox.getChildren().addAll(shuffleButton, solveButton, optionsButton);
         // create vbox for desk and buttons
         VBox vb = new VBox(10);
         vb.getChildren().addAll(desk,buttonBox);
@@ -297,6 +313,37 @@ public class PuzzleMain extends Application {
         public double getCorrectX() { return correctX; }
 
         public double getCorrectY() { return correctY; }
+    }
+
+    private void openOptions(ActionEvent event) throws IOException {
+        int result = GameOptions.display();
+        switch (result) {
+            case 0:
+                System.out.println("Returned");
+                break;
+            case 1:
+                Parent gameParent = FXMLLoader.load(getClass().getResource("/screens/GameScreen.fxml"));
+                Scene gameScene = new Scene(gameParent);
+
+                // getting stage information
+                Stage gameWindow = (Stage)((Node)event.getSource()).getScene().getWindow();
+                gameWindow.setWidth(APP_W);
+                gameWindow.setHeight(APP_H);
+                gameWindow.setScene(gameScene);
+                gameWindow.show();
+                break;
+            case 2:
+                Parent root = FXMLLoader.load(getClass().getResource("/screens/FXMLMainscreen.fxml"));
+                Stage homeWindow = (Stage)((Node)event.getSource()).getScene().getWindow();
+                homeWindow.setWidth(APP_W);
+                homeWindow.setHeight(APP_H);
+                Scene home = new Scene(root);
+                homeWindow.setScene(home);
+                homeWindow.show();
+                break;
+            default:
+                System.out.println("Unknown");
+        }
     }
 
     @Override public void start(Stage primaryStage) throws Exception {
