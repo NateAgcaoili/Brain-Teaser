@@ -16,7 +16,7 @@ public class Main extends Application {
     }
 
     public void start(Stage primaryStage) throws IOException, InterruptedException {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLMainscreen.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("screens/FXMLMainscreen.fxml"));
         Image logo = new Image("/assets/images/icons/loadingscreen_logo.png");
         ImageView logoView = new ImageView();
         logoView.setImage(logo);

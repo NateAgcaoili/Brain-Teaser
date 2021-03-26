@@ -1,3 +1,5 @@
+package screens;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -7,7 +9,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class FXMLShopController {
+public class FXMLDailyChallengeController {
+
     public void backButtonPushed(ActionEvent event) throws IOException {
         Parent aboutParent = FXMLLoader.load(getClass().getResource("FXMLMainscreen.fxml"));
         Scene mainScene = new Scene(aboutParent);

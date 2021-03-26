@@ -1,10 +1,19 @@
 package games.hanoi;
 
+import games.GameOptions;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -12,6 +21,8 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
+
+import java.io.IOException;
 import java.util.Comparator;
 import java.util.Optional;
 
@@ -37,8 +48,21 @@ public class TowerHanoiMain extends Application {
         bgView.setFitHeight(APP_H);
         bgView.setFitWidth(APP_W);
         Group backgroundImage = new Group(bgView);
+        HBox options = new HBox();
+        Button optionsButton = new Button("OPTIONS");
+        optionsButton.setOnAction(e -> {
+            try {
+                openOptions(e);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+        options.getChildren().add(optionsButton);
+        //options.setAlignment(Pos.BOTTOM_CENTER);
+        options.setPadding(new Insets(10, 10 ,10, 10));
         Pane root = new Pane();
-        root.getChildren().add(backgroundImage);
+        root.getChildren().addAll(backgroundImage, options);
+
         root.setPrefSize(400*3, 400);
         for (int i = 0; i < 3; i++) {
             Tower tower = new Tower(i*400, 150);
@@ -100,6 +124,33 @@ public class TowerHanoiMain extends Application {
                     getChildren().add(circle);
                 }
             }
+        }
+    }
+
+    private void openOptions(ActionEvent event) throws IOException {
+        int result = GameOptions.display();
+        switch (result) {
+            case 0:
+                System.out.println("Returned");
+                break;
+            case 1:
+                Parent gameParent = FXMLLoader.load(getClass().getResource("/screens/GameScreen.fxml"));
+                Scene gameScene = new Scene(gameParent);
+
+                // getting stage information
+                Stage gameWindow = (Stage)((Node)event.getSource()).getScene().getWindow();
+                gameWindow.setScene(gameScene);
+                gameWindow.show();
+                break;
+            case 2:
+                Parent root = FXMLLoader.load(getClass().getResource("/screens/FXMLMainscreen.fxml"));
+                Stage homeWindow = (Stage)((Node)event.getSource()).getScene().getWindow();
+                Scene home = new Scene(root);
+                homeWindow.setScene(home);
+                homeWindow.show();
+                break;
+            default:
+                System.out.println("Unknown");
         }
     }
 

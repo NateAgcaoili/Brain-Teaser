@@ -1,3 +1,5 @@
+package screens;
+
 import games.hangman.HangmanMain;
 import games.hanoi.TowerHanoiMain;
 import games.puzzle.PuzzleMain;

@@ -1,8 +1,6 @@
 package games.hangman;
 
-import javafx.event.ActionEvent;
-import java.io.IOException;
-import java.util.HashMap;
+import games.GameOptions;
 import javafx.animation.RotateTransition;
 import javafx.application.Application;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -10,6 +8,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -28,6 +27,11 @@ import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
+
+import java.io.IOException;
+import java.util.HashMap;
+import javafx.event.ActionEvent;
 
 public class HangmanMain extends Application {
 
@@ -95,6 +99,20 @@ public class HangmanMain extends Application {
         btnAgain.disableProperty().bind(playable);
         btnAgain.setOnAction(event -> startGame());
 
+        HBox options = new HBox();
+        Button optionsButton = new Button("OPTIONS");
+        optionsButton.setOnAction(e -> {
+            try {
+                openOptions(e);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+        options.getChildren().add(optionsButton);
+        //options.setAlignment(Pos.CENTER_RIGHT);
+        options.setPadding(new Insets(10, 10 ,10, 10));
+
+
         // layout
         HBox row1 = new HBox();
         HBox row3 = new HBox();
@@ -128,6 +146,7 @@ public class HangmanMain extends Application {
         VBox vBox = new VBox(10);
         // vertical layout
         vBox.getChildren().addAll(
+                options,
                 row1,
                 rowLetters,
                 row3,
@@ -156,6 +175,33 @@ public class HangmanMain extends Application {
         letters.clear();
         for (char c : word.get().toCharArray()) {
             letters.add(new Letter(c));
+        }
+    }
+
+    private void openOptions(ActionEvent event) throws IOException {
+        int result = GameOptions.display();
+        switch (result) {
+            case 0:
+                System.out.println("Returned");
+                break;
+            case 1:
+                Parent gameParent = FXMLLoader.load(getClass().getResource("/screens/GameScreen.fxml"));
+                Scene gameScene = new Scene(gameParent);
+
+                // getting stage information
+                Stage gameWindow = (Stage)((Node)event.getSource()).getScene().getWindow();
+                gameWindow.setScene(gameScene);
+                gameWindow.show();
+                break;
+            case 2:
+                Parent root = FXMLLoader.load(getClass().getResource("/screens/FXMLMainscreen.fxml"));
+                Stage homeWindow = (Stage)((Node)event.getSource()).getScene().getWindow();
+                Scene home = new Scene(root);
+                homeWindow.setScene(home);
+                homeWindow.show();
+                break;
+            default:
+                System.out.println("Unknown");
         }
     }
 
