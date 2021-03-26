@@ -190,12 +190,16 @@ public class HangmanMain extends Application {
 
                 // getting stage information
                 Stage gameWindow = (Stage)((Node)event.getSource()).getScene().getWindow();
+                gameWindow.setWidth(APP_W);
+                gameWindow.setHeight(APP_H);
                 gameWindow.setScene(gameScene);
                 gameWindow.show();
                 break;
             case 2:
                 Parent root = FXMLLoader.load(getClass().getResource("/screens/FXMLMainscreen.fxml"));
                 Stage homeWindow = (Stage)((Node)event.getSource()).getScene().getWindow();
+                homeWindow.setWidth(APP_W);
+                homeWindow.setHeight(APP_H);
                 Scene home = new Scene(root);
                 homeWindow.setScene(home);
                 homeWindow.show();
@@ -340,7 +344,7 @@ public class HangmanMain extends Application {
                 }
             }
         });
-        
+
         primaryStage.setWidth(APP_W);
         primaryStage.setHeight(APP_H);
         primaryStage.setTitle("Hangman");
