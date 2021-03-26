@@ -36,7 +36,7 @@ import javafx.event.ActionEvent;
 public class HangmanMain extends Application {
 
     private static final int APP_W = 1280;
-    private static final int APP_H = 720;
+    private static final int APP_H = 767; //leave this, for some reason when using 720 the window gets smaller
     private static final Font DEFAULT_FONT = new Font("Courier", 36);
 
     private static final int POINTS_PER_LETTER = 100;
@@ -340,8 +340,7 @@ public class HangmanMain extends Application {
                 }
             }
         });
-
-        primaryStage.setResizable(false);
+        
         primaryStage.setWidth(APP_W);
         primaryStage.setHeight(APP_H);
         primaryStage.setTitle("Hangman");
