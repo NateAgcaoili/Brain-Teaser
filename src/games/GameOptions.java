@@ -29,9 +29,13 @@ public class GameOptions {
         Button gamesButton = new Button("Games");
         Button mainMenuButton = new Button("Main Menu");
 
-        returnButton.setMinSize(150, 75);
-        gamesButton.setMinSize(150, 75);
-        mainMenuButton.setMinSize(150, 75);
+        returnButton.setMinSize(180, 75);
+        gamesButton.setMinSize(180, 75);
+        mainMenuButton.setMinSize(180, 75);
+
+        returnButton.setStyle("-fx-font-size: 1.5em;");
+        gamesButton.setStyle("-fx-font-size: 2em;");
+        mainMenuButton.setStyle("-fx-font-size: 1.7em;");
 
         returnButton.setOnAction(e -> {
             answer = 0;
