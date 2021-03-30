@@ -1,6 +1,9 @@
 package games.hangman;
 
 import games.GameOptions;
+import javafx.event.ActionEvent;
+import java.io.IOException;
+import java.util.HashMap;
 import javafx.animation.RotateTransition;
 import javafx.application.Application;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -10,12 +13,16 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -28,15 +35,10 @@ import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-
-import java.io.IOException;
-import java.util.HashMap;
-import javafx.event.ActionEvent;
-
 public class HangmanMain extends Application {
 
     private static final int APP_W = 1280;
-    private static final int APP_H = 767; //leave this, for some reason when using 720 the window gets smaller
+    private static final int APP_H = 720;
     private static final Font DEFAULT_FONT = new Font("Courier", 36);
 
     private static final int POINTS_PER_LETTER = 100;
@@ -55,7 +57,7 @@ public class HangmanMain extends Application {
     /**
      * Current score
      */
-    //private SimpleIntegerProperty score = new SimpleIntegerProperty();
+    private SimpleIntegerProperty score = new SimpleIntegerProperty();
 
     /**
      * How many points next correct letter is worth
@@ -85,6 +87,24 @@ public class HangmanMain extends Application {
     private WordReader wordReader = new WordReader();
 
     public Parent createContent() {
+        Image background = new Image("assets/images/backgrounds/game_bg.png");
+        ImageView bgView = new ImageView(background);
+        bgView.setFitHeight(APP_H);
+        bgView.setFitWidth(APP_W);
+        Group backgroundImage = new Group(bgView);
+        HBox options = new HBox();
+        Button optionsButton = new Button("OPTIONS");
+        optionsButton.setOnAction(e -> {
+            try {
+                openOptions(e);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+        options.getChildren().add(optionsButton);
+        //options.setAlignment(Pos.BOTTOM_CENTER);
+        options.setPadding(new Insets(10, 10 ,10, 10));
+
         HBox rowLetters = new HBox();
         rowLetters.setAlignment(Pos.CENTER);
         letters = rowLetters.getChildren();
@@ -98,20 +118,6 @@ public class HangmanMain extends Application {
         Button btnAgain = new Button("NEW GAME");
         btnAgain.disableProperty().bind(playable);
         btnAgain.setOnAction(event -> startGame());
-
-        HBox options = new HBox();
-        Button optionsButton = new Button("OPTIONS");
-        optionsButton.setOnAction(e -> {
-            try {
-                openOptions(e);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        });
-        options.getChildren().add(optionsButton);
-        //options.setAlignment(Pos.CENTER_RIGHT);
-        options.setPadding(new Insets(10, 10 ,10, 10));
-
 
         // layout
         HBox row1 = new HBox();
@@ -138,7 +144,7 @@ public class HangmanMain extends Application {
         rowAlphabet.getChildren().add(hyphen);
 
         Text textScore = new Text();
-        //textScore.textProperty().bind(score.asString().concat(" Points"));
+        textScore.textProperty().bind(score.asString().concat(" Points"));
 
         HBox rowHangman = new HBox(10, btnAgain, textScore, hangman);
         rowHangman.setAlignment(Pos.CENTER);
@@ -153,6 +159,32 @@ public class HangmanMain extends Application {
                 rowAlphabet,
                 rowHangman);
         return vBox;
+    }
+    private void openOptions(ActionEvent event) throws IOException {
+        int result = GameOptions.display();
+        switch (result) {
+            case 0:
+                System.out.println("Returned");
+                break;
+            case 1:
+                Parent gameParent = FXMLLoader.load(getClass().getResource("/screens/GameScreen.fxml"));
+                Scene gameScene = new Scene(gameParent);
+
+                // getting stage information
+                Stage gameWindow = (Stage)((Node)event.getSource()).getScene().getWindow();
+                gameWindow.setScene(gameScene);
+                gameWindow.show();
+                break;
+            case 2:
+                Parent root = FXMLLoader.load(getClass().getResource("/screens/FXMLMainscreen.fxml"));
+                Stage homeWindow = (Stage)((Node)event.getSource()).getScene().getWindow();
+                Scene home = new Scene(root);
+                homeWindow.setScene(home);
+                homeWindow.show();
+                break;
+            default:
+                System.out.println("Unknown");
+        }
     }
 
     private void stopGame() {
@@ -175,37 +207,6 @@ public class HangmanMain extends Application {
         letters.clear();
         for (char c : word.get().toCharArray()) {
             letters.add(new Letter(c));
-        }
-    }
-
-    private void openOptions(ActionEvent event) throws IOException {
-        int result = GameOptions.display();
-        switch (result) {
-            case 0:
-                System.out.println("Returned");
-                break;
-            case 1:
-                Parent gameParent = FXMLLoader.load(getClass().getResource("/screens/GameScreen.fxml"));
-                Scene gameScene = new Scene(gameParent);
-
-                // getting stage information
-                Stage gameWindow = (Stage)((Node)event.getSource()).getScene().getWindow();
-                gameWindow.setWidth(APP_W);
-                gameWindow.setHeight(APP_H);
-                gameWindow.setScene(gameScene);
-                gameWindow.show();
-                break;
-            case 2:
-                Parent root = FXMLLoader.load(getClass().getResource("/screens/FXMLMainscreen.fxml"));
-                Stage homeWindow = (Stage)((Node)event.getSource()).getScene().getWindow();
-                homeWindow.setWidth(APP_W);
-                homeWindow.setHeight(APP_H);
-                Scene home = new Scene(root);
-                homeWindow.setScene(home);
-                homeWindow.show();
-                break;
-            default:
-                System.out.println("Unknown");
         }
     }
 
@@ -329,7 +330,7 @@ public class HangmanMain extends Application {
                     Letter letter = (Letter) n;
                     if (letter.isEqualTo(pressed)) {
                         found = true;
-                        //score.set(score.get() + (int)(scoreModifier * POINTS_PER_LETTER));
+                        score.set(score.get() + (int)(scoreModifier * POINTS_PER_LETTER));
                         lettersToGuess.set(lettersToGuess.get() - 1);
                         letter.show();
                     }
@@ -345,6 +346,7 @@ public class HangmanMain extends Application {
             }
         });
 
+        primaryStage.setResizable(false);
         primaryStage.setWidth(APP_W);
         primaryStage.setHeight(APP_H);
         primaryStage.setTitle("Hangman");
