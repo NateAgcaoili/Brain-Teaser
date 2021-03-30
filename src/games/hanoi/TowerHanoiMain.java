@@ -89,9 +89,9 @@ public class TowerHanoiMain extends Application {
             setTranslateY(y);
             setPrefSize(400, 400);
 
-            Rectangle bg = new Rectangle(25, 25);
-            bg.setStroke(Color.RED);
-            bg.setStrokeWidth(0);
+            Rectangle bg = new Rectangle(250, 250);
+            bg.setFill(Color.TRANSPARENT);
+            Rectangle black = new Rectangle(25, 25);
             bg.setOnMouseClicked(e -> {
                 if (selectedCircle.isPresent()) {
                     addCircle(selectedCircle.get());
@@ -103,7 +103,7 @@ public class TowerHanoiMain extends Application {
                 }
             });
 
-            getChildren().add(bg);
+            getChildren().addAll(black, bg);
         }
 
         private Circle getTopMost() {
