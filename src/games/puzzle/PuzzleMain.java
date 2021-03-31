@@ -232,9 +232,12 @@ public class PuzzleMain extends Application {
                     double newTranslateY = startDragY
                             + me.getSceneY() - dragAnchor.getY();
                     double minTranslateX = - 45f - correctX;
-                    double maxTranslateX = (deskWidth - Piece.SIZE + 50f ) - correctX;
+
+                    // Max translate default values are x:50f y:70f
+                    // Change to drag around on the screen.
+                    double maxTranslateX = (deskWidth - Piece.SIZE + 250f ) - correctX;
                     double minTranslateY = - 30f - correctY;
-                    double maxTranslateY = (deskHeight - Piece.SIZE + 70f ) - correctY;
+                    double maxTranslateY = (deskHeight - Piece.SIZE +250f ) - correctY;
                     if ((newTranslateX> minTranslateX ) &&
                             (newTranslateX< maxTranslateX) &&
                             (newTranslateY> minTranslateY) &&
