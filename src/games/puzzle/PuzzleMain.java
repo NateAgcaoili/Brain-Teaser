@@ -10,6 +10,7 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +20,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -34,18 +36,22 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
+import javafx.beans.property.SimpleIntegerProperty;
 /**
  *
  * @author Manoj
  */
+
 public class PuzzleMain extends Application {
 
     private Timeline timeline;
     private static final int APP_W = 1280;
     private static final int APP_H = 767; //leave this, for some reason when using 720 the window gets smaller
+    private static final int score_per_piece = 15;
+    public static SimpleIntegerProperty score = new SimpleIntegerProperty();
 
     private void init(Stage primaryStage) {
         Group root = new Group();
@@ -106,6 +112,7 @@ public class PuzzleMain extends Application {
                                     new KeyValue(piece.translateYProperty(), 0)));
                 }
                 timeline.playFromStart();
+                score.set(0);
             }
         });
         Button optionsButton = new Button("Options");
@@ -117,8 +124,13 @@ public class PuzzleMain extends Application {
                 ioException.printStackTrace();
             }
         });
+
+        Text textScore = new Text();
+        textScore.textProperty().bind(score.asString().concat(" Points"));
+        textScore.setStyle("-fx-font-size: 2em;");
+
         HBox buttonBox = new HBox(8);
-        buttonBox.getChildren().addAll(shuffleButton, solveButton, optionsButton);
+        buttonBox.getChildren().addAll(shuffleButton, solveButton, optionsButton, textScore);
         // create vbox for desk and buttons
         VBox vb = new VBox(10);
         vb.getChildren().addAll(desk,buttonBox);
@@ -130,7 +142,7 @@ public class PuzzleMain extends Application {
     /**
      * Node that represents the playing area/ desktop where the puzzle pices sit
      */
-    public static class Desk extends Pane {
+    private static class Desk extends Pane {
         Desk(int numOfColumns, int numOfRows) {
             setStyle("-fx-background-color: #cccccc; " +
                     "-fx-border-color: #464646; " +
@@ -161,6 +173,7 @@ public class PuzzleMain extends Application {
         }
         @Override protected void layoutChildren() {}
     }
+
 
     /**
      * Node that represents a puzzle piece
@@ -219,9 +232,13 @@ public class PuzzleMain extends Application {
                 public void handle(MouseEvent me) {
                     if (getTranslateX() < (10) && getTranslateX() > (- 10) &&
                             getTranslateY() < (10) && getTranslateY() > (- 10)) {
+                        score.set(score.get() + score_per_piece);
                         setTranslateX(0);
                         setTranslateY(0);
                         setInactive();
+
+
+
                     }
                 }
             });

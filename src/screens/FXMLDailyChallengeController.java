@@ -1,5 +1,6 @@
 package screens;
 
+import games.hangman.HangmanMain;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -18,6 +19,16 @@ public class FXMLDailyChallengeController {
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(mainScene);
         window.setResizable(false);
+        window.show();
+    }
+    public void startHangman(ActionEvent event) throws IOException {
+        HangmanMain hangman = new HangmanMain();
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        try {
+            hangman.start(window);
+        } catch (Exception e) {
+            e.printStackTrace();
+        };
         window.show();
     }
 }
