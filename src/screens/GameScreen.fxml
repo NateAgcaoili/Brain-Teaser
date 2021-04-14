@@ -14,5 +14,6 @@
          </font>
       </Button>
       <Button layoutX="165.0" layoutY="415.0" mnemonicParsing="false" onAction="#startJigsaw" prefHeight="119.0" prefWidth="319.0" text="Jigsaw Puzzle" />
+      <Button layoutX="164.0" layoutY="552.0" mnemonicParsing="false" prefHeight="119.0" prefWidth="319.0" text="Simon Says" />
    </children>
 </AnchorPane>

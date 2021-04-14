@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screens.FXMLAboutController">
+    <children>
+        <VBox layoutX="120.0" layoutY="137.0" prefHeight="548.0" prefWidth="1040.0" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="137.0">
+            <children>
+                <AnchorPane prefHeight="288.0" prefWidth="1040.0">
+                    <VBox.margin>
+                        <Insets top="25.0" />
+                    </VBox.margin>
+               <children>
+                  <Button id="butFive" layoutX="483.0" layoutY="107.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="47.0" style="-fx-background-color: #3A4DFF; -fx-pref-width: 75; -fx-pref-height: 75;" />
+                  <Button id="butFour" layoutX="397.0" layoutY="107.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="47.0" style="-fx-background-color: #3A4DFF; -fx-pref-width: 75; -fx-pref-height: 75;" />
+                  <Button id="butOne" layoutX="397.0" layoutY="23.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="47.0" style="-fx-background-color: #3A4DFF; -fx-pref-width: 75; -fx-pref-height: 75;" />
+                  <Button id="butTwo" layoutX="483.0" layoutY="23.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="47.0" style="-fx-background-color: #3A4DFF; -fx-pref-width: 75; -fx-pref-height: 75;" />
+                  <Button id="butThree" layoutX="566.0" layoutY="23.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="47.0" style="-fx-background-color: #3A4DFF; -fx-pref-width: 75; -fx-pref-height: 75;" />
+                  <Button id="butSix" layoutX="566.0" layoutY="107.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="47.0" style="-fx-background-color: #3A4DFF; -fx-pref-width: 75; -fx-pref-height: 75;" />
+                  <Button id="butEight" layoutX="483.0" layoutY="191.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="47.0" style="-fx-background-color: #3A4DFF; -fx-pref-width: 75; -fx-pref-height: 75;" />
+                  <Button id="butSeven" layoutX="397.0" layoutY="191.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="47.0" style="-fx-background-color: #3A4DFF; -fx-pref-width: 75; -fx-pref-height: 75;" />
+                  <Button id="butNine" layoutX="566.0" layoutY="191.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="47.0" style="-fx-background-color: #3A4DFF; -fx-pref-width: 75; -fx-pref-height: 75;" />
+               </children>
+                </AnchorPane>
+            </children></VBox>
+    </children>
+</AnchorPane>

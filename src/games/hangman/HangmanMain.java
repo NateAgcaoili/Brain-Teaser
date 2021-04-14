@@ -38,7 +38,7 @@ import javafx.util.Duration;
 public class HangmanMain extends Application {
 
     private static final int APP_W = 1280;
-    private static final int APP_H = 720;
+    private static final int APP_H = 767;
     private static final Font DEFAULT_FONT = new Font("Courier", 36);
 
     private static final int POINTS_PER_LETTER = 100;
