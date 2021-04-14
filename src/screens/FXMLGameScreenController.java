@@ -24,7 +24,8 @@ public class FXMLGameScreenController {
     }
 
     public void startHangman(ActionEvent event) throws IOException {
-        HangmanMain hangman = new HangmanMain();
+
+        HangmanMain hangman = new HangmanMain("/dictionary/dictionary.txt");
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         try {
             hangman.start(window);

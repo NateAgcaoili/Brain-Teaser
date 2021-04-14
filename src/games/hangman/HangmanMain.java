@@ -44,6 +44,14 @@ public class HangmanMain extends Application {
     private static final int POINTS_PER_LETTER = 100;
     private static final float BONUS_MODIFIER = 0.2f;
 
+    public HangmanMain() throws IOException {
+        wordReader = new WordReader();
+        wordReader.addToDict();
+    }
+    public HangmanMain(String dict_file) {
+        wordReader = new WordReader(dict_file);
+    }
+
     /**
      * The word to guess
      */
@@ -84,7 +92,7 @@ public class HangmanMain extends Application {
 
     private HangmanImage hangman = new HangmanImage();
 
-    private WordReader wordReader = new WordReader();
+    private WordReader wordReader;
 
     public Parent createContent() {
         Image background = new Image("assets/images/backgrounds/game_bg.png");
@@ -195,6 +203,7 @@ public class HangmanMain extends Application {
     }
 
     private void startGame() {
+        score.set(0);
         for (Text t : alphabet.values()) {
             t.setStrikethrough(false);
             t.setFill(Color.BLACK);
@@ -306,6 +315,7 @@ public class HangmanMain extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
         Scene scene = new Scene(createContent());
         scene.setOnKeyPressed((KeyEvent event) -> {
             if (event.getText().isEmpty())
