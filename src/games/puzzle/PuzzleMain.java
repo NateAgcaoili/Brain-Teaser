@@ -1,5 +1,6 @@
 package games.puzzle;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +58,7 @@ public class PuzzleMain extends Application {
         Group root = new Group();
         primaryStage.setScene(new Scene(root));
         // load puzzle image
-        Image image = new Image("assets/images/puzzleimgs/puzzle1.jpg");
+        Image image = get_new_puzzle();
         int numOfColumns = (int) (image.getWidth() / Piece.SIZE);
         int numOfRows = (int) (image.getHeight() / Piece.SIZE);
         // create desk
@@ -75,6 +76,7 @@ public class PuzzleMain extends Application {
             }
         }
         desk.getChildren().addAll(pieces);
+
         // create button box
         Button shuffleButton = new Button("Shuffle");
         shuffleButton.setStyle("-fx-font-size: 2em;");
@@ -364,6 +366,27 @@ public class PuzzleMain extends Application {
             default:
                 System.out.println("Unknown");
         }
+    }
+
+    /*  Hard code each puzzle in and add it to the puzzle list.
+        using File.list() returns null for the directory
+
+
+     */
+    public static Image get_new_puzzle(){
+        Image waterfall = new Image("assets/images/puzzleimgs/puzzle1.jpg");
+        Image house = new Image("assets/images/puzzleimgs/puzzle2.jpg");
+        Image fox = new Image("assets/images/puzzleimgs/puzzle3.jpg");
+
+        List<Image> puzzles = new ArrayList<Image>();
+
+        puzzles.add(waterfall);
+        puzzles.add(house);
+        puzzles.add(fox);
+
+        int index = (int)(Math.random() * puzzles.size());
+        return  puzzles.get(index);
+
     }
 
     @Override public void start(Stage primaryStage) throws Exception {
