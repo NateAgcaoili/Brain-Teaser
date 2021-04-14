@@ -25,7 +25,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws IOException, InterruptedException, URISyntaxException {
         //AudioClip startSound = new AudioClip("file:src/assets/audio/brain_teaser_start.wav");
         Parent root = FXMLLoader.load(getClass().getResource("screens/FXMLMainscreen.fxml"));
-        Image logo = new Image("/assets/images/icons/loadingscreen_logo.png");
+        Image logo = new Image("file:src/assets/images/icons/loadingscreen_logo.png");
         ImageView logoView = new ImageView();
         logoView.setImage(logo);
         logoView.setX(360);
@@ -35,7 +35,7 @@ public class Main extends Application {
         Group images = new Group(logoView);
         Scene loadingScene = new Scene(images, 1280, 720);
         Scene scene = new Scene((root));
-        primaryStage.getIcons().add(new Image("/assets/images/icons/window_icon.png"));
+        primaryStage.getIcons().add(new Image("file:src/assets/images/icons/window_icon.png"));
         primaryStage.setScene(loadingScene);
         primaryStage.setTitle("Brain Teaser");
         primaryStage.setResizable(false);

@@ -1,5 +1,6 @@
 package games.hangman;
 
+import com.sun.org.apache.xerces.internal.xinclude.XPointerSchema;
 import games.GameOptions;
 import javafx.event.ActionEvent;
 import java.io.IOException;
@@ -35,6 +36,8 @@ import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import javax.swing.*;
+
 public class HangmanMain extends Application {
 
     private static final int APP_W = 1280;
@@ -52,6 +55,7 @@ public class HangmanMain extends Application {
         wordReader = new WordReader(dict_file);
     }
 
+
     /**
      * The word to guess
      */
@@ -66,6 +70,10 @@ public class HangmanMain extends Application {
      * Current score
      */
     private SimpleIntegerProperty score = new SimpleIntegerProperty();
+
+    public SimpleIntegerProperty highScore = new SimpleIntegerProperty();
+
+
 
     /**
      * How many points next correct letter is worth
@@ -126,6 +134,7 @@ public class HangmanMain extends Application {
         Button btnAgain = new Button("NEW GAME");
         btnAgain.disableProperty().bind(playable);
         btnAgain.setOnAction(event -> startGame());
+
 
         // layout
         HBox row1 = new HBox();
@@ -196,15 +205,24 @@ public class HangmanMain extends Application {
     }
 
     private void stopGame() {
+        if(checkHighScore(score) == false){
+            JOptionPane.showMessageDialog(null, "You beat your high score of " + highScore.intValue() + " with a score of " + score.intValue(), "High Score!", JOptionPane.PLAIN_MESSAGE);
+            highScore.set(score.get());
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "You didn't beat your high score " + highScore.intValue(), "High Score!", JOptionPane.PLAIN_MESSAGE);
+        }
         for (Node n : letters) {
             Letter letter = (Letter) n;
             letter.show();
+
         }
     }
 
     private void startGame() {
         score.set(0);
         for (Text t : alphabet.values()) {
+            score.set(0);
             t.setStrikethrough(false);
             t.setFill(Color.BLACK);
         }
@@ -217,6 +235,14 @@ public class HangmanMain extends Application {
         for (char c : word.get().toCharArray()) {
             letters.add(new Letter(c));
         }
+    }
+
+    private boolean checkHighScore(SimpleIntegerProperty score){
+        if(score.lessThan(highScore).get() == false ){
+            return false;
+        }
+        else
+            return true;
     }
 
     private static class HangmanImage extends Parent {
