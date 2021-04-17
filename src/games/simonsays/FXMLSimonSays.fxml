@@ -14,9 +14,9 @@
                         <Insets top="25.0" />
                     </VBox.margin>
                <children>
-                  <Button id="butFive" layoutX="483.0" layoutY="107.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="47.0" style="-fx-background-color: #3A4DFF; -fx-pref-width: 75; -fx-pref-height: 75;" />
+                  <Button fx:id="butFive" layoutX="483.0" layoutY="107.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="47.0" style="-fx-background-color: #3A4DFF; -fx-pref-width: 75; -fx-pref-height: 75;" />
                   <Button id="butFour" layoutX="397.0" layoutY="107.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="47.0" style="-fx-background-color: #3A4DFF; -fx-pref-width: 75; -fx-pref-height: 75;" />
-                  <Button id="butOne" layoutX="397.0" layoutY="23.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="47.0" style="-fx-background-color: #3A4DFF; -fx-pref-width: 75; -fx-pref-height: 75;" />
+                  <Button fx:id="butOne" layoutX="397.0" layoutY="23.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="47.0" style="-fx-background-color: #3A4DFF; -fx-pref-width: 75; -fx-pref-height: 75;" />
                   <Button id="butTwo" layoutX="483.0" layoutY="23.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="47.0" style="-fx-background-color: #3A4DFF; -fx-pref-width: 75; -fx-pref-height: 75;" />
                   <Button id="butThree" layoutX="566.0" layoutY="23.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="47.0" style="-fx-background-color: #3A4DFF; -fx-pref-width: 75; -fx-pref-height: 75;" />
                   <Button id="butSix" layoutX="566.0" layoutY="107.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="47.0" style="-fx-background-color: #3A4DFF; -fx-pref-width: 75; -fx-pref-height: 75;" />

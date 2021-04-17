@@ -64,12 +64,14 @@ public class FXMLGameScreenController {
     }
 
     public void startSimonSays(ActionEvent event) throws IOException {
-        Parent aboutParent = FXMLLoader.load(getClass().getResource("FXMLAbout.fxml"));
-        Scene aboutScene = new Scene(aboutParent);
+        SimonSaysMain simonSays = new SimonSaysMain();
 
-        // getting stage information
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(aboutScene);
+        try {
+            simonSays.start(window);
+        } catch (Exception e) {
+            e.printStackTrace();
+        };
         window.show();
     }
 
