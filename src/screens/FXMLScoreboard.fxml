@@ -90,6 +90,9 @@
                </children></VBox>
          </children>
       </HBox>
-      <Button layoutX="1114.0" layoutY="629.0" mnemonicParsing="false" onAction="#reset_highscores" prefHeight="77.0" prefWidth="152.0" text="reset scores (maybe)" />
+      <Button layoutX="1052.0" layoutY="629.0" mnemonicParsing="false" onAction="#reset_highscores" prefHeight="77.0" prefWidth="214.0" text="Reset Scores">
+         <font>
+            <Font name="System Bold" size="29.0" />
+         </font></Button>
    </children>
 </AnchorPane>

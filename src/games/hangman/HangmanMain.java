@@ -232,6 +232,7 @@ public class HangmanMain extends Application {
 
     private void startGame() {
         score.set(0);
+        scoreModifier = 1.00f;
         for (Text t : alphabet.values()) {
             score.set(0);
             t.setStrikethrough(false);
