@@ -64,6 +64,7 @@ public class FXMLScoreboardController {
     }
 
 
+
     public void backButtonPushed(ActionEvent event) throws IOException {
         Parent aboutParent = FXMLLoader.load(getClass().getResource("FXMLMainscreen.fxml"));
         Scene mainScene = new Scene(aboutParent);

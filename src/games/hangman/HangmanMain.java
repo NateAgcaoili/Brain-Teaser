@@ -2,8 +2,14 @@ package games.hangman;
 
 import games.GameOptions;
 import javafx.event.ActionEvent;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Scanner;
+
 import javafx.animation.RotateTransition;
 import javafx.application.Application;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -134,7 +140,13 @@ public class HangmanMain extends Application {
 
         Button btnAgain = new Button("NEW GAME");
         btnAgain.disableProperty().bind(playable);
-        btnAgain.setOnAction(event -> startGame());
+        btnAgain.setOnAction(event -> {
+            try {
+                startGame();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
 
         // layout
@@ -206,19 +218,21 @@ public class HangmanMain extends Application {
     }
 
     private void stopGame() {
-        if(!checkHighScore(score)){
+
+
+        for (Node n : letters) {
+            Letter letter = (Letter) n;
+            letter.show();
+
+        }
+        if(score.intValue() >= highScore.intValue()){
             JOptionPane.showMessageDialog(null, "You beat your high score of " + highScore.intValue() + " with a score of " + score.intValue(), "High Score!", JOptionPane.PLAIN_MESSAGE);
             highScore.set(score.get());
             write_highscore_to_file(highScore);
             scoreModifier = 1.0f;
         }
         else{
-            JOptionPane.showMessageDialog(null, "You didn't beat your high score " + highScore.intValue(), "High Score!", JOptionPane.PLAIN_MESSAGE);
-        }
-        for (Node n : letters) {
-            Letter letter = (Letter) n;
-            letter.show();
-
+            JOptionPane.showMessageDialog(null, "You didn't beat your high score " + highScore.intValue() + " with a score of " + score.intValue(), "High Score!", JOptionPane.PLAIN_MESSAGE);
         }
     }
 
@@ -229,9 +243,22 @@ public class HangmanMain extends Application {
         controller.write_highscores(info);
 
     }
+    private int read_highScore_from_file() throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader("src/scoreboard/highscores.txt"));
+        int savedHighScore = 0;
+        String s = br.readLine();
+        int ind = s.indexOf("-");
+        if(ind != -1){
+            String value = s.substring(ind+1);
+            savedHighScore += Integer.parseInt(value);
+        }
 
-    private void startGame() {
+        return savedHighScore;
+    }
+
+    private void startGame() throws IOException {
         score.set(0);
+        highScore.set(read_highScore_from_file());
         scoreModifier = 1.00f;
         for (Text t : alphabet.values()) {
             score.set(0);
@@ -249,9 +276,6 @@ public class HangmanMain extends Application {
         }
     }
 
-    private boolean checkHighScore(SimpleIntegerProperty score){
-        return score.lessThan(highScore).get();
-    }
 
     private static class HangmanImage extends Parent {
         private static final int SPINE_START_X = 100;
