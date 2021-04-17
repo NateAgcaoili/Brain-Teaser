@@ -1,4 +1,4 @@
-hangman-1
+hangman-800
 towers-2
 jigsaw-3
 simon-4

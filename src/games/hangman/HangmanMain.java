@@ -34,6 +34,7 @@ import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import screens.FXMLGameScreenController;
 
 import javax.swing.*;
 
@@ -51,6 +52,7 @@ public class HangmanMain extends Application {
         wordReader.addToDict();
     }
     public HangmanMain(String dict_file) {
+
         wordReader = new WordReader(dict_file);
     }
 
@@ -204,9 +206,11 @@ public class HangmanMain extends Application {
     }
 
     private void stopGame() {
-        if(checkHighScore(score) == false){
+        if(!checkHighScore(score)){
             JOptionPane.showMessageDialog(null, "You beat your high score of " + highScore.intValue() + " with a score of " + score.intValue(), "High Score!", JOptionPane.PLAIN_MESSAGE);
             highScore.set(score.get());
+            write_highscore_to_file(highScore);
+            scoreModifier = 1.0f;
         }
         else{
             JOptionPane.showMessageDialog(null, "You didn't beat your high score " + highScore.intValue(), "High Score!", JOptionPane.PLAIN_MESSAGE);
@@ -216,6 +220,14 @@ public class HangmanMain extends Application {
             letter.show();
 
         }
+    }
+
+    private void write_highscore_to_file(SimpleIntegerProperty highScore) {
+        FXMLGameScreenController controller = new FXMLGameScreenController();
+        int score = highScore.intValue();
+        String[] info = {"hangman", String.valueOf(score)};
+        controller.write_highscores(info);
+
     }
 
     private void startGame() {
@@ -237,11 +249,7 @@ public class HangmanMain extends Application {
     }
 
     private boolean checkHighScore(SimpleIntegerProperty score){
-        if(score.lessThan(highScore).get() == false ){
-            return false;
-        }
-        else
-            return true;
+        return score.lessThan(highScore).get();
     }
 
     private static class HangmanImage extends Parent {

@@ -11,7 +11,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class FXMLGameScreenController {
 
@@ -66,6 +71,61 @@ public class FXMLGameScreenController {
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(aboutScene);
         window.show();
+    }
+
+
+
+    public void write_highscores(String[] info){
+        List<String> scores = new ArrayList<String>();
+        File scores_file = new File("src/scoreboard/highscores.txt");
+        boolean set_new = false;
+        try {
+            Scanner sc = new Scanner(scores_file);
+
+            while (sc.hasNextLine()) {
+                scores.add(sc.nextLine());
+                // Checks if the line matches the correct game name and gets old score
+            }
+            sc.close();
+        }
+        catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.print(scores);
+        for(int i = 0; i < scores.size(); i++) {
+            String line = scores.get(i);
+            if (line.contains(info[0])) {
+                float old_highscore = Integer.parseInt(line.split("-")[1]);
+                float new_score = Integer.parseInt(info[1]);
+
+                if (new_score > old_highscore) {
+                    StringBuilder stb = new StringBuilder();
+                    stb.append(info[0] + "-" + info[1]);
+                    scores.set(i, stb.toString());
+                    set_new = true;
+                    break;
+                }
+
+
+            }
+        }
+        System.out.print(scores);
+        if (set_new) {
+            try {
+                FileWriter fw = new FileWriter(scores_file);
+                for (String line : scores) {
+                    fw.write(line+"\n");
+                }
+
+                fw.close();
+            }
+            catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+
+
     }
 
 }
