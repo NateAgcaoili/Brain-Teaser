@@ -11,7 +11,85 @@
             <Font name="System Bold" size="29.0" />
          </font>
       </Button>
-      <Text layoutX="201.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HangeMan Score" />
-      <Text layoutX="341.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <HBox layoutX="312.0" layoutY="98.0" prefHeight="524.0" prefWidth="656.0">
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="524.0" prefWidth="357.0">
+               <children>
+                  <Label text="Game" underline="true">
+                     <font>
+                        <Font name="System Bold" size="40.0" />
+                     </font>
+                  </Label>
+                  <Separator prefWidth="200.0" />
+                  <Text fill="TRANSPARENT" layoutX="73.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="placeholder">
+                     <font>
+                        <Font name="System Bold" size="40.0" />
+                     </font>
+                  </Text>
+                  <Label layoutX="132.0" layoutY="10.0" text="Hangman">
+                     <font>
+                        <Font name="System Bold" size="40.0" />
+                     </font>
+                  </Label>
+                  <Separator layoutX="10.0" layoutY="68.0" prefWidth="200.0" />
+                  <Label layoutX="95.0" layoutY="125.0" text="Towers of Hanoi">
+                     <font>
+                        <Font name="System Bold" size="40.0" />
+                     </font>
+                  </Label>
+                  <Separator layoutX="10.0" layoutY="236.0" prefWidth="200.0" />
+                  <Label layoutX="95.0" layoutY="125.0" text="Jigsaw">
+                     <font>
+                        <Font name="System Bold" size="40.0" />
+                     </font>
+                  </Label>
+                  <Separator layoutX="10.0" layoutY="179.0" prefWidth="200.0" />
+                  <Label layoutX="95.0" layoutY="125.0" text="Simon Says">
+                     <font>
+                        <Font name="System Bold" size="40.0" />
+                     </font>
+                  </Label>
+               </children></VBox>
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+            <VBox alignment="TOP_CENTER" prefHeight="524.0" prefWidth="302.0">
+               <children>
+                  <Label text="Score" underline="true">
+                     <font>
+                        <Font name="System Bold" size="40.0" />
+                     </font>
+                  </Label>
+                  <Separator prefWidth="200.0" />
+                  <Text fill="TRANSPARENT" strokeType="OUTSIDE" strokeWidth="0.0" text="placeholder">
+                     <font>
+                        <Font name="System Bold" size="40.0" />
+                     </font>
+                  </Text>
+                  <Label fx:id="hangman_score" layoutX="107.0" layoutY="10.0" text="0">
+                     <font>
+                        <Font name="System Bold" size="40.0" />
+                     </font>
+                  </Label>
+                  <Separator layoutX="10.0" layoutY="68.0" prefWidth="200.0" />
+                  <Label fx:id="towers_hanoi_score" layoutX="147.0" layoutY="125.0" text="0">
+                     <font>
+                        <Font name="System Bold" size="40.0" />
+                     </font>
+                  </Label>
+                  <Separator layoutX="10.0" layoutY="179.0" prefWidth="200.0" />
+                  <Label fx:id="jigsaw_score" layoutX="147.0" layoutY="186.0" text="0">
+                     <font>
+                        <Font name="System Bold" size="40.0" />
+                     </font>
+                  </Label>
+                  <Separator layoutX="10.0" layoutY="236.0" prefWidth="200.0" />
+                  <Label fx:id="simon_score" layoutX="147.0" layoutY="186.0" text="0">
+                     <font>
+                        <Font name="System Bold" size="40.0" />
+                     </font>
+                  </Label>
+               </children></VBox>
+         </children>
+      </HBox>
+      <Button layoutX="1114.0" layoutY="629.0" mnemonicParsing="false" prefHeight="77.0" prefWidth="152.0" text="reset scores (maybe)" />
    </children>
 </AnchorPane>

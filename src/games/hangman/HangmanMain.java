@@ -1,6 +1,5 @@
 package games.hangman;
 
-import com.sun.org.apache.xerces.internal.xinclude.XPointerSchema;
 import games.GameOptions;
 import javafx.event.ActionEvent;
 import java.io.IOException;
