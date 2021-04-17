@@ -11,8 +11,10 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class FXMLScoreboardController {
@@ -70,6 +72,43 @@ public class FXMLScoreboardController {
         window.setScene(mainScene);
         window.setResizable(false);
         window.show();
+    }
+
+    public void reset_highscores(ActionEvent event) throws IOException {
+        List<String> scores = new ArrayList<String>();
+        File scores_file = new File("src/scoreboard/highscores.txt");
+
+        try {
+            Scanner sc = new Scanner(scores_file);
+
+            while (sc.hasNextLine()) {
+                scores.add(sc.nextLine());
+            }
+            sc.close();
+        }
+        catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        for(int i = 0; i < scores.size(); i++) {
+            String[] line = scores.get(i).split("-");
+            StringBuilder stb = new StringBuilder();
+            stb.append(line[0] + "-" + "0");
+            scores.set(i, stb.toString());
+
+        }
+        try {
+            FileWriter fw = new FileWriter(scores_file);
+            for (String line : scores) {
+                fw.write(line + "\n");
+            }
+            fw.close();
+        }
+        catch(IOException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println(scores);
+        initialize();
+
     }
 
 }

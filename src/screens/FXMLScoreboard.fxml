@@ -90,6 +90,6 @@
                </children></VBox>
          </children>
       </HBox>
-      <Button layoutX="1114.0" layoutY="629.0" mnemonicParsing="false" prefHeight="77.0" prefWidth="152.0" text="reset scores (maybe)" />
+      <Button layoutX="1114.0" layoutY="629.0" mnemonicParsing="false" onAction="#reset_highscores" prefHeight="77.0" prefWidth="152.0" text="reset scores (maybe)" />
    </children>
 </AnchorPane>

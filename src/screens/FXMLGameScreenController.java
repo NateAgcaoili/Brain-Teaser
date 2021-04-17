@@ -91,7 +91,6 @@ public class FXMLGameScreenController {
         catch (IOException e) {
             System.out.println(e.getMessage());
         }
-        System.out.print(scores);
         for(int i = 0; i < scores.size(); i++) {
             String line = scores.get(i);
             if (line.contains(info[0])) {
@@ -105,11 +104,9 @@ public class FXMLGameScreenController {
                     set_new = true;
                     break;
                 }
-
-
             }
         }
-        System.out.print(scores);
+
         if (set_new) {
             try {
                 FileWriter fw = new FileWriter(scores_file);
