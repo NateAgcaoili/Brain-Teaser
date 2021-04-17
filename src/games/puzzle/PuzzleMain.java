@@ -1,6 +1,5 @@
 package games.puzzle;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +40,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.beans.property.SimpleIntegerProperty;
+import screens.FXMLGameScreenController;
+
+import javax.swing.*;
+
 /**
  *
  * @author Manoj
@@ -53,6 +56,7 @@ public class PuzzleMain extends Application {
     private static final int APP_H = 767; //leave this, for some reason when using 720 the window gets smaller
     private static final int score_per_piece = 15;
     public static SimpleIntegerProperty score = new SimpleIntegerProperty();
+    public static SimpleIntegerProperty highScore = new SimpleIntegerProperty();
 
     private void init(Stage primaryStage) {
         Group root = new Group();
@@ -114,7 +118,9 @@ public class PuzzleMain extends Application {
                                     new KeyValue(piece.translateYProperty(), 0)));
                 }
                 timeline.playFromStart();
+                stopGame();
                 score.set(0);
+
             }
         });
         Button optionsButton = new Button("Options");
@@ -367,11 +373,31 @@ public class PuzzleMain extends Application {
                 System.out.println("Unknown");
         }
     }
+    private boolean checkHighScore(SimpleIntegerProperty score){
+        return score.lessThan(highScore).get();
+    }
+    private void stopGame() {
+        if(!checkHighScore(score)){
+            JOptionPane.showMessageDialog(null, "You beat your high score of " + highScore.intValue() +
+                    " with a score of " + score.intValue(), "High Score!", JOptionPane.PLAIN_MESSAGE);
+            highScore.set(score.get());
+            write_highscore_to_file(highScore);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "You didn't beat your high score " + highScore.intValue(), "High Score!", JOptionPane.PLAIN_MESSAGE);
+        }
+    }
+
+    private void write_highscore_to_file(SimpleIntegerProperty highScore) {
+        FXMLGameScreenController controller = new FXMLGameScreenController();
+        int score = highScore.intValue();
+        String[] info = {"jigsaw", String.valueOf(score)};
+        controller.write_highscores(info);
+
+    }
 
     /*  Hard code each puzzle in and add it to the puzzle list.
         using File.list() returns null for the directory
-
-
      */
     public static Image get_new_puzzle(){
         Image waterfall = new Image("assets/images/puzzleimgs/puzzle1.jpg");
