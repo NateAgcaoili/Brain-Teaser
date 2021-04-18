@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
 
 public class SimonSaysMain extends Application {
     private static final int APP_W = 1280;
@@ -32,6 +33,7 @@ public class SimonSaysMain extends Application {
     Text roundDisplay;
     Text message;
     GameButton[] gameButtons;
+    Color[] colors;
     ArrayList<Integer> simonSequence = new ArrayList<>();
 
     @Override
@@ -41,7 +43,7 @@ public class SimonSaysMain extends Application {
         primaryStage.show();
     }
 
-    private Parent createContent() {
+    private Parent createContent() throws Exception {
         Pane root = new Pane();
         currentRound = 1;
         playerIndex = 0;
@@ -67,10 +69,12 @@ public class SimonSaysMain extends Application {
         GameButton butEight = new GameButton(615, 420, Color.BLUE);
         GameButton butNine = new GameButton(750, 420, Color.BLUE);
         gameButtons = new GameButton[]{butOne, butTwo, butThree, butFour, butFive, butSix, butSeven, butEight, butNine};
+        colors = new Color[]{Color.BLUE, Color.WHITE, Color.GREEN, Color.RED};
         for(int i = 0; i < 9; i++) {
             root.getChildren().add(gameButtons[i]);
         }
         root.getChildren().addAll(roundDisplay, message);
+        playGame();
         return root;
     }
 
@@ -79,7 +83,12 @@ public class SimonSaysMain extends Application {
             gameOver();
         } else if (!playerTurn) {
             roundDisplay.setText("Round " + currentRound);
-            new DisplaySequence().call();
+//            Thread displaySequenceThread = new Thread(displaySequence);
+//
+//            displaySequenceThread.setDaemon(true);
+//
+//            displaySequenceThread.start();
+            new DisplaySequence().execute();
         } else if (playerTurn) {
             if (playerIndex == currentRound) {
                 playerTurn = false;
@@ -87,6 +96,11 @@ public class SimonSaysMain extends Application {
                 currentRound++;
                 message.setText("Correct!");
                 new RoundComplete().call();
+                Thread roundCompleteThread = new Thread(roundComplete);
+
+                roundCompleteThread.setDaemon(true);
+
+                roundCompleteThread.start();
             }
         }
     }
@@ -120,6 +134,8 @@ public class SimonSaysMain extends Application {
             button.setArcHeight(20);
             button.setArcWidth(20);
             button.setFill(buttonColor);
+            button.setStroke(Color.BLACK);
+            button.setStrokeWidth(3);
             button.setOnMouseClicked(e -> {
                 if(playerTurn) {
                     button.setFill(Color.RED);
@@ -131,6 +147,36 @@ public class SimonSaysMain extends Application {
             getChildren().add(button);
         }
     }
+
+    Task<Void> roundComplete = new Task<Void>() {
+
+        @Override
+        protected Void call() throws Exception {
+            Thread.sleep(200);
+            setButtonColors(Color.GREEN);
+            Thread.sleep(1000);
+            setButtonColors(Color.BLUE);
+            Thread.sleep(500);
+            return null;
+        }
+    };
+
+    Task<Void> displaySequence = new Task<Void>() {
+
+        @Override
+        protected Void call() throws Exception {
+            addToSequence();
+            for (int i = 0; i < simonSequence.size(); i++) {
+                Thread.sleep(500);
+                gameButtons[simonSequence.get(currentRound)].button.setFill(Color.WHITE);
+                Thread.sleep(500);
+                gameButtons[simonSequence.get(currentRound)].button.setFill(Color.BLUE);
+            }
+            playerTurn = true;
+
+            return null;
+        }
+    };
 
     public class RoundComplete extends Task<Void> {
 
@@ -145,20 +191,58 @@ public class SimonSaysMain extends Application {
         }
     }
 
-    public class DisplaySequence extends Task<Void> {
+//    public class DisplaySequence extends Task<Void> {
+//        @Override
+//        protected Void call() throws Exception {
+//            addToSequence();
+//            for (int i = 0; i < simonSequence.size(); i++) {
+//                Thread.sleep(500);
+//                updateColor(i, Color.WHITE);
+//                Thread.sleep(500);
+//                updateColor(i, Color.BLUE);
+//            }
+//            playerTurn = true;
+//
+//            return null;
+//        }
+//
+//
+//        protected void updateColor(int i, Color color) {
+//            gameButtons[simonSequence.get(i)].button.setFill(color);
+//        }
+//
+//    }
+
+    public class DisplaySequence extends AsyncTask<Integer, Integer, Double> {
+
         @Override
-        protected Void call() throws Exception {
+        public void onPreExecute() {
+
+        }
+
+        @Override
+        public Double doInBackground(Integer... integers) throws InterruptedException {
             addToSequence();
             for (int i = 0; i < simonSequence.size(); i++) {
                 Thread.sleep(500);
-                gameButtons[simonSequence.get(currentRound)].button.setFill(Color.WHITE);
+                publishProgress(i, 1);
                 Thread.sleep(500);
-                gameButtons[simonSequence.get(currentRound)].button.setFill(Color.BLUE);
+                publishProgress(i, 0);
             }
-            playerTurn = true;
-
             return null;
         }
+
+        @Override
+        public void progressCallback(Integer...params) {
+            gameButtons[simonSequence.get(params[0])].button.setFill(colors[params[1]]);
+        }
+
+        public void onPostExecute(Double result) throws Exception {
+            playerTurn = true;
+            message.setText("Your turn");
+            playGame();
+        }
+
 
     }
 
