@@ -19,6 +19,10 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 
+/**
+ * @author Nate Agcaoili
+ */
+
 public class SimonSaysMain extends Application {
     private static final int APP_W = 1280;
     private static final int APP_H = 720;
@@ -59,15 +63,15 @@ public class SimonSaysMain extends Application {
         message.setText("Simon's Turn");
         message.setX(480);
         message.setY(620);
-        GameButton butOne = new GameButton(480, 150, Color.BLUE);
-        GameButton butTwo = new GameButton(615, 150, Color.BLUE);
-        GameButton butThree = new GameButton(750, 150, Color.BLUE);
-        GameButton butFour = new GameButton(480, 285, Color.BLUE);
-        GameButton butFive = new GameButton(615, 285, Color.BLUE);
-        GameButton butSix = new GameButton(750, 285, Color.BLUE);
-        GameButton butSeven = new GameButton(480, 420, Color.BLUE);
-        GameButton butEight = new GameButton(615, 420, Color.BLUE);
-        GameButton butNine = new GameButton(750, 420, Color.BLUE);
+        GameButton butOne = new GameButton(0,480, 150, Color.BLUE);
+        GameButton butTwo = new GameButton(1,615, 150, Color.BLUE);
+        GameButton butThree = new GameButton(2,750, 150, Color.BLUE);
+        GameButton butFour = new GameButton(3,480, 285, Color.BLUE);
+        GameButton butFive = new GameButton(4,615, 285, Color.BLUE);
+        GameButton butSix = new GameButton(5,750, 285, Color.BLUE);
+        GameButton butSeven = new GameButton(6,480, 420, Color.BLUE);
+        GameButton butEight = new GameButton(7,615, 420, Color.BLUE);
+        GameButton butNine = new GameButton(8,750, 420, Color.BLUE);
         gameButtons = new GameButton[]{butOne, butTwo, butThree, butFour, butFive, butSix, butSeven, butEight, butNine};
         colors = new Color[]{Color.BLUE, Color.WHITE, Color.GREEN, Color.RED};
         for(int i = 0; i < 9; i++) {
@@ -95,12 +99,7 @@ public class SimonSaysMain extends Application {
                 playerIndex = 0;
                 currentRound++;
                 message.setText("Correct!");
-                new RoundComplete().call();
-                Thread roundCompleteThread = new Thread(roundComplete);
-
-                roundCompleteThread.setDaemon(true);
-
-                roundCompleteThread.start();
+                new RoundComplete().execute();
             }
         }
     }
@@ -122,11 +121,11 @@ public class SimonSaysMain extends Application {
     }
 
     public class GameButton extends StackPane {
-        boolean isEnabled;
-        Color buttonColor;
+        int buttonId;
         Rectangle button;
 
-        GameButton(int x, int y, Color buttonColor) {
+        GameButton(int id, int x, int y, Color buttonColor) {
+            buttonId = id;
             setTranslateX(x);
             setTranslateY(y);
             setPrefSize(125, 125);
@@ -138,7 +137,7 @@ public class SimonSaysMain extends Application {
             button.setStrokeWidth(3);
             button.setOnMouseClicked(e -> {
                 if(playerTurn) {
-                    button.setFill(Color.RED);
+                    new ButtonClick().execute(buttonId);
                 } else {
 
                 }
@@ -178,18 +177,18 @@ public class SimonSaysMain extends Application {
         }
     };
 
-    public class RoundComplete extends Task<Void> {
-
-        @Override
-        protected Void call() throws Exception {
-            Thread.sleep(200);
-            setButtonColors(Color.GREEN);
-            Thread.sleep(1000);
-            setButtonColors(Color.BLUE);
-            Thread.sleep(500);
-            return null;
-        }
-    }
+//    public class RoundComplete extends Task<Void> {
+//
+//        @Override
+//        protected Void call() throws Exception {
+//            Thread.sleep(200);
+//            setButtonColors(Color.GREEN);
+//            Thread.sleep(1000);
+//            setButtonColors(Color.BLUE);
+//            Thread.sleep(500);
+//            return null;
+//        }
+//    }
 
 //    public class DisplaySequence extends Task<Void> {
 //        @Override
@@ -212,6 +211,37 @@ public class SimonSaysMain extends Application {
 //        }
 //
 //    }
+
+    public class RoundComplete extends AsyncTask<Integer, Integer, Double> {
+
+        @Override
+        public void onPreExecute() {
+
+        }
+
+        @Override
+        public Double doInBackground(Integer... integers) throws InterruptedException {
+            Thread.sleep(200);
+            publishProgress(2, 2);
+            Thread.sleep(1000);
+            publishProgress(0, 0);
+            Thread.sleep(500);
+            return null;
+        }
+
+        @Override
+        public void progressCallback(Integer...params) {
+            for (int i = 0; i < 9; i++) {
+                gameButtons[i].button.setFill(colors[params[1]]);
+            }
+        }
+
+        public void onPostExecute(Double result) throws Exception {
+            message.setText("Simon's turn");
+            playGame();
+        }
+
+    }
 
     public class DisplaySequence extends AsyncTask<Integer, Integer, Double> {
 
@@ -240,6 +270,34 @@ public class SimonSaysMain extends Application {
         public void onPostExecute(Double result) throws Exception {
             playerTurn = true;
             message.setText("Your turn");
+            playGame();
+        }
+
+
+    }
+    public class ButtonClick extends AsyncTask<Integer, Integer, Double> {
+
+        @Override
+        public void onPreExecute() {
+
+        }
+
+        @Override
+        public Double doInBackground(Integer... integers) throws InterruptedException {
+                publishProgress(integers[0], 1);
+                Thread.sleep(50);
+                publishProgress(integers[0], 0);
+                playerIndex++;
+
+            return null;
+        }
+
+        @Override
+        public void progressCallback(Integer...params) {
+            gameButtons[params[0]].button.setFill(colors[params[1]]);
+        }
+
+        public void onPostExecute(Double result) throws Exception {
             playGame();
         }
 
