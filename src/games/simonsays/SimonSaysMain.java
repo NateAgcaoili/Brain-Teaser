@@ -36,13 +36,24 @@ public class SimonSaysMain extends Application {
     }
 
     private Parent createContent() {
+        Pane root = new Pane();
         currentRound = 1;
         playerIndex = 0;
         running = true;
         playerTurn = false;
-        GameButton butOne = new GameButton(615, 285, Color.BLUE);
-        Pane root = new Pane();
-        root.getChildren().add(butOne);
+        GameButton butOne = new GameButton(480, 150, Color.BLUE);
+        GameButton butTwo = new GameButton(615, 150, Color.BLUE);
+        GameButton butThree = new GameButton(750, 150, Color.BLUE);
+        GameButton butFour = new GameButton(480, 285, Color.BLUE);
+        GameButton butFive = new GameButton(615, 285, Color.BLUE);
+        GameButton butSix = new GameButton(750, 285, Color.BLUE);
+        GameButton butSeven = new GameButton(480, 420, Color.BLUE);
+        GameButton butEight = new GameButton(615, 420, Color.BLUE);
+        GameButton butNine = new GameButton(750, 420, Color.BLUE);
+        gameButtons = new GameButton[]{butOne, butTwo, butThree, butFour, butFive, butSix, butSeven, butEight, butNine};
+        for(int i = 0; i < 9; i++) {
+            root.getChildren().add(gameButtons[i]);
+        }
         return root;
     }
 
