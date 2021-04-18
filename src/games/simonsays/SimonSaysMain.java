@@ -1,12 +1,8 @@
 package games.simonsays;
 
 import javafx.application.Application;
-import javafx.concurrent.Task;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -17,7 +13,6 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.concurrent.ExecutorService;
 
 /**
  * @author Nate Agcaoili
@@ -83,11 +78,6 @@ public class SimonSaysMain extends Application {
             gameOver();
         } else if (!playerTurn) {
             roundDisplay.setText("Round " + currentRound);
-//            Thread displaySequenceThread = new Thread(displaySequence);
-//
-//            displaySequenceThread.setDaemon(true);
-//
-//            displaySequenceThread.start();
             new DisplaySequence().execute();
         } else if (playerTurn) {
             if (playerIndex == currentRound) {
@@ -145,71 +135,6 @@ public class SimonSaysMain extends Application {
             getChildren().add(button);
         }
     }
-
-    Task<Void> roundComplete = new Task<Void>() {
-
-        @Override
-        protected Void call() throws Exception {
-            Thread.sleep(200);
-            setButtonColors(Color.GREEN);
-            Thread.sleep(1000);
-            setButtonColors(Color.BLUE);
-            Thread.sleep(500);
-            return null;
-        }
-    };
-
-    Task<Void> displaySequence = new Task<Void>() {
-
-        @Override
-        protected Void call() throws Exception {
-            addToSequence();
-            for (int i = 0; i < simonSequence.size(); i++) {
-                Thread.sleep(500);
-                gameButtons[simonSequence.get(currentRound)].button.setFill(Color.WHITE);
-                Thread.sleep(500);
-                gameButtons[simonSequence.get(currentRound)].button.setFill(Color.BLUE);
-            }
-            playerTurn = true;
-
-            return null;
-        }
-    };
-
-//    public class RoundComplete extends Task<Void> {
-//
-//        @Override
-//        protected Void call() throws Exception {
-//            Thread.sleep(200);
-//            setButtonColors(Color.GREEN);
-//            Thread.sleep(1000);
-//            setButtonColors(Color.BLUE);
-//            Thread.sleep(500);
-//            return null;
-//        }
-//    }
-
-//    public class DisplaySequence extends Task<Void> {
-//        @Override
-//        protected Void call() throws Exception {
-//            addToSequence();
-//            for (int i = 0; i < simonSequence.size(); i++) {
-//                Thread.sleep(500);
-//                updateColor(i, Color.WHITE);
-//                Thread.sleep(500);
-//                updateColor(i, Color.BLUE);
-//            }
-//            playerTurn = true;
-//
-//            return null;
-//        }
-//
-//
-//        protected void updateColor(int i, Color color) {
-//            gameButtons[simonSequence.get(i)].button.setFill(color);
-//        }
-//
-//    }
 
     public class RoundComplete extends AsyncTask<Integer, Integer, Double> {
 
