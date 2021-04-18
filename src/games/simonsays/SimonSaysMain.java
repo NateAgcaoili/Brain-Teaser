@@ -1,6 +1,7 @@
 package games.simonsays;
 
 import javafx.application.Application;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,9 +11,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class SimonSaysMain extends Application {
     private static final int APP_W = 1280;
@@ -25,6 +29,8 @@ public class SimonSaysMain extends Application {
     int green;
     boolean running;
     boolean playerTurn;
+    Text roundDisplay;
+    Text message;
     GameButton[] gameButtons;
     ArrayList<Integer> simonSequence = new ArrayList<>();
 
@@ -41,6 +47,16 @@ public class SimonSaysMain extends Application {
         playerIndex = 0;
         running = true;
         playerTurn = false;
+        roundDisplay = new Text();
+        roundDisplay.setFont(new Font(75));
+        roundDisplay.setText("Round " + currentRound);
+        roundDisplay.setX(480);
+        roundDisplay.setY(125);
+        message = new Text();
+        message.setFont(new Font(70));
+        message.setText("Simon's Turn");
+        message.setX(480);
+        message.setY(620);
         GameButton butOne = new GameButton(480, 150, Color.BLUE);
         GameButton butTwo = new GameButton(615, 150, Color.BLUE);
         GameButton butThree = new GameButton(750, 150, Color.BLUE);
@@ -54,7 +70,41 @@ public class SimonSaysMain extends Application {
         for(int i = 0; i < 9; i++) {
             root.getChildren().add(gameButtons[i]);
         }
+        root.getChildren().addAll(roundDisplay, message);
         return root;
+    }
+
+    public void playGame() throws Exception {
+        if (!running) {
+            gameOver();
+        } else if (!playerTurn) {
+            roundDisplay.setText("Round " + currentRound);
+            new DisplaySequence().call();
+        } else if (playerTurn) {
+            if (playerIndex == currentRound) {
+                playerTurn = false;
+                playerIndex = 0;
+                currentRound++;
+                message.setText("Correct!");
+                new RoundComplete().call();
+            }
+        }
+    }
+
+    public void addToSequence() {
+        Random rand = new Random();
+        int newInt = rand.nextInt(9);
+        simonSequence.add(newInt);
+    }
+
+    public void setButtonColors(Color buttonColor) {
+        for(int i = 0; i < 9; i++) {
+            gameButtons[i].button.setFill(buttonColor);
+        }
+    }
+
+    public void gameOver() {
+
     }
 
     public class GameButton extends StackPane {
@@ -80,6 +130,36 @@ public class SimonSaysMain extends Application {
 
             getChildren().add(button);
         }
+    }
+
+    public class RoundComplete extends Task<Void> {
+
+        @Override
+        protected Void call() throws Exception {
+            Thread.sleep(200);
+            setButtonColors(Color.GREEN);
+            Thread.sleep(1000);
+            setButtonColors(Color.BLUE);
+            Thread.sleep(500);
+            return null;
+        }
+    }
+
+    public class DisplaySequence extends Task<Void> {
+        @Override
+        protected Void call() throws Exception {
+            addToSequence();
+            for (int i = 0; i < simonSequence.size(); i++) {
+                Thread.sleep(500);
+                gameButtons[simonSequence.get(currentRound)].button.setFill(Color.WHITE);
+                Thread.sleep(500);
+                gameButtons[simonSequence.get(currentRound)].button.setFill(Color.BLUE);
+            }
+            playerTurn = true;
+
+            return null;
+        }
+
     }
 
 }
