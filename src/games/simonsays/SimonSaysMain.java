@@ -26,12 +26,8 @@ import java.util.concurrent.ExecutorService;
 public class SimonSaysMain extends Application {
     private static final int APP_W = 1280;
     private static final int APP_H = 720;
-    private static final int NUM_CIRCLES = 5;
     int currentRound;
     int playerIndex;
-    int blue;
-    int red;
-    int green;
     boolean running;
     boolean playerTurn;
     Text roundDisplay;
@@ -117,7 +113,10 @@ public class SimonSaysMain extends Application {
     }
 
     public void gameOver() {
-
+        playerTurn = false;
+        setButtonColors(colors[3]);
+        message.setText("Game Over");
+        roundDisplay.setText("Score: " + currentRound);
     }
 
     public class GameButton extends StackPane {
@@ -284,11 +283,14 @@ public class SimonSaysMain extends Application {
 
         @Override
         public Double doInBackground(Integer... integers) throws InterruptedException {
+            if (gameButtons[simonSequence.get(playerIndex)].buttonId == integers[0]) {
                 publishProgress(integers[0], 1);
                 Thread.sleep(50);
                 publishProgress(integers[0], 0);
                 playerIndex++;
-
+            } else {
+                running = false;
+            }
             return null;
         }
 
