@@ -1,5 +1,6 @@
 package games;
 
+import javafx.scene.image.Image;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
@@ -18,6 +19,7 @@ public class GameOptions {
         window.setWidth(400);
         window.setHeight(400);
         window.setResizable(false);
+        window.getIcons().add(new Image("file:src/assets/images/icons/window_icon.png"));
 
         Label label = new Label();
         label.setText("Options Menu");
@@ -53,6 +55,7 @@ public class GameOptions {
         });
 
         VBox layout = new VBox(20);
+        layout.setStyle("-fx-background-color: #7cc9fc");
         layout.getChildren().addAll(label, returnButton, gamesButton, mainMenuButton);
         layout.setAlignment(Pos.CENTER);
 
