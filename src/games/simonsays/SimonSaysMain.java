@@ -37,8 +37,8 @@ public class SimonSaysMain extends Application {
     Button playAgainButton;
     Button mainMenuButton;
     Button optionsButton;
-    GameButton[] gameButtons;
     Color[] colors;
+    GameButton[] gameButtons;
     ArrayList<Integer> simonSequence = new ArrayList<>();
 
     @Override
@@ -92,17 +92,17 @@ public class SimonSaysMain extends Application {
         });
         optionsButton.setLayoutX(10);
         optionsButton.setLayoutY(10);
-        GameButton butOne = new GameButton(0,480, 150, Color.BLUE);
-        GameButton butTwo = new GameButton(1,615, 150, Color.BLUE);
-        GameButton butThree = new GameButton(2,750, 150, Color.BLUE);
-        GameButton butFour = new GameButton(3,480, 285, Color.BLUE);
-        GameButton butFive = new GameButton(4,615, 285, Color.BLUE);
-        GameButton butSix = new GameButton(5,750, 285, Color.BLUE);
-        GameButton butSeven = new GameButton(6,480, 420, Color.BLUE);
-        GameButton butEight = new GameButton(7,615, 420, Color.BLUE);
-        GameButton butNine = new GameButton(8,750, 420, Color.BLUE);
+        colors = new Color[]{Color.web("#4f63ef"), Color.WHITE, Color.web("#06b25f"), Color.web("#ff4c4c")};
+        GameButton butOne = new GameButton(0,480, 150, colors[0]);
+        GameButton butTwo = new GameButton(1,615, 150, colors[0]);
+        GameButton butThree = new GameButton(2,750, 150, colors[0]);
+        GameButton butFour = new GameButton(3,480, 285, colors[0]);
+        GameButton butFive = new GameButton(4,615, 285,colors[0]);
+        GameButton butSix = new GameButton(5,750, 285, colors[0]);
+        GameButton butSeven = new GameButton(6,480, 420, colors[0]);
+        GameButton butEight = new GameButton(7,615, 420, colors[0]);
+        GameButton butNine = new GameButton(8,750, 420, colors[0]);
         gameButtons = new GameButton[]{butOne, butTwo, butThree, butFour, butFive, butSix, butSeven, butEight, butNine};
-        colors = new Color[]{Color.BLUE, Color.WHITE, Color.GREEN, Color.RED};
         for(int i = 0; i < 9; i++) {
             root.getChildren().add(gameButtons[i]);
         }
