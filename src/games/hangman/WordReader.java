@@ -31,9 +31,10 @@ public class WordReader {
              BufferedReader bf = new BufferedReader(new InputStreamReader(in))) {
 
             String line = "";
-            while ((line = bf.readLine()) != null)
+            while ((line = bf.readLine()) != null) {
                 words.add(line.split(":")[0]);
                 wordDefs.add(line);
+            }
         }
         catch (Exception e) {
             System.out.println("Couldn't find/read file: " + file);
@@ -42,7 +43,7 @@ public class WordReader {
     }
 
     public List<String> getWordsWithDefinition() {
-        return words;
+        return wordDefs;
     }
 
     public String getRandomWord() {
