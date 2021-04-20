@@ -2,6 +2,7 @@ package games.simonsays;
 
 import games.GameOptions;
 import javafx.application.Application;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -16,8 +17,14 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import screens.FXMLGameScreenController;
+import sun.java2d.pipe.SpanShapeRenderer;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -40,6 +47,7 @@ public class SimonSaysMain extends Application {
     Color[] colors;
     GameButton[] gameButtons;
     ArrayList<Integer> simonSequence = new ArrayList<>();
+    SimpleIntegerProperty score = new SimpleIntegerProperty();
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -147,6 +155,39 @@ public class SimonSaysMain extends Application {
         mainMenuButton.setVisible(true);
         message.setText("Game Over");
         roundDisplay.setText("Score: " + currentRound);
+        score.set(currentRound);
+        if(checkHighScore(score) == true)
+            write_highscore_to_file(score);
+
+    }
+    private void write_highscore_to_file(SimpleIntegerProperty highScore) {
+        FXMLGameScreenController controller = new FXMLGameScreenController();
+        int score = highScore.intValue();
+        String[] info = {"simon", String.valueOf(score)};
+        controller.write_highscores(info);
+
+    }
+    public int read_highScore_from_file() {
+        int n = 3;//equates to line 3 in the text file highscores.txt so the function will read the 3rd line, use this function for every game after hangman, and don't change the highscores.txt format.
+        int savedHighScore = 0;
+        try {
+            String s = Files.readAllLines(Paths.get("src/scoreboard/highscores.txt")).get(n);
+            int ind = s.indexOf("-");
+            if (ind != -1) {
+                String value = s.substring(ind + 1);
+                savedHighScore += Integer.parseInt(value);
+            }
+        }catch (IOException e) {
+            System.out.println(e);
+        }
+        return savedHighScore;
+    }
+    //checks score against highscore, if true than score is better than current highscore, else its lower.
+    public boolean checkHighScore(SimpleIntegerProperty score){
+        if(score.intValue() >= read_highScore_from_file())
+            return true;
+        else
+            return false;
     }
 
     private void openOptions(ActionEvent event) throws IOException {

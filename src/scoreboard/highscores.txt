@@ -1,4 +1,4 @@
-hangman-760
+hangman-1000
 towers-12
 jigsaw-13
-simon-14
+simon-3
