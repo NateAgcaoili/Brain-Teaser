@@ -50,6 +50,7 @@ public class SimonSaysMain extends Application {
 
     private Parent createContent() throws Exception {
         Pane root = new Pane();
+        root.setStyle("-fx-background-color: #7cc9fc");
         currentRound = 1;
         playerIndex = 0;
         running = true;
@@ -142,6 +143,7 @@ public class SimonSaysMain extends Application {
 
     public void gameOver() {
         playerTurn = false;
+
         setButtonColors(colors[3]);
         playAgainButton.setVisible(true);
         mainMenuButton.setVisible(true);
