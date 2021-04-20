@@ -5,18 +5,14 @@ import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.media.AudioClip;
-import javafx.scene.media.MediaPlayer;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.util.Duration;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
 public class Main extends Application {
-
 
     public static void main(String[] args) {
         launch(args);
