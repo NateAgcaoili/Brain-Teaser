@@ -3,6 +3,9 @@ package games.hangman;
 //import com.sun.org.apache.xerces.internal.xinclude.XPointerSchema;
 import games.GameOptions;
 import javafx.event.ActionEvent;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import javafx.animation.RotateTransition;
@@ -35,6 +38,7 @@ import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import screens.FXMLGameScreenController;
 
 import javax.swing.*;
 
@@ -133,7 +137,13 @@ public class HangmanMain extends Application {
 
         Button btnAgain = new Button("NEW GAME");
         btnAgain.disableProperty().bind(playable);
-        btnAgain.setOnAction(event -> startGame());
+        btnAgain.setOnAction(event -> {
+            try {
+                startGame();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
 
         // layout
@@ -205,22 +215,54 @@ public class HangmanMain extends Application {
     }
 
     private void stopGame() {
-        if(checkHighScore(score) == false){
+       /* if(checkHighScore(score) == false){
             JOptionPane.showMessageDialog(null, "You beat your high score of " + highScore.intValue() + " with a score of " + score.intValue(), "High Score!", JOptionPane.PLAIN_MESSAGE);
             highScore.set(score.get());
         }
         else{
-            JOptionPane.showMessageDialog(null, "You didn't beat your high score " + highScore.intValue(), "High Score!", JOptionPane.PLAIN_MESSAGE);
-        }
+            JOptionPane.showMessageDialog(null, "You didn't beat your high score " + highScore.intValue(), "Maybe Next Time!", JOptionPane.PLAIN_MESSAGE);
+        }*/
+
         for (Node n : letters) {
             Letter letter = (Letter) n;
             letter.show();
 
         }
+        if(score.intValue() >= highScore.intValue()){
+            JOptionPane.showMessageDialog(null, "You beat your high score of " + highScore.intValue() + " with a score of " + score.intValue(), "High Score!", JOptionPane.PLAIN_MESSAGE);
+            highScore.set(score.get());
+            write_highscore_to_file(highScore);
+            scoreModifier = 1.0f;
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "You didn't beat your high score " + highScore.intValue() + " with a score of " + score.intValue(), "High Score!", JOptionPane.PLAIN_MESSAGE);
+        }
+
     }
 
-    private void startGame() {
+    private void write_highscore_to_file(SimpleIntegerProperty highScore) {
+        FXMLGameScreenController controller = new FXMLGameScreenController();
+        int score = highScore.intValue();
+        String[] info = {"hangman", String.valueOf(score)};
+        controller.write_highscores(info);
+
+    }
+    private int read_highScore_from_file() throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader("src/scoreboard/highscores.txt"));
+        int savedHighScore = 0;
+        String s = br.readLine();
+        int ind = s.indexOf("-");
+        if(ind != -1){
+            String value = s.substring(ind+1);
+            savedHighScore += Integer.parseInt(value);
+        }
+
+        return savedHighScore;
+    }
+
+    private void startGame() throws IOException {
         score.set(0);
+        highScore.set(read_highScore_from_file());
         for (Text t : alphabet.values()) {
             score.set(0);
             t.setStrikethrough(false);
@@ -237,13 +279,13 @@ public class HangmanMain extends Application {
         }
     }
 
-    private boolean checkHighScore(SimpleIntegerProperty score){
+   /* private boolean checkHighScore(SimpleIntegerProperty score){
         if(score.lessThan(highScore).get() == false ){
             return false;
         }
         else
             return true;
-    }
+    }*/
 
     private static class HangmanImage extends Parent {
         private static final int SPINE_START_X = 100;

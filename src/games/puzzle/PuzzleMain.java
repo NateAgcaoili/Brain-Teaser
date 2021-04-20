@@ -1,18 +1,12 @@
 package games.puzzle;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import games.GameOptions;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import static javafx.application.Application.launch;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
@@ -20,29 +14,25 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Ellipse;
-import javafx.scene.shape.LineTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
+import javafx.scene.shape.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javafx.beans.property.SimpleIntegerProperty;
 import screens.FXMLGameScreenController;
 
 import javax.swing.*;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -58,9 +48,11 @@ public class PuzzleMain extends Application {
     public static SimpleIntegerProperty score = new SimpleIntegerProperty();
     public static SimpleIntegerProperty highScore = new SimpleIntegerProperty();
 
+
     private void init(Stage primaryStage) {
         Group root = new Group();
         primaryStage.setScene(new Scene(root));
+        highScore.set(read_highScore_from_file());
         // load puzzle image
         Image image = get_new_puzzle();
         int numOfColumns = (int) (image.getWidth() / Piece.SIZE);
@@ -68,7 +60,7 @@ public class PuzzleMain extends Application {
         // create desk
         final Desk desk = new Desk(numOfColumns, numOfRows);
         // create puzzle pieces
-        final List<Piece> pieces  = new ArrayList<Piece>();
+        final List<Piece> pieces  = new ArrayList<>();
         for (int col = 0; col < numOfColumns; col++) {
             for (int row = 0; row < numOfRows; row++) {
                 int x = col * Piece.SIZE;
@@ -84,44 +76,39 @@ public class PuzzleMain extends Application {
         // create button box
         Button shuffleButton = new Button("Shuffle");
         shuffleButton.setStyle("-fx-font-size: 2em;");
-        shuffleButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent actionEvent) {
-                if (timeline != null) timeline.stop();
-                timeline = new Timeline();
-                for (final Piece piece : pieces) {
-                    piece.setActive();
-                    double shuffleX = Math.random() *
-                            (desk.getWidth() - Piece.SIZE + 48f ) -
-                            24f - piece.getCorrectX();
-                    double shuffleY = Math.random() *
-                            (desk.getHeight() - Piece.SIZE + 30f ) -
-                            15f - piece.getCorrectY();
-                    timeline.getKeyFrames().add(
-                            new KeyFrame(Duration.seconds(1),
-                                    new KeyValue(piece.translateXProperty(), shuffleX),
-                                    new KeyValue(piece.translateYProperty(), shuffleY)));
-                }
-                timeline.playFromStart();
+        shuffleButton.setOnAction(actionEvent -> {
+            if (timeline != null) timeline.stop();
+            timeline = new Timeline();
+            for (final Piece piece : pieces) {
+                piece.setActive();
+                double shuffleX = Math.random() *
+                        (desk.getWidth() - Piece.SIZE + 48f ) -
+                        24f - piece.getCorrectX();
+                double shuffleY = Math.random() *
+                        (desk.getHeight() - Piece.SIZE + 30f ) -
+                        15f - piece.getCorrectY();
+                timeline.getKeyFrames().add(
+                        new KeyFrame(Duration.seconds(1),
+                                new KeyValue(piece.translateXProperty(), shuffleX),
+                                new KeyValue(piece.translateYProperty(), shuffleY)));
             }
+            timeline.playFromStart();
         });
         Button solveButton = new Button("Solve");
         solveButton.setStyle("-fx-font-size: 2em;");
-        solveButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent actionEvent) {
-                if (timeline != null) timeline.stop();
-                timeline = new Timeline();
-                for (final Piece piece : pieces) {
-                    piece.setInactive();
-                    timeline.getKeyFrames().add(
-                            new KeyFrame(Duration.seconds(1),
-                                    new KeyValue(piece.translateXProperty(), 0),
-                                    new KeyValue(piece.translateYProperty(), 0)));
-                }
-                timeline.playFromStart();
-                stopGame();
-                score.set(0);
-
+        solveButton.setOnAction(actionEvent -> {
+            if (timeline != null) timeline.stop();
+            timeline = new Timeline();
+            for (final Piece piece : pieces) {
+                piece.setInactive();
+                timeline.getKeyFrames().add(
+                        new KeyFrame(Duration.seconds(1),
+                                new KeyValue(piece.translateXProperty(), 0),
+                                new KeyValue(piece.translateYProperty(), 0)));
             }
+            timeline.playFromStart();
+            stopGame();
+            score.set(0);
         });
         Button optionsButton = new Button("Options");
         optionsButton.setStyle("-fx-font-size: 2em;");
@@ -196,9 +183,6 @@ public class PuzzleMain extends Application {
         private final boolean hasRightTab;
         private double startDragX;
         private double startDragY;
-        private Shape pieceStroke;
-        private Shape pieceClip;
-        private ImageView imageView = new ImageView();
         private Point2D dragAnchor;
 
         public Piece(Image image, final double correctX, final double correctY,
@@ -211,14 +195,15 @@ public class PuzzleMain extends Application {
             this.hasBottomTab = bottomTab;
             this.hasRightTab = rightTab;
             // configure clip
-            pieceClip = createPiece();
+            Shape pieceClip = createPiece();
             pieceClip.setFill(Color.WHITE);
             pieceClip.setStroke(null);
             // add a stroke
-            pieceStroke = createPiece();
+            Shape pieceStroke = createPiece();
             pieceStroke.setFill(null);
             pieceStroke.setStroke(Color.BLACK);
             // create image view
+            ImageView imageView = new ImageView();
             imageView.setImage(image);
             imageView.setClip(pieceClip);
             setFocusTraversable(true);
@@ -228,48 +213,42 @@ public class PuzzleMain extends Application {
             // start in inactive state
             setInactive();
             // add listeners to support dragging
-            setOnMousePressed(new EventHandler<MouseEvent>() {
-                public void handle(MouseEvent me) {
-                    toFront();
-                    startDragX = getTranslateX();
-                    startDragY = getTranslateY();
-                    dragAnchor = new Point2D(me.getSceneX(), me.getSceneY());
+            setOnMousePressed(me -> {
+                toFront();
+                startDragX = getTranslateX();
+                startDragY = getTranslateY();
+                dragAnchor = new Point2D(me.getSceneX(), me.getSceneY());
+            });
+            setOnMouseReleased(me -> {
+                if (getTranslateX() < (10) && getTranslateX() > (- 10) &&
+                        getTranslateY() < (10) && getTranslateY() > (- 10)) {
+                    score.set(score.get() + score_per_piece);
+                    setTranslateX(0);
+                    setTranslateY(0);
+                    setInactive();
+
+
+
                 }
             });
-            setOnMouseReleased(new EventHandler<MouseEvent>() {
-                public void handle(MouseEvent me) {
-                    if (getTranslateX() < (10) && getTranslateX() > (- 10) &&
-                            getTranslateY() < (10) && getTranslateY() > (- 10)) {
-                        score.set(score.get() + score_per_piece);
-                        setTranslateX(0);
-                        setTranslateY(0);
-                        setInactive();
+            setOnMouseDragged(me -> {
+                double newTranslateX = startDragX
+                        + me.getSceneX() - dragAnchor.getX();
+                double newTranslateY = startDragY
+                        + me.getSceneY() - dragAnchor.getY();
+                double minTranslateX = - 45f - correctX;
 
-
-
-                    }
-                }
-            });
-            setOnMouseDragged(new EventHandler<MouseEvent>() {
-                public void handle(MouseEvent me) {
-                    double newTranslateX = startDragX
-                            + me.getSceneX() - dragAnchor.getX();
-                    double newTranslateY = startDragY
-                            + me.getSceneY() - dragAnchor.getY();
-                    double minTranslateX = - 45f - correctX;
-
-                    // Max translate default values are x:50f y:70f
-                    // Change to drag around on the screen.
-                    double maxTranslateX = (deskWidth - Piece.SIZE + 250f ) - correctX;
-                    double minTranslateY = - 30f - correctY;
-                    double maxTranslateY = (deskHeight - Piece.SIZE +250f ) - correctY;
-                    if ((newTranslateX> minTranslateX ) &&
-                            (newTranslateX< maxTranslateX) &&
-                            (newTranslateY> minTranslateY) &&
-                            (newTranslateY< maxTranslateY)) {
-                        setTranslateX(newTranslateX);
-                        setTranslateY(newTranslateY);
-                    }
+                // Max translate default values are x:50f y:70f
+                // Change to drag around on the screen.
+                double maxTranslateX = (deskWidth - Piece.SIZE + 250f ) - correctX;
+                double minTranslateY = - 30f - correctY;
+                double maxTranslateY = (deskHeight - Piece.SIZE +250f ) - correctY;
+                if ((newTranslateX> minTranslateX ) &&
+                        (newTranslateX< maxTranslateX) &&
+                        (newTranslateY> minTranslateY) &&
+                        (newTranslateY< maxTranslateY)) {
+                    setTranslateX(newTranslateX);
+                    setTranslateY(newTranslateY);
                 }
             });
         }
@@ -279,22 +258,22 @@ public class PuzzleMain extends Application {
             if (hasRightTab) {
                 shape = Shape.union(shape,
                         createPieceTab(69.5f, 0f, 10f, 17.5f, 50f, -12.5f, 11.5f,
-                                25f, 56.25f, -14f, 6.25f, 56.25f, 14f, 6.25f));
+                                25f, 56.25f, -14f, 56.25f, 14f));
             }
             if (hasBottomTab) {
                 shape = Shape.union(shape,
                         createPieceTab(0f, 69.5f, 17.5f, 10f, -12.5f, 50f, 25f,
-                                11f, -14f, 56.25f, 6.25f, 14f, 56.25f, 6.25f));
+                                11f, -14f, 56.25f, 14f, 56.25f));
             }
             if (hasLeftTab) {
                 shape = Shape.subtract(shape,
                         createPieceTab(-31f, 0f, 10f, 17.5f, -50f, -12.5f, 11f,
-                                25f, -43.75f, -14f, 6.25f, -43.75f, 14f, 6.25f));
+                                25f, -43.75f, -14f, -43.75f, 14f));
             }
             if (hasTopTab) {
                 shape = Shape.subtract(shape,
                         createPieceTab(0f, -31f, 17.5f, 10f, -12.5f, -50f, 25f,
-                                12.5f, -14f, -43.75f, 6.25f, 14f, -43.75f, 6.25f));
+                                12.5f, -14f, -43.75f, 14f, -43.75f));
             }
             shape.setTranslateX(correctX);
             shape.setTranslateY(correctY);
@@ -314,14 +293,14 @@ public class PuzzleMain extends Application {
 
         private Shape createPieceTab(double eclipseCenterX, double eclipseCenterY, double eclipseRadiusX, double eclipseRadiusY,
                                      double rectangleX, double rectangleY, double rectangleWidth, double rectangleHeight,
-                                     double circle1CenterX, double circle1CenterY, double circle1Radius,
-                                     double circle2CenterX, double circle2CenterY, double circle2Radius) {
+                                     double circle1CenterX, double circle1CenterY,
+                                     double circle2CenterX, double circle2CenterY) {
             Ellipse e = new Ellipse(eclipseCenterX, eclipseCenterY, eclipseRadiusX, eclipseRadiusY);
             Rectangle r = new Rectangle(rectangleX, rectangleY, rectangleWidth, rectangleHeight);
             Shape tab = Shape.union(e, r);
-            Circle c1 = new Circle(circle1CenterX, circle1CenterY, circle1Radius);
+            Circle c1 = new Circle(circle1CenterX, circle1CenterY, 6.25);
             tab = Shape.subtract(tab, c1);
-            Circle c2 = new Circle(circle2CenterX, circle2CenterY, circle2Radius);
+            Circle c2 = new Circle(circle2CenterX, circle2CenterY, 6.25);
             tab = Shape.subtract(tab, c2);
             return tab;
         }
@@ -373,18 +352,18 @@ public class PuzzleMain extends Application {
                 System.out.println("Unknown");
         }
     }
-    private boolean checkHighScore(SimpleIntegerProperty score){
+    /*private boolean checkHighScore(SimpleIntegerProperty score){
         return score.lessThan(highScore).get();
-    }
-    private void stopGame() {
-        if(!checkHighScore(score)){
+    }*/
+    private void stopGame(){
+        if(score.intValue() >= highScore.intValue()){
             JOptionPane.showMessageDialog(null, "You beat your high score of " + highScore.intValue() +
                     " with a score of " + score.intValue(), "High Score!", JOptionPane.PLAIN_MESSAGE);
             highScore.set(score.get());
             write_highscore_to_file(highScore);
         }
         else{
-            JOptionPane.showMessageDialog(null, "You didn't beat your high score " + highScore.intValue(), "High Score!", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, "You didn't beat your high score " + highScore.intValue() + " with a score of " + score.intValue(), "High Score!", JOptionPane.PLAIN_MESSAGE);
         }
     }
 
@@ -395,16 +374,33 @@ public class PuzzleMain extends Application {
         controller.write_highscores(info);
 
     }
+    public int read_highScore_from_file() {
+        int n = 2;//equates to line 3 in the text file highscores.txt so the function will read the 3rd line, use this function for every game after hangman, and don't change the highscores.txt format.
+        int savedHighScore = 0;
+        try {
+            String s = Files.readAllLines(Paths.get("src/scoreboard/highscores.txt")).get(n);
+            int ind = s.indexOf("-");
+            if (ind != -1) {
+                String value = s.substring(ind + 1);
+                savedHighScore += Integer.parseInt(value);
+            }
+        }catch (IOException e) {
+            System.out.println(e);
+        }
+        return savedHighScore;
+    }
+
+
 
     /*  Hard code each puzzle in and add it to the puzzle list.
-        using File.list() returns null for the directory
-     */
-    public static Image get_new_puzzle(){
+            using File.list() returns null for the directory
+         */
+    public static Image get_new_puzzle() {
         Image waterfall = new Image("assets/images/puzzleimgs/puzzle1.jpg");
         Image house = new Image("assets/images/puzzleimgs/puzzle2.jpg");
         Image fox = new Image("assets/images/puzzleimgs/puzzle3.jpg");
 
-        List<Image> puzzles = new ArrayList<Image>();
+        List<Image> puzzles = new ArrayList<>();
 
         puzzles.add(waterfall);
         puzzles.add(house);
@@ -415,7 +411,7 @@ public class PuzzleMain extends Application {
 
     }
 
-    @Override public void start(Stage primaryStage) throws Exception {
+    @Override public void start(Stage primaryStage) {
         init(primaryStage);
         primaryStage.show();
     }
