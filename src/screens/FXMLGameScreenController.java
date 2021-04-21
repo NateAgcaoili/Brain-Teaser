@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -75,7 +76,22 @@ public class FXMLGameScreenController {
         window.show();
     }
 
+   /* public void writeMoneyGained(String[] info){
+        List<String> money = new ArrayList<>();
+        File moneyFile = new File("src/scoreboard/money.txt");
+        boolean set_new = false;
+        try{
+            Scanner sc = new Scanner(moneyFile);
+            while(sc.hasNextLine()){
+                money.add(sc.hasNextLine());
 
+            }
+            sc.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }*/
 
     public void write_highscores(String[] info){
         List<String> scores = new ArrayList<String>();
