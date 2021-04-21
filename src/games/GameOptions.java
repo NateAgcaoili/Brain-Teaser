@@ -1,6 +1,7 @@
 package games;
 
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
@@ -17,14 +18,15 @@ public class GameOptions {
         window.initModality(Modality.APPLICATION_MODAL); //window needs to be attended to
         window.setTitle("Options");
         window.setWidth(400);
-        window.setHeight(400);
+        window.setHeight(450);
         window.setResizable(false);
         window.getIcons().add(new Image("file:src/assets/images/icons/window_icon.png"));
 
-        Label label = new Label();
-        label.setText("Options Menu");
-        label.setScaleX(3);
-        label.setScaleY(3);
+        Image label = new Image("file:src/assets/images/icons/options_label.png");
+        ImageView labelView = new ImageView();
+        labelView.setImage(label);
+        labelView.setFitWidth(300);
+        labelView.setPreserveRatio(true);
 
         //Creating buttons
         Button returnButton = new Button("Return to Game");
@@ -56,7 +58,7 @@ public class GameOptions {
 
         VBox layout = new VBox(20);
         layout.setStyle("-fx-background-color: #7cc9fc");
-        layout.getChildren().addAll(label, returnButton, gamesButton, mainMenuButton);
+        layout.getChildren().addAll(labelView, returnButton, gamesButton, mainMenuButton);
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout);
