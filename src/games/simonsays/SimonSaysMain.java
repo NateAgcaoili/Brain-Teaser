@@ -4,7 +4,6 @@ import games.GameOptions;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,9 +16,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * @author Nate Agcaoili
@@ -30,16 +31,20 @@ public class SimonSaysMain extends Application {
     private static final int APP_H = 720;
     int currentRound;
     int playerIndex;
+    int highScore;
     boolean running;
     boolean playerTurn;
+    boolean newHighScore;
     Text roundDisplay;
     Text message;
+    Text highScoreDisplay;
     Button playAgainButton;
     Button mainMenuButton;
     Button optionsButton;
     Color[] colors;
     GameButton[] gameButtons;
     ArrayList<Integer> simonSequence = new ArrayList<>();
+    ArrayList<Integer> highscores;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -65,6 +70,13 @@ public class SimonSaysMain extends Application {
         message.setText("Simon's Turn");
         message.setX(480);
         message.setY(620);
+        highscores = get_highscores();
+        highScore = highscores.get(3);
+        highScoreDisplay = new Text();
+        highScoreDisplay.setText("High Score: " + highScore);
+        highScoreDisplay.setFont(new Font(45));
+        highScoreDisplay.setX(975);
+        highScoreDisplay.setY(50);
         playAgainButton = new Button("PLAY AGAIN");
         playAgainButton.setOnAction(e -> onClickPlayAgain(e));
         playAgainButton.setPrefSize(200, 80);
@@ -107,7 +119,7 @@ public class SimonSaysMain extends Application {
         for(int i = 0; i < 9; i++) {
             root.getChildren().add(gameButtons[i]);
         }
-        root.getChildren().addAll(roundDisplay, message, playAgainButton, mainMenuButton, optionsButton);
+        root.getChildren().addAll(roundDisplay, message, playAgainButton, mainMenuButton, optionsButton, highScoreDisplay);
         playGame();
         return root;
     }
@@ -117,6 +129,9 @@ public class SimonSaysMain extends Application {
             gameOver();
         } else if (!playerTurn) {
             roundDisplay.setText("Round " + currentRound);
+            if (newHighScore) {
+                highScoreDisplay.setText("High Score: " + currentRound);
+            }
             new DisplaySequence().execute();
         } else if (playerTurn) {
             if (playerIndex == currentRound) {
@@ -124,6 +139,12 @@ public class SimonSaysMain extends Application {
                 playerIndex = 0;
                 currentRound++;
                 message.setText("Correct!");
+                if (!newHighScore){
+                    highScoreCheck();
+                    if (newHighScore) {
+                        message.setText("High Score!");
+                    }
+                }
                 new RoundComplete().execute();
             }
         }
@@ -151,6 +172,12 @@ public class SimonSaysMain extends Application {
         roundDisplay.setText("Score: " + currentRound);
     }
 
+    public void highScoreCheck() {
+        if (currentRound > highScore) {
+            newHighScore = true;
+        }
+    }
+
     private void openOptions(ActionEvent event) throws IOException {
         int result = GameOptions.display();
         switch (result) {
@@ -160,7 +187,6 @@ public class SimonSaysMain extends Application {
             case 1:
                 Parent gameParent = FXMLLoader.load(getClass().getResource("/screens/GameScreen.fxml"));
                 Scene gameScene = new Scene(gameParent);
-
                 // getting stage information
                 Stage gameWindow = (Stage)((Node)event.getSource()).getScene().getWindow();
                 gameWindow.setScene(gameScene);
@@ -196,6 +222,30 @@ public class SimonSaysMain extends Application {
         Scene home = new Scene(root);
         homeWindow.setScene(home);
         homeWindow.show();
+    }
+
+    private ArrayList<Integer> get_highscores() {
+        ArrayList<Integer> highscores = new ArrayList<Integer>();
+        // read high score file
+        File scores_file = new File("src/scoreboard/highscores.txt");
+
+        try {
+            Scanner sc = new Scanner(scores_file);
+            // parse and set each high score into the array
+            while (sc.hasNextLine()) {
+
+                String[] line = sc.nextLine().split("-");
+                int score = Integer.parseInt(line[1]);
+                highscores.add(score);
+            }
+            sc.close();
+        }
+        catch (IOException e) {
+            System.out.print(new File(".").getAbsolutePath());
+            System.out.print(e.getMessage());
+        }
+
+        return highscores;
     }
 
     public class GameButton extends StackPane {
