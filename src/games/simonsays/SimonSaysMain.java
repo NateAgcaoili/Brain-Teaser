@@ -70,7 +70,7 @@ public class SimonSaysMain extends Application {
         message.setText("Simon's Turn");
         message.setX(480);
         message.setY(620);
-        highscores = get_highscores();
+        highscores = getHighScores();
         highScore = highscores.get(3);
         highScoreDisplay = new Text();
         highScoreDisplay.setText("High Score: " + highScore);
@@ -224,7 +224,7 @@ public class SimonSaysMain extends Application {
         homeWindow.show();
     }
 
-    private ArrayList<Integer> get_highscores() {
+    private ArrayList<Integer> getHighScores() {
         ArrayList<Integer> highscores = new ArrayList<Integer>();
         // read high score file
         File scores_file = new File("src/scoreboard/highscores.txt");
@@ -274,6 +274,8 @@ public class SimonSaysMain extends Application {
             getChildren().add(button);
         }
     }
+
+    //public class StartGame extends AsyncTask<>
 
     public class RoundComplete extends AsyncTask<Integer, Integer, Double> {
 
@@ -338,6 +340,7 @@ public class SimonSaysMain extends Application {
 
 
     }
+
     public class ButtonClick extends AsyncTask<Integer, Integer, Double> {
 
         @Override
