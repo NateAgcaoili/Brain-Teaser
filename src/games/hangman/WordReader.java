@@ -1,23 +1,28 @@
 package games.hangman;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class WordReader {
-    private static String fileName = null;
+    private boolean personal_dict;
+    private static String fileName;
     private String word;
-    private ArrayList<String> words = new ArrayList<String>();
-    private ArrayList<String> wordDefs = new ArrayList<>();
+
+    private Map<String, String> dict;
 
     public WordReader() {
         this.fileName = "/dictionary/full_dictionary.txt";
+        this.personal_dict = false;
+        this.dict = new HashMap<String,String>();
+
         try (InputStream in = getClass().getResourceAsStream(fileName);
              BufferedReader bf = new BufferedReader(new InputStreamReader(in))) {
 
             String line = "";
-            while ((line = bf.readLine()) != null)
-                words.add(line.split(":")[0]);
+            while ((line = bf.readLine()) != null) {
+                String[] word_def = line.split(":");
+                dict.put(word_def[0],word_def[1]);
+            }
         }
         catch (Exception e) {
             System.out.println("Couldn't find/read file: " + fileName);
@@ -27,13 +32,16 @@ public class WordReader {
     // Reading from words in personal dictionary (already discovered)
     public WordReader(String file) {
         this.fileName = file;
+        this.personal_dict = true;
+        this.dict = new HashMap<String,String>();
+
         try (InputStream in = getClass().getResourceAsStream(file);
              BufferedReader bf = new BufferedReader(new InputStreamReader(in))) {
 
             String line = "";
             while ((line = bf.readLine()) != null) {
-                words.add(line.split(":")[0]);
-                wordDefs.add(line);
+                String[] word_def = line.split(":");
+                dict.put(word_def[0],word_def[1]);
             }
         }
         catch (Exception e) {
@@ -41,31 +49,37 @@ public class WordReader {
             System.out.println("Error message: " + e.getMessage());
         }
     }
-
-    public List<String> getWordsWithDefinition() {
-        return wordDefs;
+    public Map<String, String> getWordsWithDefinition() {
+        return dict;
     }
 
     public String getRandomWord() {
-        if (words.isEmpty()) return "NO-DATA";
-        this.word = words.get((int)(Math.random()*words.size()));
+
+        if (dict.isEmpty())
+            return "NO-DATA";
+        Object[] keys = this.dict.keySet().toArray();
+        Object key = keys[new Random().nextInt(keys.length)];
+        this.word = key.toString();
+        if (!this.personal_dict) {
+            addToDict();
+        }
         return this.word;
     }
 
     public void addToDict(String word) {
-        BufferedWriter wr = null;
-        String file = "/dictionary/dictionary.txt";
-        try {
-            wr = new BufferedWriter(new FileWriter(file));
-            wr.write(word+"\n");
-            wr.close();
+        String file = "src/dictionary/dictionary.txt";
+        try (BufferedWriter wr = new BufferedWriter(new FileWriter(file, true))){
+            wr.append(word).append("\n");
+
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.print(new File("/src/dictionary/dictionary.txt").getAbsolutePath());
+            System.out.println(new File("src/dictionary/dictionary.txt").getAbsolutePath());
+            System.out.println(new File(".").getAbsolutePath());
         }
     }
 
     public void addToDict() {
-        addToDict(this.word);
+        String new_def = this.word + ":" + dict.get(this.word);
+        addToDict(new_def);
     }
 }
