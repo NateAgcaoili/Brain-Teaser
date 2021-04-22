@@ -56,6 +56,12 @@ public class GameOptions {
             window.close();
         });
 
+        window.setOnCloseRequest(e -> {
+            e.consume();
+            answer = 0;
+            window.close();
+        });
+
         VBox layout = new VBox(20);
         layout.setStyle("-fx-background-color: #7cc9fc");
         layout.getChildren().addAll(labelView, returnButton, gamesButton, mainMenuButton);
