@@ -35,7 +35,7 @@ public class TowerHanoiMain extends Application {
     int finishedTime;
 
     private Optional<Circle> selectedCircle = Optional.empty();
-    Color colorList[] = {Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.ORANGE};
+    Color colorList[] = {Color.RED, Color.GREEN, Color.BLUE, Color.LIGHTCYAN, Color.ORANGE};
 
     @Override
     public void start(Stage stage) throws Exception {
