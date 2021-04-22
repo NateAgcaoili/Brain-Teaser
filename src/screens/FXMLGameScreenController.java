@@ -4,6 +4,7 @@ import games.hangman.HangmanMain;
 import games.hanoi.TowerHanoiMain;
 import games.puzzle.PuzzleMain;
 import games.simonsays.SimonSaysMain;
+import games.sudoku.sudokuMain;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
