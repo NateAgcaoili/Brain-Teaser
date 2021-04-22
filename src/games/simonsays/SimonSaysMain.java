@@ -50,10 +50,12 @@ public class SimonSaysMain extends Application {
     ArrayList<Integer> simonSequence = new ArrayList<>();
     ArrayList<Integer> highscores;
     SimpleIntegerProperty score = new SimpleIntegerProperty();
+    Parent root;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Scene scene = new Scene(createContent(), APP_W, APP_H);
+        root = createContent();
+        Scene scene = new Scene(root, APP_W, APP_H);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -62,10 +64,9 @@ public class SimonSaysMain extends Application {
         Pane root = new Pane();
         root.setStyle(
                 "-fx-background-image: url(" +
-                        "'/assets/images/backgrounds/simon_bg.png'" +
+                        "'/assets/images/backgrounds/simon_default_bg.png'" +
                         "); " +
-                        "-fx-background-size: stretch;" +
-                        "-fx-background-color:  #7cc9fc;"
+                        "-fx-background-size: stretch;"
         );
         currentRound = 1;
         playerIndex = 0;
@@ -177,6 +178,12 @@ public class SimonSaysMain extends Application {
     }
 
     public void gameOver() {
+        root.setStyle(
+                "-fx-background-image: url(" +
+                        "'/assets/images/backgrounds/simon_gameover_bg.png'" +
+                        "); " +
+                        "-fx-background-size: stretch;"
+        );
         playerTurn = false;
         score.set(currentRound-1);
         if(newHighScore){
@@ -336,6 +343,21 @@ public class SimonSaysMain extends Application {
 
         @Override
         public void progressCallback(Integer...params) {
+            if (params[1] == 2) {
+                root.setStyle(
+                        "-fx-background-image: url(" +
+                                "'/assets/images/backgrounds/simon_roundend_bg.png'" +
+                                "); " +
+                                "-fx-background-size: stretch;"
+                );
+            } else {
+                root.setStyle(
+                        "-fx-background-image: url(" +
+                                "'/assets/images/backgrounds/simon_default_bg.png'" +
+                                "); " +
+                                "-fx-background-size: stretch;"
+                );
+            }
             for (int i = 0; i < 9; i++) {
                 gameButtons[i].button.setFill(colors[params[1]]);
             }
