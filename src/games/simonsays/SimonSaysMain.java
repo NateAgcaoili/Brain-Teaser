@@ -60,7 +60,13 @@ public class SimonSaysMain extends Application {
 
     private Parent createContent() throws Exception {
         Pane root = new Pane();
-        root.setStyle("-fx-background-color: #7cc9fc");
+        root.setStyle(
+                "-fx-background-image: url(" +
+                        "'/assets/images/backgrounds/simon_bg.png'" +
+                        "); " +
+                        "-fx-background-size: stretch;" +
+                        "-fx-background-color:  #7cc9fc;"
+        );
         currentRound = 1;
         playerIndex = 0;
         running = true;
@@ -80,8 +86,8 @@ public class SimonSaysMain extends Application {
         highScoreDisplay = new Text();
         highScoreDisplay.setText("High Score: " + (highScore));
         highScoreDisplay.setFont(new Font(45));
-        highScoreDisplay.setX(975);
-        highScoreDisplay.setY(50);
+        highScoreDisplay.setX(900);
+        highScoreDisplay.setY(115);
         playAgainButton = new Button("PLAY AGAIN");
         playAgainButton.setOnAction(e -> onClickPlayAgain(e));
         playAgainButton.setPrefSize(200, 80);

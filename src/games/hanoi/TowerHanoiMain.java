@@ -48,11 +48,11 @@ public class TowerHanoiMain extends Application {
     }
 
     private Parent createContent() {
-        Image background = new Image("assets/images/backgrounds/game_bg.png");
-        ImageView bgView = new ImageView(background);
-        bgView.setFitHeight(APP_H);
-        bgView.setFitWidth(APP_W);
-        Group backgroundImage = new Group(bgView);
+        //Image background = new Image("assets/images/backgrounds/game_bg.png");
+        //ImageView bgView = new ImageView(background);
+        //bgView.setFitHeight(APP_H);
+        //bgView.setFitWidth(APP_W);
+        //Group backgroundImage = new Group(bgView);
         HBox options = new HBox();
         Button optionsButton = new Button("OPTIONS");
         optionsButton.setOnAction(e -> {
@@ -66,7 +66,7 @@ public class TowerHanoiMain extends Application {
         //options.setAlignment(Pos.BOTTOM_CENTER);
         options.setPadding(new Insets(10, 10 ,10, 10));
         Pane root = new Pane();
-        root.getChildren().addAll(backgroundImage, options);
+        root.getChildren().addAll( options); //backgroundimage
 
         root.setPrefSize(400*3, 400);
         for (int i = 0; i < 3; i++) {
@@ -84,6 +84,15 @@ public class TowerHanoiMain extends Application {
 
             root.getChildren().add(tower);
         }
+        root.setStyle(
+                "-fx-background-image: url(" +
+                        "'/assets/images/backgrounds/towerofhanoi_bg.png'" +
+                        "); " +
+                        "-fx-background-size: stretch;" +
+                        "-fx-background-color:  #ffd6dd;"
+        );
+//        root.setStyle("-fx-background-color:  #7cc9fc;" );
+//        root.setStyle("-fx-background-image: url('/assets/images/backgrounds/game_bg.png');");
         return root;
     }
 

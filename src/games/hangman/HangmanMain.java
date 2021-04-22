@@ -107,11 +107,11 @@ public class HangmanMain extends Application {
     private WordReader wordReader;
 
     public Parent createContent() {
-        Image background = new Image("assets/images/backgrounds/game_bg.png");
-        ImageView bgView = new ImageView(background);
-        bgView.setFitHeight(APP_H);
-        bgView.setFitWidth(APP_W);
-        Group backgroundImage = new Group(bgView);
+        //Image background = new Image("assets/images/backgrounds/game_bg.png");
+        //ImageView bgView = new ImageView(background);
+        //bgView.setFitHeight(APP_H);
+        //bgView.setFitWidth(APP_W);
+        //Group backgroundImage = new Group(bgView);
         HBox options = new HBox();
         Button optionsButton = new Button("OPTIONS");
         optionsButton.setOnAction(e -> {
@@ -185,6 +185,13 @@ public class HangmanMain extends Application {
                 row3,
                 rowAlphabet,
                 rowHangman);
+        vBox.setStyle(
+                "-fx-background-image: url(" +
+                        "'/assets/images/backgrounds/hangman_bg.png'" +
+                        "); " +
+                        "-fx-background-size: stretch;" +
+                        "-fx-background-color:  #ffe8ab;"
+        );
         return vBox;
     }
     private void openOptions(ActionEvent event) throws IOException {
@@ -357,8 +364,8 @@ public class HangmanMain extends Application {
         private Text text;
 
         public Letter(char letter) {
-            bg.setFill(letter == ' ' ? Color.DARKSEAGREEN : Color.WHITE);
-            bg.setStroke(Color.BLUE);
+            bg.setFill(letter == ' ' ? Color.LIGHTGOLDENRODYELLOW : Color.WHITE);
+            bg.setStroke(Color.ORANGE);
 
             text = new Text(String.valueOf(letter).toUpperCase());
             text.setFont(DEFAULT_FONT);
