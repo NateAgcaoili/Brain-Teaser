@@ -5,14 +5,12 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -22,6 +20,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.Optional;
@@ -38,6 +37,12 @@ public class TowerHanoiMain extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Scene scene = new Scene(createContent(), APP_W, APP_H);
+        scene.setOnKeyPressed(e -> {
+            char pressed = e.getText().toUpperCase().charAt(0);
+            if (pressed == 'G') {
+                JOptionPane.showMessageDialog(null, "You won!", "Winner!", JOptionPane.PLAIN_MESSAGE);
+            }
+        });
         stage.setScene(scene);
         stage.show();
     }
