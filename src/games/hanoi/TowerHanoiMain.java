@@ -32,7 +32,7 @@ public class TowerHanoiMain extends Application {
     private static final int APP_H = 720;
     private static final int NUM_CIRCLES = 5;
     Long startTime = System.currentTimeMillis();
-    int finishedTime;
+    int finishedTime; //
 
     private Optional<Circle> selectedCircle = Optional.empty();
     Color colorList[] = {Color.RED, Color.GREEN, Color.BLUE, Color.LIGHTCYAN, Color.ORANGE};
