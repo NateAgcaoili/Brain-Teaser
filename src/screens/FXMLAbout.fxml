@@ -2,27 +2,54 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screens.FXMLAboutController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #7cc9fc;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screens.FXMLAboutController">
    <children>
       <VBox layoutX="73.0" layoutY="147.0" prefHeight="548.0" prefWidth="1040.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="147.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="- Dementia is a serious mental illness that is most common for people over the age of 65, but can also affect much younger people." wrappingWidth="1000.0">
+            <Label text="General Information">
+               <font>
+                  <Font name="System Bold" size="35.0" />
+               </font>
+            </Label>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Brain Teaser is developed by five students at Georgia Southern University with the intentions of providing a tool to aid the combat of dementia and other mental illnesses by providing games that serve as mental exercises." wrappingWidth="1000.0">
                <font>
                   <Font size="25.0" />
                </font></Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="- Early signs of the disease begin when people are in their 50s, 40s, and in some cases - even 30s." wrappingWidth="1000.0">
+            <Label text="Development Tools and Technologies">
                <font>
-                  <Font size="25.0" />
+                  <Font name="System Bold" size="35.0" />
                </font>
-            </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="- The most powerful way to combat this illness is by exercising your mind." wrappingWidth="1000.0">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Text>
+            </Label>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/images/icons/intellij_icon.png" />
+                     </image></ImageView>
+                  <ImageView fitHeight="193.0" fitWidth="358.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/images/icons/javafx_icon.png" />
+                     </image></ImageView>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/images/icons/scenebuilder_icon.png" />
+                     </image></ImageView>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/images/icons/photoshop_icon.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/images/icons/illustrator_icon.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
             <AnchorPane prefHeight="288.0" prefWidth="1040.0">
                <children>
                   <Text layoutX="14.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contributors:" underline="true" wrappingWidth="211.13671875">
@@ -66,5 +93,10 @@
             <Font name="System Bold" size="29.0" />
          </font>
       </Button>
+      <ImageView fitHeight="130.0" fitWidth="370.0" layoutX="455.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/images/icons/about_label.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
