@@ -22,6 +22,7 @@ import javafx.scene.image.Image;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.sql.Time;
 import java.util.Comparator;
 import java.util.Optional;
 
@@ -30,6 +31,8 @@ public class TowerHanoiMain extends Application {
     private static final int APP_W = 1280;
     private static final int APP_H = 720;
     private static final int NUM_CIRCLES = 5;
+    Long startTime = System.currentTimeMillis();
+    int finishedTime;
 
     private Optional<Circle> selectedCircle = Optional.empty();
     Color colorList[] = {Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.ORANGE};
@@ -40,7 +43,8 @@ public class TowerHanoiMain extends Application {
         scene.setOnKeyPressed(e -> {
             char pressed = e.getText().toUpperCase().charAt(0);
             if (pressed == 'G') {
-                JOptionPane.showMessageDialog(null, "You won!", "Winner!", JOptionPane.PLAIN_MESSAGE);
+                finishedTime = (int)((System.currentTimeMillis() - startTime)/1000);
+                JOptionPane.showMessageDialog(null, "You won!\nTime taken : " + finishedTime + " second", "Winner!", JOptionPane.PLAIN_MESSAGE);
             }
         });
         stage.setScene(scene);

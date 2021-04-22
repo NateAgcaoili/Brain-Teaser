@@ -2,3 +2,9 @@ disquisition:an elaborate analytical or explanatory essay or discussion
 waive:do without or cease to hold or adhere to
 dense:permitting little if any light to pass through
 onset:the beginning or early stages
+null:null
+zephyr:a slight wind
+dwell:think moodily or anxiously about something
+veracious:precisely accurate
+beatific:resembling or befitting an angel or saint
+larder:a small storeroom for storing foods or wines
