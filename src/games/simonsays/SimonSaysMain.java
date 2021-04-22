@@ -381,9 +381,9 @@ public class SimonSaysMain extends Application {
         public Double doInBackground(Integer... integers) throws InterruptedException {
             addToSequence();
             for (int i = 0; i < simonSequence.size(); i++) {
-                Thread.sleep(500);
+                Thread.sleep(300);
                 publishProgress(i, 1);
-                Thread.sleep(500);
+                Thread.sleep(300);
                 publishProgress(i, 0);
             }
             return null;
@@ -414,7 +414,7 @@ public class SimonSaysMain extends Application {
         public Double doInBackground(Integer... integers) throws InterruptedException {
             if (gameButtons[simonSequence.get(playerIndex)].buttonId == integers[0]) {
                 publishProgress(integers[0], 1);
-                Thread.sleep(50);
+                Thread.sleep(100);
                 publishProgress(integers[0], 0);
                 playerIndex++;
             } else {
