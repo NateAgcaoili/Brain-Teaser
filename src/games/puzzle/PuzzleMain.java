@@ -1,6 +1,7 @@
 package games.puzzle;
 
 import games.GameOptions;
+import games.directions;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -120,12 +121,22 @@ public class PuzzleMain extends Application {
             }
         });
 
+        Button howToPlayButton = new Button("HOW TO PLAY");
+        howToPlayButton.setStyle("-fx-font-size: 2em;");
+        howToPlayButton.setOnAction(e -> {
+            try{
+                openHowToPlay(e);
+            }catch (IOException ioException){
+                ioException.printStackTrace();
+            }
+        });
+
         Text textScore = new Text();
         textScore.textProperty().bind(score.asString().concat(" Points"));
         textScore.setStyle("-fx-font-size: 2em;");
 
         HBox buttonBox = new HBox(8);
-        buttonBox.getChildren().addAll(shuffleButton, solveButton, optionsButton, textScore);
+        buttonBox.getChildren().addAll(shuffleButton, solveButton, optionsButton, textScore, howToPlayButton);
         // create vbox for desk and buttons
         VBox vb = new VBox(10);
         vb.getChildren().addAll(desk,buttonBox);
@@ -351,6 +362,14 @@ public class PuzzleMain extends Application {
             default:
                 System.out.println("Unknown");
         }
+    }
+    private void openHowToPlay(ActionEvent event) throws IOException{
+        directions.display();
+        Parent root = FXMLLoader.load(getClass().getResource("/screens/FXMLPuzzleDirections.fxml"));
+        Stage gameWindow = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene directionsScene = new Scene(root);
+        gameWindow.setScene(directionsScene);
+        gameWindow.show();
     }
     /*private boolean checkHighScore(SimpleIntegerProperty score){
         return score.lessThan(highScore).get();

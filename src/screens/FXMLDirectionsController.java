@@ -3,6 +3,7 @@ package screens;
 import com.sun.javafx.scene.SceneEventDispatcher;
 import games.hangman.HangmanMain;
 import games.hanoi.TowerHanoiMain;
+import games.puzzle.PuzzleMain;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -39,6 +40,17 @@ public class FXMLDirectionsController {
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         try {
             hanoi.start(window);
+        } catch (Exception e) {
+            e.printStackTrace();
+        };
+        window.show();
+    }
+    public void startJigsaw(ActionEvent event) throws IOException {
+        PuzzleMain puzzle = new PuzzleMain();
+
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        try {
+            puzzle.start(window);
         } catch (Exception e) {
             e.printStackTrace();
         };
