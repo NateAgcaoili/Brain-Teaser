@@ -74,7 +74,7 @@ public class TowerHanoiMain extends Application {
             }
         });
         Pane root = new Pane();
-        root.getChildren().addAll( options); //backgroundimage
+        root.getChildren().addAll( options);
         options.setMaxSize(200,200);
         options.setSpacing(20);
         options.getChildren().addAll(optionsButton,openHowToPlayButton);
