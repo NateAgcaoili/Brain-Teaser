@@ -47,7 +47,7 @@ import javax.swing.*;
 
 public class HangmanMain extends Application {
 
-    private static final int APP_W = 1280;
+    private static final int APP_W = 1298;
     private static final int APP_H = 767;
     private static final Font DEFAULT_FONT = new Font("Courier", 36);
 
@@ -110,11 +110,6 @@ public class HangmanMain extends Application {
     private WordReader wordReader;
 
     public Parent createContent() {
-        //Image background = new Image("assets/images/backgrounds/game_bg.png");
-        //ImageView bgView = new ImageView(background);
-        //bgView.setFitHeight(APP_H);
-        //bgView.setFitWidth(APP_W);
-        //Group backgroundImage = new Group(bgView);
         HBox options = new HBox();
         Button optionsButton = new Button("OPTIONS");
         optionsButton.setOnAction(e -> {
@@ -125,7 +120,6 @@ public class HangmanMain extends Application {
             }
         });
         options.getChildren().add(optionsButton);
-        //options.setAlignment(Pos.BOTTOM_CENTER);
         options.setPadding(new Insets(10, 10 ,10, 10));
 
         HBox howToPlay = new HBox();
