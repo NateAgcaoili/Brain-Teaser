@@ -79,7 +79,6 @@ public class SimonSaysMain extends Application {
         roundDisplay.setY(125);
         message = new Text();
         message.setFont(new Font(70));
-        message.setText("Simon's Turn");
         message.setX(480);
         message.setY(620);
         highscores = getHighScores();
@@ -132,7 +131,7 @@ public class SimonSaysMain extends Application {
             root.getChildren().add(gameButtons[i]);
         }
         root.getChildren().addAll(roundDisplay, message, playAgainButton, mainMenuButton, optionsButton, highScoreDisplay);
-        playGame();
+        new GameStartDelay().execute();
         return root;
     }
 
@@ -381,9 +380,9 @@ public class SimonSaysMain extends Application {
         public Double doInBackground(Integer... integers) throws InterruptedException {
             addToSequence();
             for (int i = 0; i < simonSequence.size(); i++) {
-                Thread.sleep(300);
+                Thread.sleep(450);
                 publishProgress(i, 1);
-                Thread.sleep(300);
+                Thread.sleep(450);
                 publishProgress(i, 0);
             }
             return null;
@@ -431,8 +430,35 @@ public class SimonSaysMain extends Application {
         public void onPostExecute(Double result) throws Exception {
             playGame();
         }
-
-
     }
 
+    public class GameStartDelay extends AsyncTask<Integer, Integer, Double> {
+
+        @Override
+        public void onPreExecute() {
+
+        }
+
+        @Override
+        public Double doInBackground(Integer... integers) throws InterruptedException {
+            Thread.sleep(50);
+            publishProgress(3);
+            Thread.sleep(1000);
+            publishProgress(2);
+            Thread.sleep(1000);
+            publishProgress(1);
+            Thread.sleep(1000);
+            return null;
+        }
+
+        @Override
+        public void progressCallback(Integer...params) {
+            message.setText("Starting: " + params[0]);
+        }
+
+        public void onPostExecute(Double result) throws Exception {
+            message.setText("Simon's turn");
+            playGame();
+        }
+    }
 }
