@@ -1,6 +1,7 @@
 package games.simonsays;
 
 import games.GameOptions;
+import games.directions;
 import javafx.application.Application;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
@@ -107,6 +108,16 @@ public class SimonSaysMain extends Application {
         mainMenuButton.setLayoutX(690);
         mainMenuButton.setLayoutY(630);
         mainMenuButton.setVisible(false);
+        Button howToPlayButton = new Button("HOW TO PLAY");
+        howToPlayButton.setOnAction(e ->{
+            try{
+                openHowToPlay(e);
+            }catch (IOException ioException){
+                ioException.printStackTrace();
+            }
+        });
+        howToPlayButton.setLayoutX(100);
+        howToPlayButton.setLayoutY(10);
         optionsButton = new Button("OPTIONS");
         optionsButton.setOnAction(e -> {
             try {
@@ -131,7 +142,7 @@ public class SimonSaysMain extends Application {
         for(int i = 0; i < 9; i++) {
             root.getChildren().add(gameButtons[i]);
         }
-        root.getChildren().addAll(roundDisplay, message, playAgainButton, mainMenuButton, optionsButton, highScoreDisplay);
+        root.getChildren().addAll(roundDisplay, message, playAgainButton, mainMenuButton, optionsButton, highScoreDisplay, howToPlayButton);
         playGame();
         return root;
     }
@@ -250,6 +261,15 @@ public class SimonSaysMain extends Application {
                 System.out.println("Unknown");
         }
     }
+    private void openHowToPlay(ActionEvent event) throws IOException{
+        directions.display();
+        Parent root = FXMLLoader.load(getClass().getResource("/screens/FXMLSimonSaysDirections.fxml"));
+        Stage gameWindow = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene directionsScene = new Scene(root);
+        gameWindow.setScene(directionsScene);
+        gameWindow.show();
+    }
+
 
     public void onClickPlayAgain(ActionEvent event) {
         SimonSaysMain simonSays = new SimonSaysMain();

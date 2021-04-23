@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screens.FXMLDirectionsController">
+   <children>
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#startSimonSays" prefHeight="76.0" prefWidth="121.0" text="BACK">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Button>
+      <Text layoutX="335.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How To Play Brain Teaser Simon Says" wrappingWidth="609.13671875">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+      <Text layoutX="335.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-The &quot;Simon&quot; will start out by pressing one of the 9 blue buttons on the screen." wrappingWidth="716.13671875">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Text layoutX="335.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-Then you will have to press the same button that he does." wrappingWidth="716.13671875">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Text layoutX="335.0" layoutY="333.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-Every round the Simon will press more buttons as the rounds get progressivly harder." wrappingWidth="716.13671875">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
