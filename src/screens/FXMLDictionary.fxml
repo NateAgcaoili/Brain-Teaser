@@ -11,10 +11,20 @@
             <Font name="System Bold" size="29.0" />
          </font>
       </Button>
-      <VBox fx:id="vbox" alignment="TOP_CENTER" layoutX="186.0" layoutY="82.0" prefHeight="549.0" prefWidth="909.0" />
-      <Button layoutX="960.0" layoutY="629.0" mnemonicParsing="false" onAction="#initialize" prefHeight="77.0" prefWidth="306.0" text="Refresh Dictionary">
+      <VBox fx:id="vbox" alignment="TOP_CENTER" layoutX="181.0" layoutY="107.0" prefHeight="483.0" prefWidth="891.0" />
+      <Button layoutX="960.0" layoutY="14.0" mnemonicParsing="false" onAction="#initialize" prefHeight="67.0" prefWidth="306.0" text="Refresh Dictionary">
          <font>
             <Font name="System Bold" size="29.0" />
          </font></Button>
+      <Button fx:id="nextpage" layoutX="1022.0" layoutY="626.0" mnemonicParsing="false" onAction="#next_page" prefHeight="67.0" prefWidth="211.0" text="Next Page">
+         <font>
+            <Font name="System Bold" size="29.0" />
+         </font>
+      </Button>
+      <Button fx:id="prevpage" layoutX="41.0" layoutY="626.0" mnemonicParsing="false" onAction="#prev_page" prefHeight="67.0" prefWidth="255.0" text="Previous Page">
+         <font>
+            <Font name="System Bold" size="29.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
