@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -56,21 +57,6 @@ public class TowerHanoiMain extends Application {
 
     private Parent createContent() {
         HBox options = new HBox();
-        Button optionsButton = new Button("OPTIONS");
-        optionsButton.setOnAction(e -> {
-            try {
-                openOptions(e);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        });
-        options.getChildren().add(optionsButton);
-        options.setPadding(new Insets(10, 10 ,10, 10));
-        Pane root = new Pane();
-        root.getChildren().addAll( options); //backgroundimage
-
-
-        HBox howToPlay = new HBox();
         Button openHowToPlayButton = new Button("HOW TO PLAY");
         openHowToPlayButton.setOnAction(e -> {
             try {
@@ -79,9 +65,22 @@ public class TowerHanoiMain extends Application {
                 ioException.printStackTrace();
             }
         });
-        howToPlay.getChildren().add(openHowToPlayButton);
-        howToPlay.setPadding(new Insets(10,10,100,100));
-        root.getChildren().addAll(howToPlay);
+        Button optionsButton = new Button("OPTIONS");
+        optionsButton.setOnAction(e -> {
+            try {
+                openOptions(e);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+        Pane root = new Pane();
+        root.getChildren().addAll( options); //backgroundimage
+        options.setMaxSize(200,200);
+        options.setSpacing(20);
+        options.getChildren().addAll(optionsButton,openHowToPlayButton);
+        optionsButton.setAlignment(Pos.TOP_LEFT);
+        openHowToPlayButton.setAlignment(Pos.TOP_RIGHT);
+        options.setPadding(new Insets(10, 10 ,10, 10));
 
 
         root.setPrefSize(400*3, 400);
