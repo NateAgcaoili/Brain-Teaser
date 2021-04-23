@@ -1,6 +1,7 @@
 package games.hanoi;
 
 import games.GameOptions;
+import games.directions;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -68,6 +69,21 @@ public class TowerHanoiMain extends Application {
         Pane root = new Pane();
         root.getChildren().addAll( options); //backgroundimage
 
+
+        HBox howToPlay = new HBox();
+        Button openHowToPlayButton = new Button("HOW TO PLAY");
+        openHowToPlayButton.setOnAction(e -> {
+            try {
+                openHowToPlay(e);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+        howToPlay.getChildren().add(openHowToPlayButton);
+        howToPlay.setPadding(new Insets(10,10,100,100));
+        root.getChildren().addAll(howToPlay);
+
+
         root.setPrefSize(400*3, 400);
         for (int i = 0; i < 3; i++) {
             Tower tower = new Tower(i*400, 150);
@@ -92,6 +108,9 @@ public class TowerHanoiMain extends Application {
                         "-fx-background-color:  #ffd6dd;"
         );
         return root;
+    }
+
+    private void howToPlayButton(ActionEvent e) {
     }
 
     private class Tower extends StackPane {
@@ -164,6 +183,14 @@ public class TowerHanoiMain extends Application {
             default:
                 System.out.println("Unknown");
         }
+    }
+    private void openHowToPlay(ActionEvent event) throws IOException{
+        directions.display();
+        Parent root = FXMLLoader.load(getClass().getResource("/screens/FXMLTowerOfHanoiDirections.fxml"));
+        Stage gameWindow = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene directionsScene = new Scene(root);
+        gameWindow.setScene(directionsScene);
+        gameWindow.show();
     }
 
     public static void main(String[] args) {
