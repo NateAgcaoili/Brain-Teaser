@@ -32,7 +32,7 @@ public class TowerHanoiMain extends Application {
     private static final int APP_H = 720;
     private static final int NUM_CIRCLES = 5;
     Long startTime = System.currentTimeMillis();
-    int finishedTime; //
+    int finishedTime;
 
     private Optional<Circle> selectedCircle = Optional.empty();
     Color colorList[] = {Color.RED, Color.GREEN, Color.BLUE, Color.LIGHTCYAN, Color.ORANGE};
@@ -44,7 +44,9 @@ public class TowerHanoiMain extends Application {
             char pressed = e.getText().toUpperCase().charAt(0);
             if (pressed == 'G') {
                 finishedTime = (int)((System.currentTimeMillis() - startTime)/1000);
-                JOptionPane.showMessageDialog(null, "You won!\nTime taken : " + finishedTime + " second", "Winner!", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(null, "You won!\nTime taken : "
+                        + (int)(finishedTime/60) + " minute " + (finishedTime - ((finishedTime/60)*60)
+                        + " Second"), "Winner!", JOptionPane.PLAIN_MESSAGE);
             }
         });
         stage.setScene(scene);
