@@ -4,6 +4,7 @@ import games.hangman.WordReader;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -44,6 +45,7 @@ public class FXMLDictionaryController {
         nextpage.setVisible((page_num * 6) + 6 < defs.size());
 
         display_words(page_num * 6, defs, dict);
+        vbox.setPadding(new Insets(25,25,25,25));
     }
 
     public void backButtonPushed(ActionEvent event) throws IOException {
