@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screens.FXMLDirectionsController">
+   <children>
+      <Button layoutX="14.0" layoutY="25.0" mnemonicParsing="false" onAction="#startHanoi" prefHeight="84.0" prefWidth="120.0" text="BACK">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Button>
+      <Text layoutX="409.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tower Of Hanoi Rules" wrappingWidth="497.62109375">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+      <Text layoutX="373.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-There are 5 rings each one larger than the last. " wrappingWidth="533.13671875">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Text layoutX="373.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-Your goal is to move the rings from the far left tower all the way to the far right tower." wrappingWidth="512.62109375">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Text layoutX="373.0" layoutY="351.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-You cannout stack a larger ring onto a smaller ring." wrappingWidth="512.62109375">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Text layoutX="497.0" layoutY="514.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GOOD LUCK" wrappingWidth="206.13671875">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

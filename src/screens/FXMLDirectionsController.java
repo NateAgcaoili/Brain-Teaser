@@ -2,6 +2,7 @@ package screens;
 
 import com.sun.javafx.scene.SceneEventDispatcher;
 import games.hangman.HangmanMain;
+import games.hanoi.TowerHanoiMain;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -27,6 +28,17 @@ public class FXMLDirectionsController {
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         try {
             hangman.start(window);
+        } catch (Exception e) {
+            e.printStackTrace();
+        };
+        window.show();
+    }
+    public void startHanoi(ActionEvent event) throws IOException {
+        TowerHanoiMain hanoi = new TowerHanoiMain();
+
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        try {
+            hanoi.start(window);
         } catch (Exception e) {
             e.printStackTrace();
         };
