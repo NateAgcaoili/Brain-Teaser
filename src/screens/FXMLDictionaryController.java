@@ -39,20 +39,10 @@ public class FXMLDictionaryController {
         Set<String> words = dict.keySet();
         List<String> defs = new ArrayList<String>(words);
         Collections.sort(defs);
-        if (page_num <= 0){
-            prevpage.setVisible(false);
-        } else {
-            prevpage.setVisible(true);
-        }
-        if ((page_num * 6) + 6 < defs.size()) {
-            nextpage.setVisible(true);
 
+        prevpage.setVisible(page_num > 0);
+        nextpage.setVisible((page_num * 6) + 6 < defs.size());
 
-        } else {
-            nextpage.setVisible(false);
-
-
-        }
         display_words(page_num * 6, defs, dict);
     }
 
@@ -66,7 +56,7 @@ public class FXMLDictionaryController {
         window.show();
     }
     private void display_words(int start, List<String> defs, Map<String,String> dict) {
-        int end = (start + 6 >= defs.size()) ? defs.size() : start + 6;
+        int end = Math.min(start + 6, defs.size());
 
         for(int i = start; i < end; i++){
             String word = defs.get(i);
