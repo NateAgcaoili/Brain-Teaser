@@ -107,16 +107,6 @@ public class SimonSaysMain extends Application {
         mainMenuButton.setLayoutX(690);
         mainMenuButton.setLayoutY(630);
         mainMenuButton.setVisible(false);
-        Button howToPlayButton = new Button("HOW TO PLAY");
-        howToPlayButton.setOnAction(e ->{
-            try{
-                openHowToPlay(e);
-            }catch (IOException ioException){
-                ioException.printStackTrace();
-            }
-        });
-        howToPlayButton.setLayoutX(100);
-        howToPlayButton.setLayoutY(10);
         optionsButton = new Button("OPTIONS");
         optionsButton.setOnAction(e -> {
             try {
@@ -141,7 +131,7 @@ public class SimonSaysMain extends Application {
         for(int i = 0; i < 9; i++) {
             root.getChildren().add(gameButtons[i]);
         }
-        root.getChildren().addAll(roundDisplay, message, playAgainButton, mainMenuButton, optionsButton, howToPlayButton, highScoreDisplay);
+        root.getChildren().addAll(roundDisplay, message, playAgainButton, mainMenuButton, optionsButton, highScoreDisplay);
         new GameStartDelay().execute();
         return root;
     }
@@ -259,15 +249,6 @@ public class SimonSaysMain extends Application {
             default:
                 System.out.println("Unknown");
         }
-    }
-
-    private void openHowToPlay(ActionEvent event) throws IOException{
-        directions.display();
-        Parent root = FXMLLoader.load(getClass().getResource("/screens/FXMLSimonSaysDirections.fxml"));
-        Stage gameWindow = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene directionsScene = new Scene(root);
-        gameWindow.setScene(directionsScene);
-        gameWindow.show();
     }
 
     public void onClickPlayAgain(ActionEvent event) {
@@ -433,7 +414,7 @@ public class SimonSaysMain extends Application {
         public Double doInBackground(Integer... integers) throws InterruptedException {
             if (gameButtons[simonSequence.get(playerIndex)].buttonId == integers[0]) {
                 publishProgress(integers[0], 1);
-                Thread.sleep(100);
+                Thread.sleep(65);
                 publishProgress(integers[0], 0);
                 playerIndex++;
             } else {
@@ -461,7 +442,7 @@ public class SimonSaysMain extends Application {
 
         @Override
         public Double doInBackground(Integer... integers) throws InterruptedException {
-            Thread.sleep(50);
+            Thread.sleep(25);
             publishProgress(3);
             Thread.sleep(1000);
             publishProgress(2);

@@ -1,39 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #7cc9fc;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screens.FXMLDirectionsController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #7cc9fc;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screens.FXMLDirectionsController">
    <children>
-      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#startJigsaw" prefHeight="85.0" prefWidth="113.0" text="BACK">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="PINK" height="561.0" layoutX="78.0" layoutY="135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1180.0" />
+      <Button layoutX="12.0" layoutY="26.0" mnemonicParsing="false" onAction="#returnToGames" prefHeight="75.0" prefWidth="116.0" style="-fx-background-color: #FFC0CB;" text="Back">
          <font>
-            <Font name="System Bold" size="24.0" />
+            <Font name="System Bold" size="29.0" />
          </font>
+         <effect>
+            <InnerShadow color="#00000027" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
-      <Text layoutX="298.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How To Play Brain Teaser's Jigsaw Puzzles" wrappingWidth="683.13671875">
+      <Button layoutX="688.0" layoutY="536.0" mnemonicParsing="false" onAction="#startJigsaw" prefHeight="88.0" prefWidth="540.0" style="-fx-background-color: #5bb05f;" text="Start Jigsaw Puzzle">
          <font>
-            <Font size="36.0" />
-         </font></Text>
-      <Text layoutX="333.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-Use the shuffle button to mix up the puzzle pieces" wrappingWidth="582.798828125">
+            <Font name="System Bold" size="49.0" />
+         </font>
+         <effect>
+            <InnerShadow color="#00000093" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Text layoutX="108.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="When the puzzle is launched, a random puzzle image will be provided. Use the shuffle button to mix up the puzzle pieces. Use your mouse or touchpad if you're on a laptop to drag pieces into their place on the gird, The pieces will lock into place if they are correct. If you have to leave or just don't think you can solve the puzzle you can always hit the solve button to complete the puzzle for you. Don't worry using the Solve button will still allow you to keep points you've gained to this point." wrappingWidth="531.6708984375">
          <font>
-            <Font size="24.0" />
+            <Font size="28.0" />
          </font>
       </Text>
-      <Text layoutX="333.0" layoutY="228.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-Use your mouse or touchpad if you're on a laptop to drag pieces into their place on the gird, The pieces will lock into place if they are correct." wrappingWidth="582.798828125">
+      <ImageView fitHeight="363.0" fitWidth="540.0" layoutX="684.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/images/misc/puzzle_sc.PNG" />
+         </image>
+         <effect>
+            <DropShadow spread="0.06" />
+         </effect>
+      </ImageView>
+      <Label layoutX="108.0" layoutY="150.0" prefHeight="56.0" prefWidth="208.0" text="Description">
          <font>
-            <Font size="24.0" />
+            <Font name="System Bold" size="35.0" />
          </font>
-      </Text>
-      <Text layoutX="333.0" layoutY="366.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-If you have to leave or just don't think you can solve the puzzle you can always hit the solve button to complete the puzzle for you." wrappingWidth="582.798828125">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Text>
-      <Text layoutX="333.0" layoutY="510.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-Don't worry using the Solve button will still allow you to keep points you've gained to this point." wrappingWidth="582.798828125">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Text>
+      </Label>
+      <ImageView fitHeight="116.0" fitWidth="500.0" layoutX="401.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/images/misc/puzzle_label.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

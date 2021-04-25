@@ -1,18 +1,14 @@
 package games.hanoi;
 
 import games.GameOptions;
-import games.directions;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -20,11 +16,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import javafx.scene.image.Image;
 
 import javax.swing.*;
 import java.io.IOException;
-import java.sql.Time;
 import java.util.Comparator;
 import java.util.Optional;
 
@@ -57,14 +51,6 @@ public class TowerHanoiMain extends Application {
 
     private Parent createContent() {
         HBox options = new HBox();
-        Button openHowToPlayButton = new Button("HOW TO PLAY");
-        openHowToPlayButton.setOnAction(e -> {
-            try {
-                openHowToPlay(e);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        });
         Button optionsButton = new Button("OPTIONS");
         optionsButton.setOnAction(e -> {
             try {
@@ -73,15 +59,10 @@ public class TowerHanoiMain extends Application {
                 ioException.printStackTrace();
             }
         });
-        Pane root = new Pane();
-        root.getChildren().addAll( options);
-        options.setMaxSize(200,200);
-        options.setSpacing(20);
-        options.getChildren().addAll(optionsButton,openHowToPlayButton);
-        optionsButton.setAlignment(Pos.TOP_LEFT);
-        openHowToPlayButton.setAlignment(Pos.TOP_RIGHT);
+        options.getChildren().add(optionsButton);
         options.setPadding(new Insets(10, 10 ,10, 10));
-
+        Pane root = new Pane();
+        root.getChildren().addAll( options); //backgroundimage
 
         root.setPrefSize(400*3, 400);
         for (int i = 0; i < 3; i++) {
@@ -107,9 +88,6 @@ public class TowerHanoiMain extends Application {
                         "-fx-background-color:  #ffd6dd;"
         );
         return root;
-    }
-
-    private void howToPlayButton(ActionEvent e) {
     }
 
     private class Tower extends StackPane {
@@ -182,14 +160,6 @@ public class TowerHanoiMain extends Application {
             default:
                 System.out.println("Unknown");
         }
-    }
-    private void openHowToPlay(ActionEvent event) throws IOException{
-        directions.display();
-        Parent root = FXMLLoader.load(getClass().getResource("/screens/FXMLTowerOfHanoiDirections.fxml"));
-        Stage gameWindow = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene directionsScene = new Scene(root);
-        gameWindow.setScene(directionsScene);
-        gameWindow.show();
     }
 
     public static void main(String[] args) {

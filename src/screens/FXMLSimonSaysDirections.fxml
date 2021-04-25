@@ -1,35 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #7cc9fc;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screens.FXMLDirectionsController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #7cc9fc;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screens.FXMLDirectionsController">
    <children>
-      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#startSimonSays" prefHeight="76.0" prefWidth="121.0" text="BACK">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="PINK" height="561.0" layoutX="78.0" layoutY="135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1180.0" />
+      <Button layoutX="12.0" layoutY="26.0" mnemonicParsing="false" onAction="#returnToGames" prefHeight="75.0" prefWidth="116.0" style="-fx-background-color: #FFC0CB;" text="Back">
          <font>
-            <Font name="System Bold" size="24.0" />
+            <Font name="System Bold" size="29.0" />
          </font>
+         <effect>
+            <InnerShadow color="#00000027" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
-      <Text layoutX="335.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How To Play Brain Teaser Simon Says" wrappingWidth="609.13671875">
+      <Button layoutX="646.0" layoutY="534.0" mnemonicParsing="false" onAction="#startSimonSays" prefHeight="128.0" prefWidth="592.0" style="-fx-background-color: #7cc9fc#7cc9fc;" text="Start Simon Says">
          <font>
-            <Font size="36.0" />
+            <Font name="System Bold" size="59.0" />
+         </font>
+         <effect>
+            <InnerShadow color="#00000093" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Text layoutX="108.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="When the game begins, you will be greeted with a 3 by 3 grid of buttons.  Simon will then proceed to indicate which button he would like you to press by turning the button from blue to white.  In order to move on to the next round, you simply have to push the same button that Simon did.  The following rounds after, Simon will continue to add a new button to his sequence one round at a time until you are no longer able to recall the exact sequence that Simon provided.  How many rounds can you last with Simon?" wrappingWidth="531.6708984375">
+         <font>
+            <Font size="27.0" />
          </font>
       </Text>
-      <Text layoutX="335.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-The &quot;Simon&quot; will start out by pressing one of the 9 blue buttons on the screen." wrappingWidth="716.13671875">
+      <ImageView fitHeight="375.0" fitWidth="585.0" layoutX="651.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/images/misc/simon_says_sc.PNG" />
+         </image>
+         <effect>
+            <DropShadow spread="0.06" />
+         </effect>
+      </ImageView>
+      <Label layoutX="108.0" layoutY="150.0" prefHeight="56.0" prefWidth="208.0" text="Description">
          <font>
-            <Font size="24.0" />
+            <Font name="System Bold" size="35.0" />
          </font>
-      </Text>
-      <Text layoutX="335.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-Then you will have to press the same button that he does." wrappingWidth="716.13671875">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Text>
-      <Text layoutX="335.0" layoutY="333.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-Every round the Simon will press more buttons as the rounds get progressivly harder." wrappingWidth="716.13671875">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Text>
+      </Label>
+      <ImageView fitHeight="161.0" fitWidth="585.0" layoutX="376.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/images/misc/simon_says_label.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

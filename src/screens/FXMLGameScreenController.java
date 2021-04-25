@@ -31,49 +31,43 @@ public class FXMLGameScreenController {
     }
 
     public void startHangman(ActionEvent event) throws IOException {
-
-        HangmanMain hangman = new HangmanMain("/dictionary/dictionary.txt");
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLHangManDirections.fxml"));
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        try {
-            hangman.start(window);
-        } catch (Exception e) {
-            e.printStackTrace();
-        };
+        Scene home = new Scene(root);
+        window.setScene(home);
         window.show();
     }
-    public void startHanoi(ActionEvent event) throws IOException {
-        TowerHanoiMain hanoi = new TowerHanoiMain();
 
+    public void startHanoi(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLTowerOfHanoiDirections.fxml"));
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        try {
-            hanoi.start(window);
-        } catch (Exception e) {
-            e.printStackTrace();
-        };
+        Scene home = new Scene(root);
+        window.setScene(home);
         window.show();
     }
 
     public void startJigsaw(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLPuzzleDirections.fxml"));
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene home = new Scene(root);
+        window.setScene(home);
+        window.show();
         PuzzleMain puzzle = new PuzzleMain();
 
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        try {
-            puzzle.start(window);
-        } catch (Exception e) {
-            e.printStackTrace();
-        };
-        window.show();
+//        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+//        try {
+//            puzzle.start(window);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        };
+//        window.show();
     }
 
     public void startSimonSays(ActionEvent event) throws IOException {
-        SimonSaysMain simonSays = new SimonSaysMain();
-
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLSimonSaysDirections.fxml"));
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        try {
-            simonSays.start(window);
-        } catch (Exception e) {
-            e.printStackTrace();
-        };
+        Scene home = new Scene(root);
+        window.setScene(home);
         window.show();
     }
 

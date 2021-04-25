@@ -1,35 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #7cc9fc;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screens.FXMLDirectionsController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #7cc9fc;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screens.FXMLDirectionsController">
    <children>
-      <Button layoutX="14.0" layoutY="25.0" mnemonicParsing="false" onAction="#startHanoi" prefHeight="84.0" prefWidth="120.0" text="BACK">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="PINK" height="561.0" layoutX="78.0" layoutY="135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1180.0" />
+      <Button layoutX="12.0" layoutY="26.0" mnemonicParsing="false" onAction="#returnToGames" prefHeight="75.0" prefWidth="116.0" style="-fx-background-color: #FFC0CB;" text="Back">
          <font>
-            <Font name="System Bold" size="24.0" />
+            <Font name="System Bold" size="29.0" />
          </font>
+         <effect>
+            <InnerShadow color="#00000027" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
-      <Text layoutX="409.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tower Of Hanoi Rules" wrappingWidth="497.62109375">
+      <Button layoutX="646.0" layoutY="534.0" mnemonicParsing="false" onAction="#startHanoi" prefHeight="128.0" prefWidth="592.0" style="-fx-background-color: #ff8d8d;" text="Start Tower of Hanoi">
          <font>
-            <Font size="36.0" />
+            <Font name="System Bold" size="52.0" />
+         </font>
+         <effect>
+            <InnerShadow color="#00000093" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Text layoutX="108.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="There are 3 towers each containing 5 rings each. The rings are stacked from biggest at the bottom to smallest at the top.  Your goal is to move the rings from the left-most tower all the way to the right-most tower. You may not stack a larger ring onto a smaller ring.  Your goal is to complete the puzzle in the least amount of time possible. Good luck!" wrappingWidth="531.6708984375">
+         <font>
+            <Font size="33.0" />
          </font>
       </Text>
-      <Text layoutX="373.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-There are 5 rings each one larger than the last. " wrappingWidth="533.13671875">
+      <ImageView fitHeight="375.0" fitWidth="585.0" layoutX="651.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/images/misc/towerofhanoi_sc.PNG" />
+         </image>
+         <effect>
+            <DropShadow spread="0.06" />
+         </effect>
+      </ImageView>
+      <Label layoutX="108.0" layoutY="150.0" prefHeight="56.0" prefWidth="208.0" text="Description">
          <font>
-            <Font size="24.0" />
+            <Font name="System Bold" size="35.0" />
          </font>
-      </Text>
-      <Text layoutX="373.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-Your goal is to move the rings from the far left tower all the way to the far right tower." wrappingWidth="512.62109375">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Text>
-      <Text layoutX="373.0" layoutY="351.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-You cannout stack a larger ring onto a smaller ring." wrappingWidth="512.62109375">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Text>
+      </Label>
+      <ImageView fitHeight="143.0" fitWidth="682.0" layoutX="327.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/images/misc/towerofhanoi_label.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

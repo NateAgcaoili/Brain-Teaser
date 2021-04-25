@@ -69,15 +69,13 @@ public class FXMLDirectionsController {
         window.show();
     }
 
+    public void returnToGames(ActionEvent event) throws IOException {
+        Parent gameParent = FXMLLoader.load(getClass().getResource("GameScreen.fxml"));
+        Scene gameScene = new Scene(gameParent);
 
-   /* public void openHangManDirections(Stage primaryStage) throws Exception{
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(new URL("src/screens/FXMLHangManDirections.fxml"));
-        VBox vbox = loader.<VBox>load();
-
-        Scene scene = new Scene(vbox);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }*/
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(gameScene);
+        window.show();
+    }
 
 }

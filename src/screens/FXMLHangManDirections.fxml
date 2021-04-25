@@ -1,30 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #7cc9fc;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screens.FXMLDirectionsController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #7cc9fc;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screens.FXMLDirectionsController">
    <children>
-      <Text layoutX="352.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How To Play Hangman On Brain Teaser!" wrappingWidth="576.13671875">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="PINK" height="561.0" layoutX="78.0" layoutY="135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1180.0" />
+      <Button layoutX="12.0" layoutY="26.0" mnemonicParsing="false" onAction="#returnToGames" prefHeight="75.0" prefWidth="116.0" style="-fx-background-color: #FFC0CB;" text="Back">
          <font>
-            <Font name="System Bold" size="30.0" />
+            <Font name="System Bold" size="29.0" />
          </font>
-      </Text>
-      <Text layoutX="426.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Playing Hang man on Brain Teaser is easy just use your keyboard on your laptop or PC to type in a letter, if you get it right the letter will appear in the correct box, if you get it wrong there will be a limb of the man added to picture." wrappingWidth="428.13671875">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Text>
-      <Text layoutX="426.0" layoutY="396.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Use your extensive knowledge and memory to correctly geuss the word and beat your highscore!" wrappingWidth="428.13671875">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Text>
-      <Button layoutX="20.0" layoutY="25.0" mnemonicParsing="false" onAction="#startHangman" prefHeight="87.0" prefWidth="124.0" text="Back">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
+         <effect>
+            <InnerShadow color="#00000027" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
+      <Button layoutX="646.0" layoutY="534.0" mnemonicParsing="false" onAction="#startHangman" prefHeight="128.0" prefWidth="592.0" style="-fx-background-color: #ffe8ab#ffe8ab;" text="Start Hangman">
+         <font>
+            <Font name="System Bold" size="59.0" />
+         </font>
+         <effect>
+            <InnerShadow color="#00000093" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Text layoutX="108.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Playing Hang man on Brain Teaser is easy just use your keyboard on your laptop or PC to type in a letter, if you get it right the letter will appear in the correct box, if you get it wrong there will be a limb of the man added to picture. Use your extensive knowledge and memory to correctly guess the word and beat your high score!" wrappingWidth="531.6708984375">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="375.0" fitWidth="585.0" layoutX="651.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/images/misc/vocab_exercise_sc.PNG" />
+         </image>
+         <effect>
+            <DropShadow spread="0.06" />
+         </effect>
+      </ImageView>
+      <Label layoutX="108.0" layoutY="150.0" prefHeight="56.0" prefWidth="208.0" text="Description">
+         <font>
+            <Font name="System Bold" size="35.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="108.0" fitWidth="567.0" layoutX="403.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/images/misc/hangman_label.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
