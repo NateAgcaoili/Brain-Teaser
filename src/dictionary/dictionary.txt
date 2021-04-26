@@ -8,3 +8,5 @@ dwell:think moodily or anxiously about something
 veracious:precisely accurate
 beatific:resembling or befitting an angel or saint
 larder:a small storeroom for storing foods or wines
+null:null
+spat:a quarrel about petty points

@@ -1,5 +1,6 @@
 package games.hangman;
 
+//import com.sun.org.apache.xerces.internal.xinclude.XPointerSchema;
 import games.GameOptions;
 import games.directions;
 import javafx.event.ActionEvent;
@@ -38,14 +39,15 @@ import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import screens.FXMLDirectionsController;
 import screens.FXMLGameScreenController;
-
+import java.util.EventObject;
 
 import javax.swing.*;
 
 public class HangmanMain extends Application {
 
-    private static final int APP_W = 1298;
+    private static final int APP_W = 1280;
     private static final int APP_H = 767;
     private static final Font DEFAULT_FONT = new Font("Courier", 36);
 
@@ -108,6 +110,11 @@ public class HangmanMain extends Application {
     private WordReader wordReader;
 
     public Parent createContent() {
+        //Image background = new Image("assets/images/backgrounds/game_bg.png");
+        //ImageView bgView = new ImageView(background);
+        //bgView.setFitHeight(APP_H);
+        //bgView.setFitWidth(APP_W);
+        //Group backgroundImage = new Group(bgView);
         HBox options = new HBox();
         Button optionsButton = new Button("OPTIONS");
         optionsButton.setOnAction(e -> {
@@ -118,20 +125,21 @@ public class HangmanMain extends Application {
             }
         });
         options.getChildren().add(optionsButton);
+        //options.setAlignment(Pos.BOTTOM_CENTER);
         options.setPadding(new Insets(10, 10 ,10, 10));
 
-//        HBox howToPlay = new HBox();
-//        Button howToPlayButton = new Button("HOW TO PLAY");
-//        howToPlayButton.setOnAction(e -> {
-//            try{
-//                openHowToPlay(e);
-//            }catch (IOException ioException){
-//                ioException.printStackTrace();
-//            }
-//        });
-//        howToPlay.getChildren().add(howToPlayButton);
-//        howToPlay.setAlignment(Pos.BOTTOM_CENTER);
-//        howToPlay.setPadding(new Insets(20,20,20,20));
+        HBox howToPlay = new HBox();
+        Button howToPlayButton = new Button("HOW TO PLAY");
+        howToPlayButton.setOnAction(e -> {
+            try{
+                openHowToPlay(e);
+            }catch (IOException ioException){
+                ioException.printStackTrace();
+            }
+        });
+        howToPlay.getChildren().add(howToPlayButton);
+        howToPlay.setAlignment(Pos.BOTTOM_CENTER);
+        howToPlay.setPadding(new Insets(20,20,20,20));
 
         HBox rowLetters = new HBox();
         rowLetters.setAlignment(Pos.CENTER);
@@ -192,7 +200,8 @@ public class HangmanMain extends Application {
                 rowLetters,
                 row3,
                 rowAlphabet,
-                rowHangman);
+                rowHangman,
+                howToPlay);
         vBox.setStyle(
                 "-fx-background-image: url(" +
                         "'/assets/images/backgrounds/hangman_bg.png'" +
@@ -228,14 +237,14 @@ public class HangmanMain extends Application {
                 System.out.println("Unknown");
         }
     }
-//    private void openHowToPlay(ActionEvent event) throws IOException{
-//        directions.display();
-//        Parent root = FXMLLoader.load(getClass().getResource("/screens/FXMLHangManDirections.fxml"));
-//        Stage gameWindow = (Stage)((Node)event.getSource()).getScene().getWindow();
-//        Scene directionsScene = new Scene(root);
-//        gameWindow.setScene(directionsScene);
-//        gameWindow.show();
-//    }
+    private void openHowToPlay(ActionEvent event) throws IOException{
+        directions.display();
+        Parent root = FXMLLoader.load(getClass().getResource("/screens/FXMLHangManDirections.fxml"));
+        Stage gameWindow = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene directionsScene = new Scene(root);
+        gameWindow.setScene(directionsScene);
+        gameWindow.show();
+    }
 
     private void stopGame() {
        /* if(checkHighScore(score) == false){

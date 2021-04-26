@@ -37,6 +37,8 @@ public class Main extends Application {
         primaryStage.setResizable(false);
         primaryStage.show();
         //startSound.play();
+
+
         PauseTransition loadingDelay = new PauseTransition(Duration.seconds(2));
         loadingDelay.setOnFinished(event -> primaryStage.setScene(scene));
         loadingDelay.play();

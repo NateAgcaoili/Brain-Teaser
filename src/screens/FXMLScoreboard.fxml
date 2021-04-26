@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-color: #7cc9fc;" fx:controller="screens.FXMLScoreboardController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screens.FXMLScoreboardController">
    <children>
-      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#backButtonPushed" prefHeight="77.0" prefWidth="152.0" style="-fx-background-color: #FFC0CB;" text="Back">
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#backButtonPushed" prefHeight="77.0" prefWidth="152.0" text="Back">
          <font>
             <Font name="System Bold" size="29.0" />
          </font>
       </Button>
-      <HBox layoutX="312.0" layoutY="162.0" prefHeight="396.0" prefWidth="656.0" style="-fx-background-color: #FFC0CB;">
+      <HBox layoutX="312.0" layoutY="98.0" prefHeight="524.0" prefWidth="656.0">
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="524.0" prefWidth="357.0">
                <children>
@@ -50,10 +49,7 @@
                         <Font name="System Bold" size="40.0" />
                      </font>
                   </Label>
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets></VBox>
+               </children></VBox>
             <Separator orientation="VERTICAL" prefHeight="200.0" />
             <VBox alignment="TOP_CENTER" prefHeight="524.0" prefWidth="302.0">
                <children>
@@ -93,16 +89,10 @@
                   </Label>
                </children></VBox>
          </children>
-         <opaqueInsets>
-            <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
-         </opaqueInsets>
       </HBox>
-      <Button layoutX="1052.0" layoutY="629.0" style="-fx-background-color: #FFC0CB;" mnemonicParsing="false" onAction="#reset_highscores" prefHeight="77.0" prefWidth="214.0" text="Reset Scores">
+      <Button layoutX="1052.0" layoutY="629.0" mnemonicParsing="false" onAction="#reset_highscores" prefHeight="77.0" prefWidth="214.0" text="Reset Scores">
          <font>
             <Font name="System Bold" size="29.0" />
          </font></Button>
    </children>
-   <opaqueInsets>
-      <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
-   </opaqueInsets>
 </AnchorPane>
