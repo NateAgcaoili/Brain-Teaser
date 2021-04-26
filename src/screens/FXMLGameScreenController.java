@@ -6,10 +6,12 @@ import games.puzzle.PuzzleMain;
 import games.simonsays.SimonSaysMain;
 import games.sudoku.sudokuMain;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -21,6 +23,19 @@ import java.util.List;
 import java.util.Scanner;
 
 public class FXMLGameScreenController {
+    @FXML Button hangmanButton;
+    @FXML Button towerButton;
+    @FXML Button puzzleButton;
+    @FXML Button simonButton;
+
+    private static final String HANGMAN_DEFAULT = "-fx-background-image: url('/assets/images/buttons/hangman_btn.png');";
+    private static final String HANGMAN_HOVER = "-fx-background-image: url('/assets/images/buttons/hangman_hover_btn.png');";
+    private static final String TOWER_DEFAULT = "-fx-background-image: url('/assets/images/buttons/towerofhanoi_btn.png');";
+    private static final String TOWER_HOVER = "-fx-background-image: url('/assets/images/buttons/towerofhanoi_hover_btn.png');";
+    private static final String PUZZLE_DEFAULT = "-fx-background-image: url('/assets/images/buttons/puzzle_btn.png');";
+    private static final String PUZZLE_HOVER = "-fx-background-image: url('/assets/images/buttons/puzzle_hover_btn.png');";
+    private static final String SIMON_DEFAULT = "-fx-background-image: url('/assets/images/buttons/simon_btn.png');";
+    private static final String SIMON_HOVER = "-fx-background-image: url('/assets/images/buttons/simon_hover_btn.png');";
 
     public void homeButton(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLMainscreen.fxml"));
@@ -124,9 +139,38 @@ public class FXMLGameScreenController {
                 System.out.println(e.getMessage());
             }
         }
+    }
 
+    public void hangmanDefault() {
+        hangmanButton.setStyle(HANGMAN_DEFAULT);
+    }
 
+    public void hangmanHover() {
+        hangmanButton.setStyle(HANGMAN_HOVER);
+    }
 
+    public void towerDefault() {
+        towerButton.setStyle(TOWER_DEFAULT);
+    }
+
+    public void towerHover() {
+        towerButton.setStyle(TOWER_HOVER);
+    }
+
+    public void puzzleDefault() {
+        puzzleButton.setStyle(PUZZLE_DEFAULT);
+    }
+
+    public void puzzleHover() {
+        puzzleButton.setStyle(PUZZLE_HOVER);
+    }
+
+    public void simonDefault() {
+        simonButton.setStyle(SIMON_DEFAULT);
+    }
+
+    public void simonHover() {
+        simonButton.setStyle(SIMON_HOVER);
     }
 
 }

@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -36,6 +37,10 @@ import java.util.Scanner;
 public class SimonSaysMain extends Application {
     private static final int APP_W = 1280;
     private static final int APP_H = 720;
+    private static final String PLAY_AGAIN_DEFAULT = "-fx-background-image: url('/assets/images/buttons/ss_play_again_default_btn.png');";
+    private static final String PLAY_AGAIN_HOVER = "-fx-background-image: url('/assets/images/buttons/ss_play_again_hover_btn.png');";
+    private static final String MAIN_MENU_DEFAULT = "-fx-background-image: url('/assets/images/buttons/ss_main_menu_default_btn.png');";
+    private static final String MAIN_MENU_HOVER = "-fx-background-image: url('/assets/images/buttons/ss_main_menu_hover_btn.png');";
     int currentRound;
     int playerIndex;
     int highScore;
@@ -91,13 +96,21 @@ public class SimonSaysMain extends Application {
         highScoreDisplay.setFont(new Font(45));
         highScoreDisplay.setX(900);
         highScoreDisplay.setY(115);
-        playAgainButton = new Button("PLAY AGAIN");
+        playAgainButton = new Button();
+        playAgainButton.setStyle(PLAY_AGAIN_DEFAULT);
+        playAgainButton.setOnMouseEntered(e -> playAgainButton.setStyle(PLAY_AGAIN_HOVER));
+        playAgainButton.setOnMouseExited(e -> playAgainButton.setStyle(PLAY_AGAIN_DEFAULT));
+        playAgainButton.setCursor(Cursor.HAND);
         playAgainButton.setOnAction(e -> onClickPlayAgain(e));
-        playAgainButton.setPrefSize(200, 80);
-        playAgainButton.setLayoutX(480);
-        playAgainButton.setLayoutY(630);
+        playAgainButton.setPrefSize(350, 200);
+        playAgainButton.setLayoutX(325);
+        playAgainButton.setLayoutY(250);
         playAgainButton.setVisible(false);
-        mainMenuButton = new Button("MAIN MENU");
+        mainMenuButton = new Button();
+        mainMenuButton.setStyle(MAIN_MENU_DEFAULT);
+        mainMenuButton.setOnMouseEntered(e -> mainMenuButton.setStyle(MAIN_MENU_HOVER));
+        mainMenuButton.setOnMouseExited(e -> mainMenuButton.setStyle(MAIN_MENU_DEFAULT));
+        mainMenuButton.setCursor(Cursor.HAND);
         mainMenuButton.setOnAction(e -> {
             try {
                 onClickMainMenu(e);
@@ -105,9 +118,9 @@ public class SimonSaysMain extends Application {
                 ioException.printStackTrace();
             }
         });
-        mainMenuButton.setPrefSize(200, 80);
+        mainMenuButton.setPrefSize(350, 200);
         mainMenuButton.setLayoutX(690);
-        mainMenuButton.setLayoutY(630);
+        mainMenuButton.setLayoutY(250);
         mainMenuButton.setVisible(false);
         optionsButton = new Button("OPTIONS");
         optionsButton.setOnAction(e -> {
