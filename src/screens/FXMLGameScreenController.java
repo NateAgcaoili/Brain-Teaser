@@ -158,11 +158,11 @@ public class FXMLGameScreenController {
     }
 
     public void puzzleDefault() {
-        puzzleButton.setStyle(PUZZLE_HOVER);
+        puzzleButton.setStyle(PUZZLE_DEFAULT);
     }
 
     public void puzzleHover() {
-        puzzleButton.setStyle(PUZZLE_DEFAULT);
+        puzzleButton.setStyle(PUZZLE_HOVER);
     }
 
     public void simonDefault() {
