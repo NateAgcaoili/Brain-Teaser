@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #7cc9fc;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screens.FXMLMainscreenController">
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #7cc9fc;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screens.FXMLMainscreenController">
    <children>
       <VBox layoutX="36.0" layoutY="23.0" prefHeight="650.0" prefWidth="500.0" spacing="15.0" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="35.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#gameButtonPushed" prefHeight="125.0" prefWidth="500.0" style="-fx-background-color: #fcf17c;" text="Games">
+            <Button fx:id="gamesButton" mnemonicParsing="false" onAction="#gameButtonPushed" onMouseEntered="#gameHover" onMouseExited="#idleGames" prefHeight="125.0" prefWidth="500.0" style="-fx-background-color: #fcf17c;" text="Games">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -26,7 +30,7 @@
                   <InnerShadow color="#00000040" height="27.22" radius="11.555" />
                </effect>
             </Button>
-            <Button mnemonicParsing="false" onAction="#DailyChallengeButtonPushed" prefHeight="125.0" prefWidth="500.0" style="-fx-background-color: #7cfca7;" text="Vocabulary Exercise">
+            <Button fx:id="vocabularyButton" mnemonicParsing="false" onAction="#DailyChallengeButtonPushed" onMouseEntered="#vocabularyHover" onMouseExited="#idleVocabulary" prefHeight="125.0" prefWidth="500.0" style="-fx-background-color: #7cfca7;" text="Vocabulary Exercise">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -39,7 +43,7 @@
                <effect>
                   <InnerShadow color="#00000040" />
                </effect></Button>
-            <Button mnemonicParsing="false" onAction="#DictionaryButtonPushed" prefHeight="125.0" prefWidth="500.0" style="-fx-background-color: #fc7c7c;" text="My Dictionary">
+            <Button fx:id="dictionaryButton" mnemonicParsing="false" onAction="#DictionaryButtonPushed" onMouseEntered="#dictionaryHover" onMouseExited="#idleDictionary" prefHeight="125.0" prefWidth="500.0" style="-fx-background-color: #fc7c7c;" text="My Dictionary">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -52,7 +56,7 @@
                <effect>
                   <InnerShadow color="#00000040" />
                </effect></Button>
-            <Button mnemonicParsing="false" onAction="#ShopButtonPushed" prefHeight="125.0" prefWidth="500.0" style="-fx-background-color: #7f78ff;" text="Shop">
+            <Button fx:id="shopButton" mnemonicParsing="false" onAction="#ShopButtonPushed" onMouseEntered="#shopHover" onMouseExited="#idleShop" prefHeight="125.0" prefWidth="500.0" style="-fx-background-color: #7f78ff;" text="Shop">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -66,7 +70,7 @@
                   <InnerShadow color="#00000040" />
                </effect>
             </Button>
-            <Button mnemonicParsing="false" onAction="#ScoreboardButtonPushed" prefHeight="125.0" prefWidth="500.0" style="-fx-background-color: #fcc777;" text="Scoreboard">
+            <Button fx:id="scoreboardButton" mnemonicParsing="false" onAction="#ScoreboardButtonPushed" onMouseEntered="#scoreboardHover" onMouseExited="#idleScoreboard" prefHeight="125.0" prefWidth="500.0" style="-fx-background-color: #fcc777;" text="Scoreboard">
                <font>
                   <Font name="System Bold" size="45.0" />
                </font>
@@ -103,7 +107,7 @@
                <font>
                   <Font name="System Bold" size="25.0" />
                </font></Text>
-             <Button layoutX="83.0" layoutY="28.0" mnemonicParsing="false" prefHeight="227.0" prefWidth="266.0" text="Profile" />
+            <Button layoutX="83.0" layoutY="28.0" mnemonicParsing="false" prefHeight="227.0" prefWidth="266.0" text="Profile" />
          </children>
       </AnchorPane>
       <ImageView fitHeight="168.0" fitWidth="668.0" layoutX="568.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
