@@ -2,20 +2,22 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #7cc9fc;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screens.FXMLShopController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #7cc9fc;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screens.FXMLShopController">
    <children>
       <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#backButtonPushed" prefHeight="82.0" prefWidth="141.0" style="-fx-background-color: #FFC0CB;" text="Back">
          <font>
             <Font name="System Bold" size="29.0" />
          </font>
          <effect>
-            <InnerShadow />
+            <InnerShadow color="#00000052" />
          </effect>
       </Button>
       <GridPane fx:id="gridPane" layoutX="161.0" layoutY="104.0" prefHeight="499.0" prefWidth="998.0">
@@ -30,5 +32,10 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
       </GridPane>
+      <ImageView fitHeight="131.0" fitWidth="317.0" layoutX="502.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/images/icons/shop_label.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
