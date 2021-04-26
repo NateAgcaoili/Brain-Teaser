@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #7cc9fc;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screens.FXMLMainscreenController">
+<AnchorPane fx:controller="screens.FXMLMainscreenController" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #7cc9fc;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox layoutX="36.0" layoutY="23.0" prefHeight="650.0" prefWidth="500.0" spacing="15.0" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="35.0">
          <children>
@@ -77,33 +80,13 @@
                   <InnerShadow color="#00000040" />
                </effect></Button>
          </children></VBox>
-      <HBox layoutX="723.0" layoutY="575.0" prefHeight="100.0" prefWidth="360.0">
+      <AnchorPane fx:id="profile" layoutX="685.0" layoutY="143.0" prefHeight="362.0" prefWidth="434.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#aboutButtonPushed" prefHeight="100.0" prefWidth="120.0" text="About">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#SettingsButtonPushed" prefHeight="100.0" prefWidth="120.0" text="Settings">
-               <HBox.margin>
-                  <Insets left="120.0" />
-               </HBox.margin>
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </Button>
-         </children>
-      </HBox>
-      <AnchorPane layoutX="685.0" layoutY="143.0" prefHeight="362.0" prefWidth="434.0">
-         <children>
-            <Text layoutX="120.0" layoutY="311.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Money: XXXXX" wrappingWidth="191.958984375">
+            <Text fx:id="money" layoutX="120.0" layoutY="311.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Money: XXXXX" wrappingWidth="191.958984375">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font></Text>
-             <Button layoutX="83.0" layoutY="28.0" mnemonicParsing="false" prefHeight="227.0" prefWidth="266.0" text="Profile" />
+            <ImageView fx:id="avatar" fitHeight="154.0" fitWidth="182.0" layoutX="125.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
       <ImageView fitHeight="168.0" fitWidth="668.0" layoutX="568.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
@@ -111,5 +94,20 @@
             <Image url="@../assets/images/icons/mainscreen_logo.png" />
          </image>
       </ImageView>
+      <Button layoutX="713.0" layoutY="625.0" mnemonicParsing="false" onAction="#aboutButtonPushed" prefHeight="60.0" prefWidth="123.0" style="-fx-background-color: #fcf17c;" text="About">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+      <Button layoutX="854.0" layoutY="625.0" mnemonicParsing="false" onAction="#SettingsButtonPushed" prefHeight="60.0" prefWidth="123.0" style="-fx-background-color: #fcf17c;" text="Settings">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="refresh" layoutX="996.0" layoutY="625.0" mnemonicParsing="false" onAction="#refreshMain" prefHeight="60.0" prefWidth="123.0" style="-fx-background-color: #fcf17c;" text="Refresh">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

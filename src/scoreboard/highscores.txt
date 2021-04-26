@@ -1,4 +1,4 @@
-hangman-700
+hangman-1620
 towers-0
 jigsaw-0
 simon-0

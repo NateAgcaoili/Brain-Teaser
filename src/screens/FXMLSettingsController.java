@@ -12,10 +12,6 @@ import javafx.scene.effect.BlurType;
 import javafx.scene.effect.Shadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import store.avatar.Avatar;
 import store.avatar.AvatarManager;
@@ -23,8 +19,6 @@ import store.avatar.AvatarManager;
 import java.io.IOException;
 
 public class FXMLSettingsController {
-
-    private AvatarManager avatarManager;
 
     @FXML
     private GridPane gridPane;
@@ -36,8 +30,11 @@ public class FXMLSettingsController {
         gridPane.setHgap(10);
         gridPane.setVgap(10);
 
-        for(Avatar avatar : Avatar.values()) {
+        AvatarManager manager = new AvatarManager();
 
+        System.out.println();
+
+        for(Avatar avatar : Avatar.values()) {
             GridPane buttonPane = new GridPane();
             buttonPane.setAlignment(Pos.CENTER);
             buttonPane.setHgap(20);
@@ -52,8 +49,8 @@ public class FXMLSettingsController {
             button.setOnAction(e -> {
                 System.out.println("Selecting " + avatar.name());
 
-                avatarManager.selectAvatar(avatar);
-                avatarManager.saveToFile();
+                manager.selectAvatar(avatar);
+                manager.saveToFile();
 
 //                try {
 //                    backButtonPushed(e);
@@ -68,7 +65,7 @@ public class FXMLSettingsController {
             avatarImage.setFitWidth(100);
 
             buttonPane.add(avatarImage, 0, 0);
-            if(avatarManager.getAvatars().contains(avatar)) {
+            if(manager.getAvatars().contains(avatar)) {
                 buttonPane.add(button, 1, 0);
             }
 
@@ -79,12 +76,11 @@ public class FXMLSettingsController {
     }
 
     public FXMLSettingsController() {
-        avatarManager = new AvatarManager();
     }
 
     public void backButtonPushed(ActionEvent event) throws IOException {
-        Parent aboutParent = FXMLLoader.load(getClass().getResource("FXMLMainscreen.fxml"));
-        Scene mainScene = new Scene(aboutParent);
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLMainscreen.fxml"));
+        Scene mainScene = new Scene(root);
         // getting stage information
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(mainScene);

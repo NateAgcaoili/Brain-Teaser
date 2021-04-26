@@ -41,6 +41,8 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import screens.FXMLDirectionsController;
 import screens.FXMLGameScreenController;
+import store.MoneyManager;
+
 import java.util.EventObject;
 
 import javax.swing.*;
@@ -269,6 +271,12 @@ public class HangmanMain extends Application {
         else{
             JOptionPane.showMessageDialog(null, "You didn't beat your high score " + highScore.intValue() + " with a score of " + score.intValue(), "High Score!", JOptionPane.PLAIN_MESSAGE);
         }
+
+        int amt = 1000;
+        MoneyManager moneyManager = new MoneyManager();
+        moneyManager.add(amt);
+        JOptionPane.showMessageDialog(null, "You earned: " + amt, "Money", JOptionPane.PLAIN_MESSAGE);
+
 
     }
 

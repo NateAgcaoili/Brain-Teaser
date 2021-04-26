@@ -10,3 +10,6 @@ beatific:resembling or befitting an angel or saint
 larder:a small storeroom for storing foods or wines
 null:null
 spat:a quarrel about petty points
+null:null
+fulminate:criticize severely
+gestate:develop in the mind; have the idea for

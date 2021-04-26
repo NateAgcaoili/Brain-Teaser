@@ -27,6 +27,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import screens.FXMLGameScreenController;
+import store.MoneyManager;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -380,6 +381,11 @@ public class PuzzleMain extends Application {
                     " with a score of " + score.intValue(), "High Score!", JOptionPane.PLAIN_MESSAGE);
             highScore.set(score.get());
             write_highscore_to_file(highScore);
+
+            int amt = 1000;
+            MoneyManager moneyManager = new MoneyManager();
+            moneyManager.add(amt);
+            JOptionPane.showMessageDialog(null, "You earned: " + amt, "Money", JOptionPane.PLAIN_MESSAGE);
         }
         else{
             JOptionPane.showMessageDialog(null, "You didn't beat your high score " + highScore.intValue() + " with a score of " + score.intValue(), "High Score!", JOptionPane.PLAIN_MESSAGE);

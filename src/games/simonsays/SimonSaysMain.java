@@ -18,7 +18,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import screens.FXMLGameScreenController;
+import store.MoneyManager;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -194,6 +196,11 @@ public class SimonSaysMain extends Application {
         mainMenuButton.setVisible(true);
         message.setText("Game Over");
         roundDisplay.setText("Score: " + (currentRound-1));
+
+        int amt = 1000;
+        MoneyManager moneyManager = new MoneyManager();
+        moneyManager.add(amt);
+        JOptionPane.showMessageDialog(null, "You earned: " + amt, "Money", JOptionPane.PLAIN_MESSAGE);
     }
 
     public boolean highScoreCheck() {
