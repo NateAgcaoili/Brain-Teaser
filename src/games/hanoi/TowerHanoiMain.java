@@ -2,12 +2,14 @@ package games.hanoi;
 
 import games.GameOptions;
 import javafx.application.Application;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -16,9 +18,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import screens.FXMLGameScreenController;
 
 import javax.swing.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Comparator;
 import java.util.Optional;
 
@@ -26,30 +33,51 @@ import java.util.Optional;
 public class TowerHanoiMain extends Application {
     private static final int APP_W = 1280;
     private static final int APP_H = 720;
-    private static final int NUM_CIRCLES = 5;
+    private static final int NUM_CIRCLES = 3;
     Long startTime = System.currentTimeMillis();
     int finishedTime;
+    SimpleIntegerProperty score = new SimpleIntegerProperty();
+
+
 
     private Optional<Circle> selectedCircle = Optional.empty();
-    Color colorList[] = {Color.RED, Color.GREEN, Color.BLUE, Color.LIGHTCYAN, Color.ORANGE};
+    Color colorList[] = {Color.RED, Color.GREEN, Color.BLUE, Color.DARKCYAN, Color.ORANGE};
+
+    public TowerHanoiMain() throws IOException {
+    }
 
     @Override
     public void start(Stage stage) throws Exception {
+        int highScore = read_highScore_from_file();
         Scene scene = new Scene(createContent(), APP_W, APP_H);
         scene.setOnKeyPressed(e -> {
             char pressed = e.getText().toUpperCase().charAt(0);
             if (pressed == 'G') {
                 finishedTime = (int)((System.currentTimeMillis() - startTime)/1000);
                 JOptionPane.showMessageDialog(null, "You won!\nTime taken : "
-                        + (int)(finishedTime/60) + " minute " + (finishedTime - ((finishedTime/60)*60)
-                        + " Second"), "Winner!", JOptionPane.PLAIN_MESSAGE);
+                        + (int)(finishedTime/60) + " minutes " + (finishedTime - ((finishedTime/60)*60)
+                        + " Seconds"), "Winner!", JOptionPane.PLAIN_MESSAGE);
+                if(finishedTime > 0 && (finishedTime/60) < 1){
+                    score.set(1000);
+                }else if((finishedTime/60) > 1 && (finishedTime/60) < 3){
+                    score.set(750);
+                }
+                else if((finishedTime/60) > 3 && (finishedTime/60) < 5){
+                    score.set(500);
+                }
+                else {
+                    score.set(200);
+                }
+                if(score.intValue() >= highScore){
+                    write_highscore_to_file(score);
+                }
             }
         });
         stage.setScene(scene);
         stage.show();
     }
 
-    private Parent createContent() {
+    public Parent createContent() {
         HBox options = new HBox();
         Button optionsButton = new Button("OPTIONS");
         optionsButton.setOnAction(e -> {
@@ -65,21 +93,30 @@ public class TowerHanoiMain extends Application {
         root.getChildren().addAll( options); //backgroundimage
 
         root.setPrefSize(400*3, 400);
-        for (int i = 0; i < 3; i++) {
-            Tower tower = new Tower(i*400, 150);
 
-            if (i == 0) {
+            Tower tower1 = new Tower(0*400, 150);
+            Tower tower2 = new Tower(1*400, 150);
+            Tower tower3 = new Tower(2*400, 150);
+
+
+
+            if (0 == 0) {
                 for (int j = NUM_CIRCLES; j > 0; j--) {
                     Circle circle = new Circle(30 + j*15, null);
                     circle.setStroke(colorList[j % 5]);
                     circle.setStrokeWidth(circle.getRadius() / 30.0);
 
-                    tower.addCircle(circle);
+                    tower1.addCircle(circle);
+
                 }
             }
 
-            root.getChildren().add(tower);
-        }
+            root.getChildren().add(tower1);
+            root.getChildren().add(tower2);
+            root.getChildren().add(tower3);
+
+
+
         root.setStyle(
                 "-fx-background-image: url(" +
                         "'/assets/images/backgrounds/towerofhanoi_bg.png'" +
@@ -89,8 +126,32 @@ public class TowerHanoiMain extends Application {
         );
         return root;
     }
+    private void write_highscore_to_file(SimpleIntegerProperty highScore) {
+        FXMLGameScreenController controller = new FXMLGameScreenController();
+        int score = highScore.intValue();
+        String[] info = {"towers", String.valueOf(score)};
+        controller.write_highscores(info);
 
-    private class Tower extends StackPane {
+    }
+
+    public int read_highScore_from_file() {
+        int n = 1;//equates to line 3 in the text file highscores.txt so the function will read the 3rd line, use this function for every game after hangman, and don't change the highscores.txt format.
+        int savedHighScore = 0;
+        try {
+            String s = Files.readAllLines(Paths.get("src/scoreboard/highscores.txt")).get(n);
+            int ind = s.indexOf("-");
+            if (ind != -1) {
+                String value = s.substring(ind + 1);
+                savedHighScore += Integer.parseInt(value);
+            }
+        }catch (IOException e) {
+            System.out.println(e);
+        }
+        return savedHighScore;
+    }
+
+
+    public class Tower extends StackPane {
         Tower(int x, int y) {
 
             setTranslateX(x);
@@ -105,14 +166,15 @@ public class TowerHanoiMain extends Application {
                     addCircle(selectedCircle.get());
                     selectedCircle.get().setStrokeWidth(selectedCircle.get().getRadius() / 30.0);
                     selectedCircle = Optional.empty();
-                } else {
+                } else
                     selectedCircle = Optional.ofNullable(getTopMost());
                     selectedCircle.get().setStrokeWidth(selectedCircle.get().getRadius() / 15.0);
-                }
-            });
 
+            } );
             getChildren().addAll(black, bg);
         }
+
+
 
         private Circle getTopMost() {
             return getChildren().stream()
@@ -121,6 +183,7 @@ public class TowerHanoiMain extends Application {
                     .min(Comparator.comparingDouble(Circle::getRadius))
                     .orElse(null);
         }
+
 
         void addCircle(Circle circle) {
             Circle topMost = getTopMost();
@@ -134,6 +197,7 @@ public class TowerHanoiMain extends Application {
             }
         }
     }
+
 
     private void openOptions(ActionEvent event) throws IOException {
         int result = GameOptions.display();
@@ -161,6 +225,7 @@ public class TowerHanoiMain extends Application {
                 System.out.println("Unknown");
         }
     }
+
 
     public static void main(String[] args) {
         launch(args);

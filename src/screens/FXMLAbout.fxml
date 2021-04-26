@@ -31,24 +31,24 @@
             </Label>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="109.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../assets/images/icons/intellij_icon.png" />
                      </image></ImageView>
-                  <ImageView fitHeight="193.0" fitWidth="358.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="108.0" fitWidth="358.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../assets/images/icons/javafx_icon.png" />
                      </image></ImageView>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="115.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../assets/images/icons/scenebuilder_icon.png" />
                      </image></ImageView>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="113.0" fitWidth="154.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../assets/images/icons/photoshop_icon.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="111.0" fitWidth="154.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../assets/images/icons/illustrator_icon.png" />
                      </image>
@@ -78,7 +78,7 @@
                </VBox.margin>
             </AnchorPane>
          </children></VBox>
-      <Button layoutX="17.0" layoutY="14.0" mnemonicParsing="false" onAction="#backButtonPushed" prefHeight="50.0" prefWidth="158.0" text="Back">
+      <Button layoutX="17.0" layoutY="14.0" mnemonicParsing="false" onAction="#backButtonPushed" prefHeight="75.0" prefWidth="116.0" text="Back">
          <font>
             <Font name="System Bold" size="29.0" />
          </font>
