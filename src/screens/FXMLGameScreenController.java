@@ -52,15 +52,6 @@ public class FXMLGameScreenController {
         Scene home = new Scene(root);
         window.setScene(home);
         window.show();
-        PuzzleMain puzzle = new PuzzleMain();
-
-//        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-//        try {
-//            puzzle.start(window);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        };
-//        window.show();
     }
 
     public void startSimonSays(ActionEvent event) throws IOException {
