@@ -6,12 +6,14 @@ import java.util.LinkedList;
 public class AvatarManager {
 
     private String fileName;
-    private LinkedList<Avatar> avatars;
+    private final LinkedList<Avatar> avatars;
+    public AvatarManager(LinkedList<Avatar> avatarList) {
+        this.avatars = avatarList;
+    }
 
     public AvatarManager() {
         this.fileName = "/data/avatars.txt";
         this.avatars = new LinkedList<>();
-
         try (InputStream in = getClass().getResourceAsStream(fileName);
              BufferedReader bf = new BufferedReader(new InputStreamReader(in))) {
 
@@ -36,16 +38,19 @@ public class AvatarManager {
     public void selectAvatar(Avatar avatar) {
         avatars.remove(avatar);
         avatars.addFirst(avatar);
-        saveToFile();
     }
 
     public void saveToFile() {
         String path = "src/data/avatars.txt";
         try (BufferedWriter wr = new BufferedWriter(new FileWriter(path, true))){
+
+            // Clear existing file
             PrintWriter writer = new PrintWriter(path);
             writer.print("");
             writer.close();
 
+            // Loop through list and save to file
+            // [0 |#] -> [1 |#] -> [2 |#] -> [3 |#]
             for(Avatar avatar : avatars) {
                 wr.append(avatar.name()).append("\n");
             }

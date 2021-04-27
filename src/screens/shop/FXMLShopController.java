@@ -1,4 +1,4 @@
-package screens;
+package screens.shop;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -22,18 +22,26 @@ import java.io.IOException;
 
 public class FXMLShopController {
 
+    private AvatarManager avatarManager;
+    private MoneyManager moneyManager;
+
     @FXML
     private GridPane gridPane;
+
+    public FXMLShopController(AvatarManager avatarManager,
+                              MoneyManager moneyManager) {
+        this.avatarManager = avatarManager;
+        this.moneyManager = moneyManager;
+    }
 
     @FXML
     public void initialize() throws IOException {
         int i = 0;
-        int width = 3, height = 3;
+        int width = 3;
 
         gridPane.setHgap(10);
         gridPane.setVgap(10);
 
-        AvatarManager manager = new AvatarManager();
         for(Avatar avatar : Avatar.values()) {
 
             GridPane buttonPane = new GridPane();
@@ -47,30 +55,24 @@ public class FXMLShopController {
             button.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
             button.setStyle("-fx-background-color: #7cfca7");
 
-            button.setOnAction(e -> {
-                MoneyManager moneyManager = new MoneyManager();
-                System.out.println(moneyManager.get() + " - " + avatar.getCost());
-                if(moneyManager.get() < avatar.getCost()) {
-                        return;
-                }
 
-                moneyManager.rem(avatar.getCost());
-                moneyManager.saveToFile();
+            if(moneyManager.get() < avatar.getCost()) {
+                button.setText("Can't afford\nCost: " + avatar.getCost());
+                button.setStyle("-fx-background-color: #fc7c7c");
+            } else {
+                button.setOnAction(e -> {
+                    moneyManager.rem(avatar.getCost());
+                    moneyManager.saveToFile();
+                    avatarManager.selectAvatar(avatar);
+                    avatarManager.saveToFile();
 
-                System.out.println("Money left: " + moneyManager.get());
-                manager.selectAvatar(avatar);
-                System.out.println("Adding " + avatar);
-                for (Avatar a : manager.getAvatars()) {
-                    System.out.println(a.name());
-                }
-                manager.saveToFile();
-
-                try {
-                    backButtonPushed(e);
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
-            });
+                    try {
+                        backButtonPushed(e);
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                });
+            }
 
             ImageView avatarImage = new ImageView();
             avatarImage.setImage(avatar.getImage());
@@ -78,7 +80,7 @@ public class FXMLShopController {
             avatarImage.setFitWidth(100);
 
             buttonPane.add(avatarImage, 0, 0);
-            if(!manager.getAvatars().contains(avatar)) {
+            if(!avatarManager.getAvatars().contains(avatar)) {
                 buttonPane.add(button, 1, 0);
             }
 
@@ -88,11 +90,8 @@ public class FXMLShopController {
         gridPane.setAlignment(Pos.CENTER);
     }
 
-    public FXMLShopController() {
-    }
-
     public void backButtonPushed(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLMainscreen.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../FXMLMainscreen.fxml"));
         Scene mainScene = new Scene(root);
         // getting stage information
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
