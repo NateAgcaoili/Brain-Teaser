@@ -79,7 +79,9 @@ public class WordReader {
     }
 
     public void addToDict() {
-        String new_def = this.word + ":" + dict.get(this.word);
-        addToDict(new_def);
+        if (this.word != null) {
+            String new_def = this.word + ":" + dict.get(this.word);
+            addToDict(new_def);
+        }
     }
 }
