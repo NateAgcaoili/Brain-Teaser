@@ -9,7 +9,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -21,8 +20,6 @@ import javafx.stage.Stage;
 import screens.FXMLGameScreenController;
 
 import javax.swing.*;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -33,7 +30,7 @@ import java.util.Optional;
 public class TowerHanoiMain extends Application {
     private static final int APP_W = 1280;
     private static final int APP_H = 720;
-    private static final int NUM_CIRCLES = 3;
+    private static final int NUM_CIRCLES = 5;
     Long startTime = System.currentTimeMillis();
     int finishedTime;
     SimpleIntegerProperty score = new SimpleIntegerProperty();
